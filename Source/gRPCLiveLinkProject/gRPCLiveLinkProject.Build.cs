@@ -8,7 +8,7 @@ public class gRPCLiveLinkProject : ModuleRules
 	{
 		PCHUsage = PCHUsageMode.UseExplicitOrSharedPCHs;
 	
-		PublicDependencyModuleNames.AddRange(new string[] { "Core", "CoreUObject", "Engine", "InputCore", "protobuf", "grpc", "cares" });
+		PublicDependencyModuleNames.AddRange(new string[] { "Core", "CoreUObject", "Engine", "InputCore", "protobuf", "grpc", "cares", "OpenSSL", "zlib" });
 
 		PrivateDependencyModuleNames.AddRange(new string[] {  });
 
