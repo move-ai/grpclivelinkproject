@@ -48,3 +48,14 @@ Thumbs.db
 *.mov
 *.wmv
 
+# Unreal project
+Binaries/
+DerivedDataCache/
+Intermediate/
+Plugins/ProtobufLiveLink/
+Plugins/UE_gRPC/
+Saved/
+.kdev4/
+.vscode/
+
+
