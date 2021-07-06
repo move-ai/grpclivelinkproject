@@ -1,29 +1,12 @@
 # README #
 
-This README would normally document whatever steps are necessary to get your application up and running.
+## Prerequisites ##
 
-### What is this repository for? ###
+* Unreal Engine 4, `Version: 4.26.2-0+++UE4+Release-4.26`
+* `Ubuntu 18.04 LTS` and higher
 
-* Quick summary
-* Version
-* [Learn Markdown](https://bitbucket.org/tutorials/markdowndemo)
+## How do I get set up? ##
 
-### How do I get set up? ###
-
-* Summary of set up
-* Configuration
-* Dependencies
-* Database configuration
-* How to run tests
-* Deployment instructions
-
-### Contribution guidelines ###
-
-* Writing tests
-* Code review
-* Other guidelines
-
-### Who do I talk to? ###
-
-* Repo owner or admin
-* Other community or team contact
+* `git clone` the repo
+* Download `ProtobufLiveLink` and `UE_gRPC` from <https://drive.google.com/drive/u/1/folders/1LZDj4oIDrtIPztGfFirP5WL6udoXhJV1> and place them into `Plugins` directory
+* Build the project
