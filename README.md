@@ -3,7 +3,7 @@
 ## Prerequisites ##
 
 * Unreal Engine 4, `Version: 4.26.2-0+++UE4+Release-4.26`
-* `Ubuntu 18.04 LTS` and higher
+* `Ubuntu 18.04 LTS` or higher
 
 ## How do I get set up? ##
 
