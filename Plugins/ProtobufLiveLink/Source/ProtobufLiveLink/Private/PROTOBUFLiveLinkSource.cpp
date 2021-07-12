@@ -49,14 +49,17 @@ FPROTOBUFLiveLinkSource::FPROTOBUFLiveLinkSource(FIPv4Endpoint InEndpoint)
 	if (state != grpc_connectivity_state::GRPC_CHANNEL_READY){
 		UE_LOG(ModuleLog, Warning, TEXT("Failed to connect to the host %s. Check if the host is available"), *FString(host.data()));	
 		SourceStatus = LOCTEXT("SourceStatus_DeviceNotFound", "Device Not Found");
+		ConnectionState_m = ConnectionState::FAILED;
 
 	}else{
 		ClientStub = std::unique_ptr<MocapServer::Stub>(MocapServer::NewStub(channel));
 		ConnectionHandler.reset(new MotionStreamRequestHandler(&ConnectionHandler, ClientStub.get(), &StreamQueue));
 		UE_LOG(ModuleLog, Warning, TEXT("Connected to the host %s"), *FString(host.data()));	
+		ConnectionState_m = ConnectionState::SUCCEED;
 
 		Start();
 		SourceStatus = LOCTEXT("SourceStatus_Receiving", "Receiving");
+		
 	}
 
 }
@@ -147,10 +150,6 @@ uint32 FPROTOBUFLiveLinkSource::Run()
 			UE_LOG(ModuleLog, Warning, TEXT("Notification queue has been shut down unexpectedly"));
 			break;
 		}
-
-		//query subject structure
-		//ClientStub->RequestGetStructure(Context)
-
 	}
 
 	return 0;

@@ -1,6 +1,7 @@
 #pragma once
 #include "HandlerInterface.h"
 #include "MocapExchange.grpc.pb.h"
+#include "LiveLinkSubjectStream.h"
 
 #include <grpcpp/grpcpp.h>
 
@@ -59,6 +60,8 @@ protected:
     CallState                   state_;
 
     size_t                      counter_;
+
+    std::unordered_map<uint, std::unique_ptr<LiveLinkSubjectStream>> Subjects_m;
 };
 
 

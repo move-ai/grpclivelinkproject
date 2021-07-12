@@ -15,7 +15,6 @@ THIRD_PARTY_INCLUDES_START
 // @@protoc_insertion_point(includes)
 #include <google/protobuf/port_def.inc>
 THIRD_PARTY_INCLUDES_END
-
 PROTOBUF_PRAGMA_INIT_SEG
 namespace Mocap {
 constexpr Environment::Environment(
@@ -114,7 +113,7 @@ constexpr Structure::Structure(
   : links_()
   , joints_()
   , name_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
-  , id_(0u)
+  , structureid_(0u)
   , structuretype_(0)
 {}
 struct StructureDefaultTypeInternal {
@@ -276,7 +275,7 @@ const ::PROTOBUF_NAMESPACE_ID::uint32 TableStruct_MocapExchange_2eproto::offsets
   ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
-  PROTOBUF_FIELD_OFFSET(::Mocap::Structure, id_),
+  PROTOBUF_FIELD_OFFSET(::Mocap::Structure, structureid_),
   PROTOBUF_FIELD_OFFSET(::Mocap::Structure, structuretype_),
   PROTOBUF_FIELD_OFFSET(::Mocap::Structure, name_),
   PROTOBUF_FIELD_OFFSET(::Mocap::Structure, links_),
@@ -384,31 +383,31 @@ const char descriptor_table_protodef_MocapExchange_2eproto[] PROTOBUF_SECTION_VA
   "Id\030\003 \001(\r\022 \n\006offset\030\004 \001(\0132\020.Mocap.Transfo"
   "rm\022\014\n\004mass\030\005 \001(\002\022\014\n\004size\030\006 \003(\002\022\026\n\016inerti"
   "alMatrix\030\007 \003(\002\":\n\tJointMeta\022\017\n\007jointId\030\001"
-  " \001(\r\022\016\n\006linkId\030\002 \001(\r\022\014\n\004name\030\003 \001(\t\"\220\001\n\tS"
-  "tructure\022\n\n\002id\030\001 \001(\r\022+\n\rstructureType\030\002 "
-  "\001(\0162\024.Mocap.StructureType\022\014\n\004name\030\003 \001(\t\022"
-  "\032\n\005links\030\004 \003(\0132\013.Mocap.Link\022 \n\006joints\030\005 "
-  "\003(\0132\020.Mocap.JointMeta\"=\n\005Joint\022\017\n\007jointI"
-  "d\030\001 \001(\r\022#\n\ttransform\030\002 \001(\0132\020.Mocap.Trans"
-  "form\"J\n\004Pose\022\021\n\tsubjectId\030\001 \001(\r\022\021\n\ttimes"
-  "tamp\030\002 \001(\004\022\034\n\006joints\030\003 \003(\0132\014.Mocap.Joint"
-  "\"\024\n\022EnvironmentRequest\"!\n\022MocapStreamReq"
-  "uest\022\013\n\003fps\030\001 \001(\002\"E\n\023MocapStreamResponse"
-  "\022\032\n\005poses\030\001 \003(\0132\013.Mocap.Pose\022\022\n\nserverTi"
-  "me\030\002 \001(\002\"\036\n\020StructureRequest\022\n\n\002id\030\001 \003(\r"
-  "\"9\n\021StructureResponse\022$\n\nstructures\030\001 \003("
-  "\0132\020.Mocap.Structure*.\n\rStructureType\022\t\n\005"
-  "HUMAN\020\000\022\010\n\004BALL\020\001\022\010\n\004BIKE\020\0022\342\001\n\013MocapSer"
-  "ver\022A\n\016GetEnvironment\022\031.Mocap.Environmen"
-  "tRequest\032\022.Mocap.Environment\"\000\022C\n\014GetStr"
-  "ucture\022\027.Mocap.StructureRequest\032\030.Mocap."
-  "StructureResponse\"\000\022K\n\016GetMocapStream\022\031."
-  "Mocap.MocapStreamRequest\032\032.Mocap.MocapSt"
-  "reamResponse\"\0000\001b\006proto3"
+  " \001(\r\022\016\n\006linkId\030\002 \001(\r\022\014\n\004name\030\003 \001(\t\"\231\001\n\tS"
+  "tructure\022\023\n\013structureId\030\001 \001(\r\022+\n\rstructu"
+  "reType\030\002 \001(\0162\024.Mocap.StructureType\022\014\n\004na"
+  "me\030\003 \001(\t\022\032\n\005links\030\004 \003(\0132\013.Mocap.Link\022 \n\006"
+  "joints\030\005 \003(\0132\020.Mocap.JointMeta\"=\n\005Joint\022"
+  "\017\n\007jointId\030\001 \001(\r\022#\n\ttransform\030\002 \001(\0132\020.Mo"
+  "cap.Transform\"J\n\004Pose\022\021\n\tsubjectId\030\001 \001(\r"
+  "\022\021\n\ttimestamp\030\002 \001(\004\022\034\n\006joints\030\003 \003(\0132\014.Mo"
+  "cap.Joint\"\024\n\022EnvironmentRequest\"!\n\022Mocap"
+  "StreamRequest\022\013\n\003fps\030\001 \001(\002\"E\n\023MocapStrea"
+  "mResponse\022\032\n\005poses\030\001 \003(\0132\013.Mocap.Pose\022\022\n"
+  "\nserverTime\030\002 \001(\002\"\036\n\020StructureRequest\022\n\n"
+  "\002id\030\001 \003(\r\"9\n\021StructureResponse\022$\n\nstruct"
+  "ures\030\001 \003(\0132\020.Mocap.Structure*.\n\rStructur"
+  "eType\022\t\n\005HUMAN\020\000\022\010\n\004BALL\020\001\022\010\n\004BIKE\020\0022\342\001\n"
+  "\013MocapServer\022A\n\016GetEnvironment\022\031.Mocap.E"
+  "nvironmentRequest\032\022.Mocap.Environment\"\000\022"
+  "C\n\014GetStructure\022\027.Mocap.StructureRequest"
+  "\032\030.Mocap.StructureResponse\"\000\022K\n\016GetMocap"
+  "Stream\022\031.Mocap.MocapStreamRequest\032\032.Moca"
+  "p.MocapStreamResponse\"\0000\001b\006proto3"
   ;
 static ::PROTOBUF_NAMESPACE_ID::internal::once_flag descriptor_table_MocapExchange_2eproto_once;
 const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_MocapExchange_2eproto = {
-  false, false, 1704, descriptor_table_protodef_MocapExchange_2eproto, "MocapExchange.proto", 
+  false, false, 1713, descriptor_table_protodef_MocapExchange_2eproto, "MocapExchange.proto", 
   &descriptor_table_MocapExchange_2eproto_once, nullptr, 0, 14,
   schemas, file_default_instances, TableStruct_MocapExchange_2eproto::offsets,
   file_level_metadata_MocapExchange_2eproto, file_level_enum_descriptors_MocapExchange_2eproto, file_level_service_descriptors_MocapExchange_2eproto,
@@ -2182,18 +2181,18 @@ Structure::Structure(const Structure& from)
     name_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_name(), 
       GetArenaForAllocation());
   }
-  ::memcpy(&id_, &from.id_,
+  ::memcpy(&structureid_, &from.structureid_,
     static_cast<size_t>(reinterpret_cast<char*>(&structuretype_) -
-    reinterpret_cast<char*>(&id_)) + sizeof(structuretype_));
+    reinterpret_cast<char*>(&structureid_)) + sizeof(structuretype_));
   // @@protoc_insertion_point(copy_constructor:Mocap.Structure)
 }
 
 inline void Structure::SharedCtor() {
 name_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
 ::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
-    reinterpret_cast<char*>(&id_) - reinterpret_cast<char*>(this)),
+    reinterpret_cast<char*>(&structureid_) - reinterpret_cast<char*>(this)),
     0, static_cast<size_t>(reinterpret_cast<char*>(&structuretype_) -
-    reinterpret_cast<char*>(&id_)) + sizeof(structuretype_));
+    reinterpret_cast<char*>(&structureid_)) + sizeof(structuretype_));
 }
 
 Structure::~Structure() {
@@ -2227,9 +2226,9 @@ void Structure::Clear() {
   links_.Clear();
   joints_.Clear();
   name_.ClearToEmpty();
-  ::memset(&id_, 0, static_cast<size_t>(
+  ::memset(&structureid_, 0, static_cast<size_t>(
       reinterpret_cast<char*>(&structuretype_) -
-      reinterpret_cast<char*>(&id_)) + sizeof(structuretype_));
+      reinterpret_cast<char*>(&structureid_)) + sizeof(structuretype_));
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
@@ -2239,10 +2238,10 @@ const char* Structure::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::
     ::PROTOBUF_NAMESPACE_ID::uint32 tag;
     ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
     switch (tag >> 3) {
-      // uint32 id = 1;
+      // uint32 structureId = 1;
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 8)) {
-          id_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          structureid_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
         } else goto handle_unusual;
         continue;
@@ -2316,10 +2315,10 @@ failure:
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
-  // uint32 id = 1;
-  if (this->_internal_id() != 0) {
+  // uint32 structureId = 1;
+  if (this->_internal_structureid() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteUInt32ToArray(1, this->_internal_id(), target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteUInt32ToArray(1, this->_internal_structureid(), target);
   }
 
   // .Mocap.StructureType structureType = 2;
@@ -2392,11 +2391,11 @@ size_t Structure::ByteSizeLong() const {
         this->_internal_name());
   }
 
-  // uint32 id = 1;
-  if (this->_internal_id() != 0) {
+  // uint32 structureId = 1;
+  if (this->_internal_structureid() != 0) {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::UInt32Size(
-        this->_internal_id());
+        this->_internal_structureid());
   }
 
   // .Mocap.StructureType structureType = 2;
@@ -2438,8 +2437,8 @@ void Structure::MergeFrom(const Structure& from) {
   if (!from._internal_name().empty()) {
     _internal_set_name(from._internal_name());
   }
-  if (from._internal_id() != 0) {
-    _internal_set_id(from._internal_id());
+  if (from._internal_structureid() != 0) {
+    _internal_set_structureid(from._internal_structureid());
   }
   if (from._internal_structuretype() != 0) {
     _internal_set_structuretype(from._internal_structuretype());
@@ -2471,9 +2470,9 @@ void Structure::InternalSwap(Structure* other) {
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
       PROTOBUF_FIELD_OFFSET(Structure, structuretype_)
       + sizeof(Structure::structuretype_)
-      - PROTOBUF_FIELD_OFFSET(Structure, id_)>(
-          reinterpret_cast<char*>(&id_),
-          reinterpret_cast<char*>(&other->id_));
+      - PROTOBUF_FIELD_OFFSET(Structure, structureid_)>(
+          reinterpret_cast<char*>(&structureid_),
+          reinterpret_cast<char*>(&other->structureid_));
 }
 
 ::PROTOBUF_NAMESPACE_ID::Metadata Structure::GetMetadata() const {
@@ -3951,7 +3950,8 @@ template<> PROTOBUF_NOINLINE ::Mocap::StructureResponse* Arena::CreateMaybeMessa
   return Arena::CreateMessageInternal< ::Mocap::StructureResponse >(arena);
 }
 PROTOBUF_NAMESPACE_CLOSE
-THIRD_PARTY_INCLUDES_START
+
 // @@protoc_insertion_point(global_scope)
+THIRD_PARTY_INCLUDES_START
 #include <google/protobuf/port_undef.inc>
 THIRD_PARTY_INCLUDES_END

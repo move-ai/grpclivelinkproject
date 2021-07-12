@@ -27,7 +27,6 @@ THIRD_PARTY_INCLUDES_START
 #include <grpcpp/impl/codegen/stub_options.h>
 #include <grpcpp/impl/codegen/sync_stream.h>
 THIRD_PARTY_INCLUDES_END
-
 namespace Mocap {
 
 class MocapServer final {

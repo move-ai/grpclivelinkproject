@@ -6,6 +6,7 @@
 
 #include <limits>
 #include <string>
+
 THIRD_PARTY_INCLUDES_START
 #include <google/protobuf/port_def.inc>
 THIRD_PARTY_INCLUDES_END
@@ -1583,7 +1584,7 @@ class Structure final :
     kLinksFieldNumber = 4,
     kJointsFieldNumber = 5,
     kNameFieldNumber = 3,
-    kIdFieldNumber = 1,
+    kStructureIdFieldNumber = 1,
     kStructureTypeFieldNumber = 2,
   };
   // repeated .Mocap.Link links = 4;
@@ -1636,13 +1637,13 @@ class Structure final :
   std::string* _internal_mutable_name();
   public:
 
-  // uint32 id = 1;
-  void clear_id();
-  ::PROTOBUF_NAMESPACE_ID::uint32 id() const;
-  void set_id(::PROTOBUF_NAMESPACE_ID::uint32 value);
+  // uint32 structureId = 1;
+  void clear_structureid();
+  ::PROTOBUF_NAMESPACE_ID::uint32 structureid() const;
+  void set_structureid(::PROTOBUF_NAMESPACE_ID::uint32 value);
   private:
-  ::PROTOBUF_NAMESPACE_ID::uint32 _internal_id() const;
-  void _internal_set_id(::PROTOBUF_NAMESPACE_ID::uint32 value);
+  ::PROTOBUF_NAMESPACE_ID::uint32 _internal_structureid() const;
+  void _internal_set_structureid(::PROTOBUF_NAMESPACE_ID::uint32 value);
   public:
 
   // .Mocap.StructureType structureType = 2;
@@ -1664,7 +1665,7 @@ class Structure final :
   ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::Mocap::Link > links_;
   ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::Mocap::JointMeta > joints_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr name_;
-  ::PROTOBUF_NAMESPACE_ID::uint32 id_;
+  ::PROTOBUF_NAMESPACE_ID::uint32 structureid_;
   int structuretype_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_MocapExchange_2eproto;
@@ -3521,24 +3522,24 @@ inline void JointMeta::set_allocated_name(std::string* name) {
 
 // Structure
 
-// uint32 id = 1;
-inline void Structure::clear_id() {
-  id_ = 0u;
+// uint32 structureId = 1;
+inline void Structure::clear_structureid() {
+  structureid_ = 0u;
 }
-inline ::PROTOBUF_NAMESPACE_ID::uint32 Structure::_internal_id() const {
-  return id_;
+inline ::PROTOBUF_NAMESPACE_ID::uint32 Structure::_internal_structureid() const {
+  return structureid_;
 }
-inline ::PROTOBUF_NAMESPACE_ID::uint32 Structure::id() const {
-  // @@protoc_insertion_point(field_get:Mocap.Structure.id)
-  return _internal_id();
+inline ::PROTOBUF_NAMESPACE_ID::uint32 Structure::structureid() const {
+  // @@protoc_insertion_point(field_get:Mocap.Structure.structureId)
+  return _internal_structureid();
 }
-inline void Structure::_internal_set_id(::PROTOBUF_NAMESPACE_ID::uint32 value) {
+inline void Structure::_internal_set_structureid(::PROTOBUF_NAMESPACE_ID::uint32 value) {
   
-  id_ = value;
+  structureid_ = value;
 }
-inline void Structure::set_id(::PROTOBUF_NAMESPACE_ID::uint32 value) {
-  _internal_set_id(value);
-  // @@protoc_insertion_point(field_set:Mocap.Structure.id)
+inline void Structure::set_structureid(::PROTOBUF_NAMESPACE_ID::uint32 value) {
+  _internal_set_structureid(value);
+  // @@protoc_insertion_point(field_set:Mocap.Structure.structureId)
 }
 
 // .Mocap.StructureType structureType = 2;
@@ -4137,7 +4138,6 @@ inline const EnumDescriptor* GetEnumDescriptor< ::Mocap::StructureType>() {
 PROTOBUF_NAMESPACE_CLOSE
 
 // @@protoc_insertion_point(global_scope)
-
 THIRD_PARTY_INCLUDES_START
 #include <google/protobuf/port_undef.inc>
 THIRD_PARTY_INCLUDES_END

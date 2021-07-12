@@ -55,6 +55,11 @@ public:
 	void HandleReceivedData(TSharedPtr<TArray<uint8>, ESPMode::ThreadSafe> ReceivedData);
 
 private:
+	enum ConnectionState{
+		UNINITIALIZED = 0,
+		SUCCEED = 1,
+		FAILED = 2,
+	};
 
 	ILiveLinkClient* Client;
 
@@ -64,6 +69,7 @@ private:
 	std::unique_ptr<MocapServer::Stub> ClientStub;
     grpc::CompletionQueue StreamQueue;
     std::unique_ptr<HandlerInterface> ConnectionHandler;
+	bool ConnectionState_m = ConnectionState::UNINITIALIZED;
 	
 	FIPv4Endpoint DeviceEndpoint;
 
