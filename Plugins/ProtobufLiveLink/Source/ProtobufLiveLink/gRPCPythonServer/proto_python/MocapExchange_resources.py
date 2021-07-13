@@ -14,31 +14,40 @@
 """Common resources used in the gRPC route guide example."""
 
 import yaml
+# import json
 
 from proto_python import MocapExchange_pb2
 
 def read_poses_data():
     poses_list = []
-    with open("proto_python/poses_data.yaml") as route_guide_db_file:
-        for pose_from_file in yaml.safe_load(route_guide_db_file):
-          pose = MocapExchange_pb2.Pose(subjectId = pose_from_file["subjectId"],
-                                        timestamp = pose_from_file["timestamp"],
-                                        joints = [
-                                          MocapExchange_pb2.Joint(jointId = joint_from_file["jointId"],
-                                                                  transform = MocapExchange_pb2.Transform(
-                                                                    translation = MocapExchange_pb2.Translation(
-                                                                      x = joint_from_file["transform"]["translation"]["x"],
-                                                                      y = joint_from_file["transform"]["translation"]["y"],
-                                                                      z = joint_from_file["transform"]["translation"]["z"],
-                                                                    ),
-                                                                    orientation = MocapExchange_pb2.Orientation(
-                                                                      type = MocapExchange_pb2.Orientation.RotationType.Value(joint_from_file["transform"]["orientation"]["type"]),
-                                                                      values = joint_from_file["transform"]["orientation"]["values"]
-                                                                    )
+    responses = []
+    with open("proto_python/poses_data.yaml") as poses_data:
+      # print(json.load(poses_data))
+      for pose_from_file in yaml.safe_load(poses_data):
+        pose = MocapExchange_pb2.Pose(subjectId = pose_from_file["subjectId"],
+                                      timestamp = pose_from_file["timestamp"],
+                                      joints = [
+                                        MocapExchange_pb2.Joint(jointId = joint_from_file["jointId"],
+                                                                transform = MocapExchange_pb2.Transform(
+                                                                  translation = MocapExchange_pb2.Translation(
+                                                                    x = joint_from_file["transform"]["translation"]["x"],
+                                                                    y = joint_from_file["transform"]["translation"]["y"],
+                                                                    z = joint_from_file["transform"]["translation"]["z"],
+                                                                  ),
+                                                                  orientation = MocapExchange_pb2.Orientation(
+                                                                    type = MocapExchange_pb2.Orientation.RotationType.Value(joint_from_file["transform"]["orientation"]["type"]),
+                                                                    values = joint_from_file["transform"]["orientation"]["values"]
                                                                   )
+                                                                )
 
-                                          ) for joint_from_file in pose_from_file["joints"]
-                                        ]
-                                        )
-          poses_list.append(pose)
-    return poses_list
+                                        ) for joint_from_file in pose_from_file["joints"]
+                                      ]
+                                      )
+        poses_list.append(pose)
+
+      response = MocapExchange_pb2.MocapStreamResponse(poses = poses_list,
+                                                        serverTime = 10)
+
+      responses.append(response)
+
+      return responses
