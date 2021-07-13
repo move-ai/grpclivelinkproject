@@ -15,6 +15,7 @@ THIRD_PARTY_INCLUDES_START
 // @@protoc_insertion_point(includes)
 #include <google/protobuf/port_def.inc>
 THIRD_PARTY_INCLUDES_END
+
 PROTOBUF_PRAGMA_INIT_SEG
 namespace Mocap {
 constexpr Environment::Environment(
@@ -3950,8 +3951,7 @@ template<> PROTOBUF_NOINLINE ::Mocap::StructureResponse* Arena::CreateMaybeMessa
   return Arena::CreateMessageInternal< ::Mocap::StructureResponse >(arena);
 }
 PROTOBUF_NAMESPACE_CLOSE
-
-// @@protoc_insertion_point(global_scope)
 THIRD_PARTY_INCLUDES_START
+// @@protoc_insertion_point(global_scope)
 #include <google/protobuf/port_undef.inc>
 THIRD_PARTY_INCLUDES_END

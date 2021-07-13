@@ -6,7 +6,6 @@
 
 #include <limits>
 #include <string>
-
 THIRD_PARTY_INCLUDES_START
 #include <google/protobuf/port_def.inc>
 THIRD_PARTY_INCLUDES_END

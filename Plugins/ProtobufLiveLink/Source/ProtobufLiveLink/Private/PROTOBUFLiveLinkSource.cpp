@@ -41,31 +41,18 @@ FPROTOBUFLiveLinkSource::FPROTOBUFLiveLinkSource(FIPv4Endpoint InEndpoint)
 	
 	SourceType = LOCTEXT("PROTOBUFLiveLinkSourceType", "PROTOBUF LiveLink");
 	SourceMachineName = LOCTEXT("PROTOBUFLiveLinkSourceMachineName", "localhost");
-
-	std::string host = "localhost:55555";
-	auto channel = grpc::CreateChannel(host, grpc::InsecureChannelCredentials());
-	auto state = channel->GetState(true);
+	DeviceEndpointStr = "localhost:55555";
+	Channel_m = grpc::CreateChannel(DeviceEndpointStr, grpc::InsecureChannelCredentials());
+	ConnectionState_m = Channel_m->GetState(true);
+	SourceStatus = LOCTEXT("SourceStatus_Connecting", "Connecting");
+	Start();
 	
-	if (state != grpc_connectivity_state::GRPC_CHANNEL_READY){
-		UE_LOG(ModuleLog, Warning, TEXT("Failed to connect to the host %s. Check if the host is available"), *FString(host.data()));	
-		SourceStatus = LOCTEXT("SourceStatus_DeviceNotFound", "Device Not Found");
-		ConnectionState_m = ConnectionState::FAILED;
-
-	}else{
-		ClientStub = std::unique_ptr<MocapServer::Stub>(MocapServer::NewStub(channel));
-		ConnectionHandler.reset(new MotionStreamRequestHandler(&ConnectionHandler, ClientStub.get(), &StreamQueue));
-		UE_LOG(ModuleLog, Warning, TEXT("Connected to the host %s"), *FString(host.data()));	
-		ConnectionState_m = ConnectionState::SUCCEED;
-
-		Start();
-		SourceStatus = LOCTEXT("SourceStatus_Receiving", "Receiving");
-		
-	}
-
+	UE_LOG(ModuleLog, Warning, TEXT("Hello. I am gRPC client"));	
 }
 
 FPROTOBUFLiveLinkSource::~FPROTOBUFLiveLinkSource()
 {
+	std::cout << "FPROTOBUFLiveLinkSource::~FPROTOBUFLiveLinkSource() Started"<<std::endl;
 	Stop();
 	if (Thread != nullptr)
 	{
@@ -73,21 +60,27 @@ FPROTOBUFLiveLinkSource::~FPROTOBUFLiveLinkSource()
 		delete Thread;
 		Thread = nullptr;
 	}
+
+	std::cout << "FPROTOBUFLiveLinkSource::~FPROTOBUFLiveLinkSource() Thread stopped"<<std::endl;
 	if (ConnectionHandler){
 		ConnectionHandler->cancel();
 	}
 	
+	std::cout << "FPROTOBUFLiveLinkSource::~FPROTOBUFLiveLinkSource() Connection canceled"<<std::endl;
 	StreamQueue.Shutdown();
-    // drain the queue
-    void* ignoredTag = nullptr;
-    bool ok = false;
-    while (StreamQueue.Next(&ignoredTag, &ok));
+    // drain the queue.
+	// TODO: it's freezing. why do we need to do this?
+    // void* ignoredTag = nullptr;
+    // bool ok = false;
+    // while (StreamQueue.Next(&ignoredTag, &ok));
 
 	// if (Socket != nullptr)
 	// {
 	// 	Socket->Close();
 	// 	ISocketSubsystem::Get(PLATFORM_SOCKETSUBSYSTEM)->DestroySocket(Socket);
 	// }
+
+	std::cout << "FPROTOBUFLiveLinkSource::~FPROTOBUFLiveLinkSource() Finished"<<std::endl;
 }
 
 void FPROTOBUFLiveLinkSource::ReceiveClient(ILiveLinkClient* InClient, FGuid InSourceGuid)
@@ -131,28 +124,59 @@ uint32 FPROTOBUFLiveLinkSource::Run()
 {
 	void* tag = nullptr;
 	bool ok = false;
-	while(!Stopping){
-		if (StreamQueue.Next(&tag, &ok)) {
-			if (tag) {
-                    //TODO assert
-                    auto res = ConnectionHandler->onNext(ok);
-                    if (!res) {
-                        //TODO comment
-                        ConnectionHandler.reset();
-                        break;
-                    }
-                }
-                else {
-					UE_LOG(ModuleLog, Warning, TEXT("Invalid tag delivered by notification queue"));
-                }
-            }
-		else {
-			UE_LOG(ModuleLog, Warning, TEXT("Notification queue has been shut down unexpectedly"));
+		
+	//wait for connection to be ready
+	int tryCnt = 1;
+	int nMaxTries = 10;
+	UE_LOG(ModuleLog, Warning, TEXT("\t Trying to connect to = %s"), *FString(DeviceEndpointStr.data()));
+	while (tryCnt <= nMaxTries){
+		UE_LOG(ModuleLog, Warning, TEXT("\t n_try = %d"), tryCnt);
+		bool succeed = Channel_m->WaitForConnected(std::chrono::system_clock::now() + std::chrono::seconds(5));
+		if (!succeed){
+			ConnectionState_m = grpc_connectivity_state::GRPC_CHANNEL_SHUTDOWN;
+			UE_LOG(ModuleLog, Warning, TEXT("\t Failed to connect"));	
+		}else{
+			ConnectionState_m = grpc_connectivity_state::GRPC_CHANNEL_READY;
+			ClientStub = std::unique_ptr<MocapServer::Stub>(MocapServer::NewStub(Channel_m));
+			ConnectionHandler.reset(new MotionStreamRequestHandler(&ConnectionHandler, ClientStub.get(), &StreamQueue));
+			UE_LOG(ModuleLog, Warning, TEXT("Connected to the host %s"), *FString(DeviceEndpointStr.data()));	
 			break;
 		}
+		tryCnt += 1;
 	}
 
-	return 0;
+	bool isConnected = ConnectionState_m == grpc_connectivity_state::GRPC_CHANNEL_READY;
+	if(isConnected){
+		SourceStatus = LOCTEXT("SourceStatus_Receiving", "Receiving");
+		while(!Stopping){
+			if (StreamQueue.Next(&tag, &ok)) {
+				if (tag) {
+						//TODO assert
+						auto res = ConnectionHandler->onNext(ok);
+						if (!res) {
+							//TODO comment
+							ConnectionHandler.reset();
+							break;
+						}
+					}
+					else {
+						UE_LOG(ModuleLog, Warning, TEXT("Invalid tag delivered by notification queue"));
+					}
+				}
+			else {
+				UE_LOG(ModuleLog, Warning, TEXT("Notification queue has been shut down unexpectedly"));
+				break;
+			}
+		}
+		return 0;
+
+	}else{
+		SourceStatus = LOCTEXT("SourceStatus_DeviceNotFound", "Device Not Found");
+		return 0;
+	}
+
+
+
 
 	// TSharedRef<FInternetAddr> Sender = SocketSubsystem->CreateInternetAddr();
 	

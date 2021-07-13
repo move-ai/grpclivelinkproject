@@ -6,7 +6,6 @@
 #include "MocapExchange.grpc.pb.h"
 
 #include <functional>
-THIRD_PARTY_INCLUDES_START
 #include <grpcpp/impl/codegen/async_stream.h>
 #include <grpcpp/impl/codegen/async_unary_call.h>
 #include <grpcpp/impl/codegen/channel_interface.h>
@@ -20,7 +19,6 @@ THIRD_PARTY_INCLUDES_START
 #include <grpcpp/impl/codegen/server_context.h>
 #include <grpcpp/impl/codegen/service_type.h>
 #include <grpcpp/impl/codegen/sync_stream.h>
-THIRD_PARTY_INCLUDES_END
 namespace Mocap {
 
 static const char* MocapServer_method_names[] = {
