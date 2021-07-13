@@ -55,6 +55,8 @@ public:
 	void HandleReceivedData(TSharedPtr<TArray<uint8>, ESPMode::ThreadSafe> ReceivedData);
 
 private:
+	bool _TryConnect(uint nMaxTries);
+private:
 	ILiveLinkClient* Client;
 
 	// Our identifier in LiveLink
@@ -67,7 +69,6 @@ private:
 	std::shared_ptr<grpc::Channel> Channel_m;
 	
 	FIPv4Endpoint DeviceEndpoint;
-	std::string   DeviceEndpointStr;
 
 	FMessageAddress ConnectionAddress;
 

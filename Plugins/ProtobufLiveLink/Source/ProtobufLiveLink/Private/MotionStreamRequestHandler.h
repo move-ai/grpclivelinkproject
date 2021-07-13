@@ -45,6 +45,10 @@ protected:
     void handleReceivingFileState();
     void handleCallCompleteState();
 
+private:
+    void _ProcessNewFrame();
+    void _InitializeNewSubjects(std::set<uint> newSubjectIds);
+private:
     HandlerTag              tag_;
 
     MocapServer::Stub* stub_;
