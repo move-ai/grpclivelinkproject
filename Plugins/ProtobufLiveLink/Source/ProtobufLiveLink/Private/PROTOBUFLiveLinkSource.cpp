@@ -65,18 +65,6 @@ FPROTOBUFLiveLinkSource::~FPROTOBUFLiveLinkSource()
 	
 	std::cout << "FPROTOBUFLiveLinkSource::~FPROTOBUFLiveLinkSource() Connection canceled"<<std::endl;
 	StreamQueue.Shutdown();
-    // drain the queue.
-	// TODO: it's freezing. why do we need to do this?
-    // void* ignoredTag = nullptr;
-    // bool ok = false;
-    // while (StreamQueue.Next(&ignoredTag, &ok));
-
-	// if (Socket != nullptr)
-	// {
-	// 	Socket->Close();
-	// 	ISocketSubsystem::Get(PLATFORM_SOCKETSUBSYSTEM)->DestroySocket(Socket);
-	// }
-
 	std::cout << "FPROTOBUFLiveLinkSource::~FPROTOBUFLiveLinkSource() Finished"<<std::endl;
 }
 
@@ -113,24 +101,27 @@ void FPROTOBUFLiveLinkSource::Start()
 }
 
 void FPROTOBUFLiveLinkSource::Stop()
-{
-	Stopping = true;
+{	if(!Stopping){
+		Stopping = true;	
+		UE_LOG(ModuleLog, Warning, TEXT("Prepare to shutdown LiveLink Source %s"), *DeviceEndpoint.ToString());
+	}
 }
 
 uint32 FPROTOBUFLiveLinkSource::Run()
 {
-	uint nMaxTries = 10;
+	uint nMaxTries = 50;
 	if(_TryConnect(nMaxTries)){
 		SourceStatus = LOCTEXT("SourceStatus_Receiving", "Receiving");
-		void* tag = nullptr;
-		bool ok = false;
 		while(!Stopping){
-			if (StreamQueue.Next(&tag, &ok)) {
+			void* tag = nullptr;
+			bool ok = false;
+			auto deadline = std::chrono::system_clock::now() + std::chrono::milliseconds(500);
+			if (StreamQueue.AsyncNext(&tag, &ok, deadline)) {
 				if (tag && tag == static_cast<void*>(&ConnectionHandler)) {
 					auto res = ConnectionHandler->onNext(ok);
 					if (!res) {
-						//TODO comment
 						ConnectionHandler.reset();
+						SourceStatus = LOCTEXT("SourceStatus_LostConnection", "Lost Connection");
 						break;
 					}
 				}else {
@@ -138,10 +129,12 @@ uint32 FPROTOBUFLiveLinkSource::Run()
 				}
 			} else {
 				UE_LOG(ModuleLog, Warning, TEXT("Notification queue has been shut down unexpectedly"));
-				SourceStatus = LOCTEXT("SourceStatus_Connection_Lost", "Lost");
+				SourceStatus = LOCTEXT("SourceStatus_LostConnection", "Lost Connection");
 				break;
 			}
 		}
+
+		UE_LOG(ModuleLog, Warning, TEXT("LiveLink Source %s Thread exited."), *DeviceEndpoint.ToString());
 		return 0;
 
 	}else{
@@ -155,12 +148,11 @@ bool FPROTOBUFLiveLinkSource::_TryConnect(uint nMaxTries)
 	//wait for connection to be ready
 	int tryCnt = 1;
 	UE_LOG(ModuleLog, Warning, TEXT("\t Trying to connect to = %s"), *DeviceEndpoint.ToString());
-	while (tryCnt <= nMaxTries){
-		UE_LOG(ModuleLog, Warning, TEXT("\t n_try = %d"), tryCnt);
-		bool succeed = Channel_m->WaitForConnected(std::chrono::system_clock::now() + std::chrono::seconds(5));
+	while (tryCnt <= nMaxTries && !Stopping){
+		UE_LOG(ModuleLog, Warning, TEXT("\t Num of tries so far = %d"), tryCnt);
+		bool succeed = Channel_m->WaitForConnected(std::chrono::system_clock::now() + std::chrono::seconds(1));
 		if (!succeed){
 			ConnectionState_m = grpc_connectivity_state::GRPC_CHANNEL_SHUTDOWN;
-			UE_LOG(ModuleLog, Warning, TEXT("\t Failed to connect"));	
 		}else{
 			ConnectionState_m = grpc_connectivity_state::GRPC_CHANNEL_READY;
 			ClientStub = std::unique_ptr<MocapServer::Stub>(MocapServer::NewStub(Channel_m));

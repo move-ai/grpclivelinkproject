@@ -31,9 +31,6 @@ bool MotionStreamRequestHandler::onNext(bool ok)
             else if (state_ == CallState::SendingRequest) {
                 this->handleSendingRequestState();
             }
-            else if (state_ == CallState::ExpectingHeader) {
-                this->handleExpectingHeaderState();
-            }
             else if (state_ == CallState::ReceivingFile) {
                 this->handleReceivingFileState();
             }
@@ -43,6 +40,7 @@ bool MotionStreamRequestHandler::onNext(bool ok)
             }
         }
         else {
+            UE_LOG(ModuleLog, Warning, TEXT("UE4 Streaming failed. Close connection"));
             state_ = CallState::CallComplete;
             rpc_->Finish(&status_, tag_);
         }
@@ -83,22 +81,11 @@ void MotionStreamRequestHandler::handleNewCallState()
 
 void MotionStreamRequestHandler::handleSendingRequestState()
 {
-    state_ = CallState::ExpectingHeader;
-    response_.Clear();
-    rpc_->Read(&response_, tag_);
-}
-
-
-void MotionStreamRequestHandler::handleExpectingHeaderState()
-{
     state_ = CallState::ReceivingFile;
-    
-    _ProcessNewFrame();
-
-    //keep waiting for incoming data
     response_.Clear();
     rpc_->Read(&response_, tag_);
 }
+
 
 void MotionStreamRequestHandler::handleReceivingFileState()
 {
@@ -129,7 +116,7 @@ void MotionStreamRequestHandler::handleCallCompleteState()
     default:
         FString detail(status_.error_details().c_str());
         FString msg(status_.error_message().c_str());
-        UE_LOG(ModuleLog, Warning, TEXT("UE4 Streaming Failed. Code=%i. Msg = %s. Detail = %s"), status_.error_code(), *msg, *detail);
+        UE_LOG(ModuleLog, Warning, TEXT("UE4 Streaming failed. Code = %i. Msg = %s. Detail = %s"), status_.error_code(), *msg, *detail);
         break;
     }
 }

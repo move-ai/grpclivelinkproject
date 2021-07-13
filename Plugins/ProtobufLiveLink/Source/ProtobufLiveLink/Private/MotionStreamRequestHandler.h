@@ -34,14 +34,12 @@ protected:
     {
         NewCall,
         SendingRequest,
-        ExpectingHeader,
         ReceivingFile,
         CallComplete
     };
 
     void handleNewCallState();
     void handleSendingRequestState();
-    void handleExpectingHeaderState();
     void handleReceivingFileState();
     void handleCallCompleteState();
 
