@@ -13,15 +13,14 @@
 # limitations under the License.
 """Common resources used in the gRPC route guide example."""
 
-import json
+import yaml
 
 from proto_python import MocapExchange_pb2
 
-
 def read_poses_data():
     poses_list = []
-    with open("proto_python/poses_data.json") as route_guide_db_file:
-        for pose_from_file in json.load(route_guide_db_file):
+    with open("proto_python/poses_data.yaml") as route_guide_db_file:
+        for pose_from_file in yaml.safe_load(route_guide_db_file):
           pose = MocapExchange_pb2.Pose(subjectId = pose_from_file["subjectId"],
                                         timestamp = pose_from_file["timestamp"],
                                         joints = [
