@@ -10,12 +10,16 @@ using namespace Mocap;
 
 MotionStreamRequestHandler::MotionStreamRequestHandler(HandlerTag tag,
                                                MocapServer::Stub* stub,
-                                               grpc::CompletionQueue* cq)
+                                               grpc::CompletionQueue* cq,
+                                               ILiveLinkClient *client,
+                                               FGuid sourceGuid)
     : tag_(tag)
     , stub_(stub)
     , cq_(cq)
     , state_(CallState::NewCall)
     , counter_(0)
+    , Client_m(client)
+    , SourceGuid_m(sourceGuid)
 {
     onNext(true);
 }
@@ -140,7 +144,7 @@ void MotionStreamRequestHandler::_ProcessNewFrame()
     }
 
     //query structure of new Subjects
-    if(!newSubjectIds.empty()){
+    if(!newSubjectIds.empty() && Client_m != nullptr){
         _InitializeNewSubjects(newSubjectIds);
     }
 
@@ -172,7 +176,7 @@ void MotionStreamRequestHandler::_InitializeNewSubjects(std::set<uint> newSubjec
             //got a matched structure
             if (newSubjectIds.count(model.structureid())){
                 UE_LOG(ModuleLog, Warning, TEXT("A New Subject is Tracked: %i"), model.structureid());
-                std::unique_ptr<LiveLinkSubjectStream> subStream = std::make_unique<LiveLinkSubjectStream>();
+                std::unique_ptr<LiveLinkSubjectStream> subStream = std::make_unique<LiveLinkSubjectStream>(Client_m, SourceGuid_m);
                 subStream->OnInitialized(model);
                 Subjects_m[model.structureid()] = std::move(subStream);
             }else{

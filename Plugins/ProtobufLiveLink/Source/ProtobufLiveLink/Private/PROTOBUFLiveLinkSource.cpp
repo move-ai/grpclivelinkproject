@@ -70,6 +70,7 @@ FPROTOBUFLiveLinkSource::~FPROTOBUFLiveLinkSource()
 
 void FPROTOBUFLiveLinkSource::ReceiveClient(ILiveLinkClient* InClient, FGuid InSourceGuid)
 {
+	UE_LOG(ModuleLog, Warning, TEXT("Received LiveLink Client"));
 	Client = InClient;
 	SourceGuid = InSourceGuid;
 }
@@ -156,7 +157,7 @@ bool FPROTOBUFLiveLinkSource::_TryConnect(uint nMaxTries)
 		}else{
 			ConnectionState_m = grpc_connectivity_state::GRPC_CHANNEL_READY;
 			ClientStub = std::unique_ptr<MocapServer::Stub>(MocapServer::NewStub(Channel_m));
-			ConnectionHandler.reset(new MotionStreamRequestHandler(&ConnectionHandler, ClientStub.get(), &StreamQueue));
+			ConnectionHandler.reset(new MotionStreamRequestHandler(&ConnectionHandler, ClientStub.get(), &StreamQueue, Client, SourceGuid));
 			UE_LOG(ModuleLog, Warning, TEXT("Connected to the host %s"), *DeviceEndpoint.ToString());	
 			return true;
 		}

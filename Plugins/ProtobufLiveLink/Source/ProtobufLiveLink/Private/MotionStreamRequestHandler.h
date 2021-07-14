@@ -16,7 +16,9 @@ class MotionStreamRequestHandler : public HandlerInterface
 public:
     MotionStreamRequestHandler(HandlerTag tag,
                            MocapServer::Stub* stub,
-                           grpc::CompletionQueue* cq);
+                           grpc::CompletionQueue* cq,
+                           ILiveLinkClient *client,
+                           FGuid sourceGuid);
 
     ~MotionStreamRequestHandler() override = default;
 
@@ -48,7 +50,6 @@ private:
     void _InitializeNewSubjects(std::set<uint> newSubjectIds);
 private:
     HandlerTag              tag_;
-
     MocapServer::Stub* stub_;
     grpc::CompletionQueue*  cq_;
     grpc::ClientContext     ctx_;
@@ -64,6 +65,11 @@ private:
     size_t                      counter_;
 
     std::unordered_map<uint, std::unique_ptr<LiveLinkSubjectStream>> Subjects_m;
+
+    // Our identifier in LiveLink
+    ILiveLinkClient* Client_m;
+	FGuid SourceGuid_m;
+	
 };
 
 
