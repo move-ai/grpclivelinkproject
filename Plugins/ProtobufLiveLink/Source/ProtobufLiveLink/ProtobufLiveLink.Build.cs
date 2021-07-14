@@ -14,9 +14,6 @@ public class ProtobufLiveLink : ModuleRules
 				"Core",
 				"LiveLinkInterface",
 				"Messaging",
-				"protobuf", 
-				"grpc", 
-				"cares" 
 			});
 
 		PrivateDependencyModuleNames.AddRange(
@@ -31,7 +28,11 @@ public class ProtobufLiveLink : ModuleRules
 				"Slate",
 				"SlateCore",
 				"Sockets",
-				"protobuf"
+				"protobuf",
+				"grpc",
+				"zlib",
+				"OpenSSL",
+				"cares"
 			});
 	}
 }
