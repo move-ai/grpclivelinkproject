@@ -1,0 +1,46 @@
+[
+    {
+        "structureId": 1,
+        "structureType": "HUMAN",
+        "name": "Test_0",
+        "links": [
+            {
+                "name": "Link_1",
+                "linkId": 1, 
+                "parentLinkId": 0,
+                "offset": {
+                    "translation": {
+                        "x": 0,
+                        "y": 0,
+                        "z": 0
+                    },
+
+                    "orientation": {
+                        "type": "EULER_XYZ",
+                        "values": [0, 0, 0]
+                    }
+                    
+                },
+                "mass": 1,
+                "size": [
+
+                ],
+                "inertialMatrix": [
+
+                ]
+            }
+        ],
+        "joints": [
+            {
+                "jointId": 1,
+                "linkId": 1,
+                "name": "Joint_1"
+            },
+            {
+                "jointId": 2,
+                "linkId": 1,
+                "name": "Joint_2"
+            }
+        ]
+    }
+]

@@ -52,7 +52,7 @@ Thumbs.db
 Binaries/
 DerivedDataCache/
 Intermediate/
-Plugins/ProtobufLiveLink/
+# Plugins/ProtobufLiveLink/
 Plugins/UE_gRPC/
 Saved/
 .kdev4/
