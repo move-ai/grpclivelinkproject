@@ -25,7 +25,8 @@ void LiveLinkSubjectStream::OnInitialized(const Mocap::Structure &subjectStructu
 
     // To be initialized;
     FName subjectName;
-    SubjectName_m = subjectName;
+    SubjectName_m = ModelStructure_m.name().c_str();
+    // UE_LOG(LogTemp, Warning, TEXT("Subject %s created"), *FString(ModelStructure_m.name().c_str()))
 
     FLiveLinkStaticDataStruct staticDataStruct = FLiveLinkStaticDataStruct(FLiveLinkSkeletonStaticData::StaticStruct());
     FLiveLinkSkeletonStaticData& staticData = *staticDataStruct.Cast<FLiveLinkSkeletonStaticData>();
@@ -70,7 +71,9 @@ void LiveLinkSubjectStream::OnNewPose(const Mocap::Pose &pose)
         FQuat bquat;
         frmData.Transforms[bidx] = FTransform(bquat, bloc, bscale);
     }
-
+    
+    // UE_LOG(LogTemp, Warning, TEXT("Push frame data to %s"), *FString(ModelStructure_m.name().c_str()))
+    
     Client_m->PushSubjectFrameData_AnyThread({SourceGuid_m, SubjectName_m}, MoveTemp(frmDataStructure));
 }
 

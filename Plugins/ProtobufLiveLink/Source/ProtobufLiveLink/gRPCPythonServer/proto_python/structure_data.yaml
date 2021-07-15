@@ -1,7 +1,7 @@
 ---
 - structureId: 1
   structureType: HUMAN
-  name: Test_0
+  name: Test_1
   links:
   - name: Link_1
     linkId: 1
