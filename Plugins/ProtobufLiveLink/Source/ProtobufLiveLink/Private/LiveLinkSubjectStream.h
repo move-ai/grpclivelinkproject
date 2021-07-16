@@ -27,6 +27,7 @@ private:
     FName SubjectName_m;
 
     Mocap::Structure ModelStructure_m;
+    Mocap::Pose NewPose;
 };
 
 }
