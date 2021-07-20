@@ -838,38 +838,38 @@ class Orientation final :
   // accessors -------------------------------------------------------
 
   enum : int {
-    kValuesFieldNumber = 2,
-    kTypeFieldNumber = 1,
+    kRotationValuesFieldNumber = 2,
+    kRotationTypeFieldNumber = 1,
   };
-  // repeated float values = 2;
-  int values_size() const;
+  // repeated float rotationValues = 2;
+  int rotationvalues_size() const;
   private:
-  int _internal_values_size() const;
+  int _internal_rotationvalues_size() const;
   public:
-  void clear_values();
+  void clear_rotationvalues();
   private:
-  float _internal_values(int index) const;
+  float _internal_rotationvalues(int index) const;
   const ::PROTOBUF_NAMESPACE_ID::RepeatedField< float >&
-      _internal_values() const;
-  void _internal_add_values(float value);
+      _internal_rotationvalues() const;
+  void _internal_add_rotationvalues(float value);
   ::PROTOBUF_NAMESPACE_ID::RepeatedField< float >*
-      _internal_mutable_values();
+      _internal_mutable_rotationvalues();
   public:
-  float values(int index) const;
-  void set_values(int index, float value);
-  void add_values(float value);
+  float rotationvalues(int index) const;
+  void set_rotationvalues(int index, float value);
+  void add_rotationvalues(float value);
   const ::PROTOBUF_NAMESPACE_ID::RepeatedField< float >&
-      values() const;
+      rotationvalues() const;
   ::PROTOBUF_NAMESPACE_ID::RepeatedField< float >*
-      mutable_values();
+      mutable_rotationvalues();
 
-  // .Mocap.Orientation.RotationType type = 1;
-  void clear_type();
-  ::Mocap::Orientation_RotationType type() const;
-  void set_type(::Mocap::Orientation_RotationType value);
+  // .Mocap.Orientation.RotationType rotationType = 1;
+  void clear_rotationtype();
+  ::Mocap::Orientation_RotationType rotationtype() const;
+  void set_rotationtype(::Mocap::Orientation_RotationType value);
   private:
-  ::Mocap::Orientation_RotationType _internal_type() const;
-  void _internal_set_type(::Mocap::Orientation_RotationType value);
+  ::Mocap::Orientation_RotationType _internal_rotationtype() const;
+  void _internal_set_rotationtype(::Mocap::Orientation_RotationType value);
   public:
 
   // @@protoc_insertion_point(class_scope:Mocap.Orientation)
@@ -879,8 +879,8 @@ class Orientation final :
   template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
   typedef void InternalArenaConstructable_;
   typedef void DestructorSkippable_;
-  ::PROTOBUF_NAMESPACE_ID::RepeatedField< float > values_;
-  int type_;
+  ::PROTOBUF_NAMESPACE_ID::RepeatedField< float > rotationvalues_;
+  int rotationtype_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_MocapExchange_2eproto;
 };
@@ -1169,7 +1169,7 @@ class Link final :
   // accessors -------------------------------------------------------
 
   enum : int {
-    kSizeFieldNumber = 6,
+    kLinkSizeFieldNumber = 6,
     kInertialMatrixFieldNumber = 7,
     kNameFieldNumber = 1,
     kOffsetFieldNumber = 4,
@@ -1177,27 +1177,27 @@ class Link final :
     kParentLinkIdFieldNumber = 3,
     kMassFieldNumber = 5,
   };
-  // repeated float size = 6;
-  int size_size() const;
+  // repeated float linkSize = 6;
+  int linksize_size() const;
   private:
-  int _internal_size_size() const;
+  int _internal_linksize_size() const;
   public:
-  void clear_size();
+  void clear_linksize();
   private:
-  float _internal_size(int index) const;
+  float _internal_linksize(int index) const;
   const ::PROTOBUF_NAMESPACE_ID::RepeatedField< float >&
-      _internal_size() const;
-  void _internal_add_size(float value);
+      _internal_linksize() const;
+  void _internal_add_linksize(float value);
   ::PROTOBUF_NAMESPACE_ID::RepeatedField< float >*
-      _internal_mutable_size();
+      _internal_mutable_linksize();
   public:
-  float size(int index) const;
-  void set_size(int index, float value);
-  void add_size(float value);
+  float linksize(int index) const;
+  void set_linksize(int index, float value);
+  void add_linksize(float value);
   const ::PROTOBUF_NAMESPACE_ID::RepeatedField< float >&
-      size() const;
+      linksize() const;
   ::PROTOBUF_NAMESPACE_ID::RepeatedField< float >*
-      mutable_size();
+      mutable_linksize();
 
   // repeated float inertialMatrix = 7;
   int inertialmatrix_size() const;
@@ -1262,13 +1262,13 @@ class Link final :
   void _internal_set_linkid(::PROTOBUF_NAMESPACE_ID::uint32 value);
   public:
 
-  // uint32 parentLinkId = 3;
+  // int32 parentLinkId = 3;
   void clear_parentlinkid();
-  ::PROTOBUF_NAMESPACE_ID::uint32 parentlinkid() const;
-  void set_parentlinkid(::PROTOBUF_NAMESPACE_ID::uint32 value);
+  ::PROTOBUF_NAMESPACE_ID::int32 parentlinkid() const;
+  void set_parentlinkid(::PROTOBUF_NAMESPACE_ID::int32 value);
   private:
-  ::PROTOBUF_NAMESPACE_ID::uint32 _internal_parentlinkid() const;
-  void _internal_set_parentlinkid(::PROTOBUF_NAMESPACE_ID::uint32 value);
+  ::PROTOBUF_NAMESPACE_ID::int32 _internal_parentlinkid() const;
+  void _internal_set_parentlinkid(::PROTOBUF_NAMESPACE_ID::int32 value);
   public:
 
   // float mass = 5;
@@ -1287,12 +1287,12 @@ class Link final :
   template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
   typedef void InternalArenaConstructable_;
   typedef void DestructorSkippable_;
-  ::PROTOBUF_NAMESPACE_ID::RepeatedField< float > size_;
+  ::PROTOBUF_NAMESPACE_ID::RepeatedField< float > linksize_;
   ::PROTOBUF_NAMESPACE_ID::RepeatedField< float > inertialmatrix_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr name_;
   ::Mocap::Transform* offset_;
   ::PROTOBUF_NAMESPACE_ID::uint32 linkid_;
-  ::PROTOBUF_NAMESPACE_ID::uint32 parentlinkid_;
+  ::PROTOBUF_NAMESPACE_ID::int32 parentlinkid_;
   float mass_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_MocapExchange_2eproto;
@@ -2539,29 +2539,29 @@ class StructureRequest final :
   // accessors -------------------------------------------------------
 
   enum : int {
-    kIdFieldNumber = 1,
+    kStructureIdFieldNumber = 1,
   };
-  // repeated uint32 id = 1;
-  int id_size() const;
+  // repeated uint32 structureId = 1;
+  int structureid_size() const;
   private:
-  int _internal_id_size() const;
+  int _internal_structureid_size() const;
   public:
-  void clear_id();
+  void clear_structureid();
   private:
-  ::PROTOBUF_NAMESPACE_ID::uint32 _internal_id(int index) const;
+  ::PROTOBUF_NAMESPACE_ID::uint32 _internal_structureid(int index) const;
   const ::PROTOBUF_NAMESPACE_ID::RepeatedField< ::PROTOBUF_NAMESPACE_ID::uint32 >&
-      _internal_id() const;
-  void _internal_add_id(::PROTOBUF_NAMESPACE_ID::uint32 value);
+      _internal_structureid() const;
+  void _internal_add_structureid(::PROTOBUF_NAMESPACE_ID::uint32 value);
   ::PROTOBUF_NAMESPACE_ID::RepeatedField< ::PROTOBUF_NAMESPACE_ID::uint32 >*
-      _internal_mutable_id();
+      _internal_mutable_structureid();
   public:
-  ::PROTOBUF_NAMESPACE_ID::uint32 id(int index) const;
-  void set_id(int index, ::PROTOBUF_NAMESPACE_ID::uint32 value);
-  void add_id(::PROTOBUF_NAMESPACE_ID::uint32 value);
+  ::PROTOBUF_NAMESPACE_ID::uint32 structureid(int index) const;
+  void set_structureid(int index, ::PROTOBUF_NAMESPACE_ID::uint32 value);
+  void add_structureid(::PROTOBUF_NAMESPACE_ID::uint32 value);
   const ::PROTOBUF_NAMESPACE_ID::RepeatedField< ::PROTOBUF_NAMESPACE_ID::uint32 >&
-      id() const;
+      structureid() const;
   ::PROTOBUF_NAMESPACE_ID::RepeatedField< ::PROTOBUF_NAMESPACE_ID::uint32 >*
-      mutable_id();
+      mutable_structureid();
 
   // @@protoc_insertion_point(class_scope:Mocap.StructureRequest)
  private:
@@ -2570,8 +2570,8 @@ class StructureRequest final :
   template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
   typedef void InternalArenaConstructable_;
   typedef void DestructorSkippable_;
-  ::PROTOBUF_NAMESPACE_ID::RepeatedField< ::PROTOBUF_NAMESPACE_ID::uint32 > id_;
-  mutable std::atomic<int> _id_cached_byte_size_;
+  ::PROTOBUF_NAMESPACE_ID::RepeatedField< ::PROTOBUF_NAMESPACE_ID::uint32 > structureid_;
+  mutable std::atomic<int> _structureid_cached_byte_size_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_MocapExchange_2eproto;
 };
@@ -2882,71 +2882,71 @@ inline void Translation::set_z(float value) {
 
 // Orientation
 
-// .Mocap.Orientation.RotationType type = 1;
-inline void Orientation::clear_type() {
-  type_ = 0;
+// .Mocap.Orientation.RotationType rotationType = 1;
+inline void Orientation::clear_rotationtype() {
+  rotationtype_ = 0;
 }
-inline ::Mocap::Orientation_RotationType Orientation::_internal_type() const {
-  return static_cast< ::Mocap::Orientation_RotationType >(type_);
+inline ::Mocap::Orientation_RotationType Orientation::_internal_rotationtype() const {
+  return static_cast< ::Mocap::Orientation_RotationType >(rotationtype_);
 }
-inline ::Mocap::Orientation_RotationType Orientation::type() const {
-  // @@protoc_insertion_point(field_get:Mocap.Orientation.type)
-  return _internal_type();
+inline ::Mocap::Orientation_RotationType Orientation::rotationtype() const {
+  // @@protoc_insertion_point(field_get:Mocap.Orientation.rotationType)
+  return _internal_rotationtype();
 }
-inline void Orientation::_internal_set_type(::Mocap::Orientation_RotationType value) {
+inline void Orientation::_internal_set_rotationtype(::Mocap::Orientation_RotationType value) {
   
-  type_ = value;
+  rotationtype_ = value;
 }
-inline void Orientation::set_type(::Mocap::Orientation_RotationType value) {
-  _internal_set_type(value);
-  // @@protoc_insertion_point(field_set:Mocap.Orientation.type)
+inline void Orientation::set_rotationtype(::Mocap::Orientation_RotationType value) {
+  _internal_set_rotationtype(value);
+  // @@protoc_insertion_point(field_set:Mocap.Orientation.rotationType)
 }
 
-// repeated float values = 2;
-inline int Orientation::_internal_values_size() const {
-  return values_.size();
+// repeated float rotationValues = 2;
+inline int Orientation::_internal_rotationvalues_size() const {
+  return rotationvalues_.size();
 }
-inline int Orientation::values_size() const {
-  return _internal_values_size();
+inline int Orientation::rotationvalues_size() const {
+  return _internal_rotationvalues_size();
 }
-inline void Orientation::clear_values() {
-  values_.Clear();
+inline void Orientation::clear_rotationvalues() {
+  rotationvalues_.Clear();
 }
-inline float Orientation::_internal_values(int index) const {
-  return values_.Get(index);
+inline float Orientation::_internal_rotationvalues(int index) const {
+  return rotationvalues_.Get(index);
 }
-inline float Orientation::values(int index) const {
-  // @@protoc_insertion_point(field_get:Mocap.Orientation.values)
-  return _internal_values(index);
+inline float Orientation::rotationvalues(int index) const {
+  // @@protoc_insertion_point(field_get:Mocap.Orientation.rotationValues)
+  return _internal_rotationvalues(index);
 }
-inline void Orientation::set_values(int index, float value) {
-  values_.Set(index, value);
-  // @@protoc_insertion_point(field_set:Mocap.Orientation.values)
+inline void Orientation::set_rotationvalues(int index, float value) {
+  rotationvalues_.Set(index, value);
+  // @@protoc_insertion_point(field_set:Mocap.Orientation.rotationValues)
 }
-inline void Orientation::_internal_add_values(float value) {
-  values_.Add(value);
+inline void Orientation::_internal_add_rotationvalues(float value) {
+  rotationvalues_.Add(value);
 }
-inline void Orientation::add_values(float value) {
-  _internal_add_values(value);
-  // @@protoc_insertion_point(field_add:Mocap.Orientation.values)
-}
-inline const ::PROTOBUF_NAMESPACE_ID::RepeatedField< float >&
-Orientation::_internal_values() const {
-  return values_;
+inline void Orientation::add_rotationvalues(float value) {
+  _internal_add_rotationvalues(value);
+  // @@protoc_insertion_point(field_add:Mocap.Orientation.rotationValues)
 }
 inline const ::PROTOBUF_NAMESPACE_ID::RepeatedField< float >&
-Orientation::values() const {
-  // @@protoc_insertion_point(field_list:Mocap.Orientation.values)
-  return _internal_values();
+Orientation::_internal_rotationvalues() const {
+  return rotationvalues_;
+}
+inline const ::PROTOBUF_NAMESPACE_ID::RepeatedField< float >&
+Orientation::rotationvalues() const {
+  // @@protoc_insertion_point(field_list:Mocap.Orientation.rotationValues)
+  return _internal_rotationvalues();
 }
 inline ::PROTOBUF_NAMESPACE_ID::RepeatedField< float >*
-Orientation::_internal_mutable_values() {
-  return &values_;
+Orientation::_internal_mutable_rotationvalues() {
+  return &rotationvalues_;
 }
 inline ::PROTOBUF_NAMESPACE_ID::RepeatedField< float >*
-Orientation::mutable_values() {
-  // @@protoc_insertion_point(field_mutable_list:Mocap.Orientation.values)
-  return _internal_mutable_values();
+Orientation::mutable_rotationvalues() {
+  // @@protoc_insertion_point(field_mutable_list:Mocap.Orientation.rotationValues)
+  return _internal_mutable_rotationvalues();
 }
 
 // -------------------------------------------------------------------
@@ -3203,22 +3203,22 @@ inline void Link::set_linkid(::PROTOBUF_NAMESPACE_ID::uint32 value) {
   // @@protoc_insertion_point(field_set:Mocap.Link.linkId)
 }
 
-// uint32 parentLinkId = 3;
+// int32 parentLinkId = 3;
 inline void Link::clear_parentlinkid() {
-  parentlinkid_ = 0u;
+  parentlinkid_ = 0;
 }
-inline ::PROTOBUF_NAMESPACE_ID::uint32 Link::_internal_parentlinkid() const {
+inline ::PROTOBUF_NAMESPACE_ID::int32 Link::_internal_parentlinkid() const {
   return parentlinkid_;
 }
-inline ::PROTOBUF_NAMESPACE_ID::uint32 Link::parentlinkid() const {
+inline ::PROTOBUF_NAMESPACE_ID::int32 Link::parentlinkid() const {
   // @@protoc_insertion_point(field_get:Mocap.Link.parentLinkId)
   return _internal_parentlinkid();
 }
-inline void Link::_internal_set_parentlinkid(::PROTOBUF_NAMESPACE_ID::uint32 value) {
+inline void Link::_internal_set_parentlinkid(::PROTOBUF_NAMESPACE_ID::int32 value) {
   
   parentlinkid_ = value;
 }
-inline void Link::set_parentlinkid(::PROTOBUF_NAMESPACE_ID::uint32 value) {
+inline void Link::set_parentlinkid(::PROTOBUF_NAMESPACE_ID::int32 value) {
   _internal_set_parentlinkid(value);
   // @@protoc_insertion_point(field_set:Mocap.Link.parentLinkId)
 }
@@ -3333,51 +3333,51 @@ inline void Link::set_mass(float value) {
   // @@protoc_insertion_point(field_set:Mocap.Link.mass)
 }
 
-// repeated float size = 6;
-inline int Link::_internal_size_size() const {
-  return size_.size();
+// repeated float linkSize = 6;
+inline int Link::_internal_linksize_size() const {
+  return linksize_.size();
 }
-inline int Link::size_size() const {
-  return _internal_size_size();
+inline int Link::linksize_size() const {
+  return _internal_linksize_size();
 }
-inline void Link::clear_size() {
-  size_.Clear();
+inline void Link::clear_linksize() {
+  linksize_.Clear();
 }
-inline float Link::_internal_size(int index) const {
-  return size_.Get(index);
+inline float Link::_internal_linksize(int index) const {
+  return linksize_.Get(index);
 }
-inline float Link::size(int index) const {
-  // @@protoc_insertion_point(field_get:Mocap.Link.size)
-  return _internal_size(index);
+inline float Link::linksize(int index) const {
+  // @@protoc_insertion_point(field_get:Mocap.Link.linkSize)
+  return _internal_linksize(index);
 }
-inline void Link::set_size(int index, float value) {
-  size_.Set(index, value);
-  // @@protoc_insertion_point(field_set:Mocap.Link.size)
+inline void Link::set_linksize(int index, float value) {
+  linksize_.Set(index, value);
+  // @@protoc_insertion_point(field_set:Mocap.Link.linkSize)
 }
-inline void Link::_internal_add_size(float value) {
-  size_.Add(value);
+inline void Link::_internal_add_linksize(float value) {
+  linksize_.Add(value);
 }
-inline void Link::add_size(float value) {
-  _internal_add_size(value);
-  // @@protoc_insertion_point(field_add:Mocap.Link.size)
-}
-inline const ::PROTOBUF_NAMESPACE_ID::RepeatedField< float >&
-Link::_internal_size() const {
-  return size_;
+inline void Link::add_linksize(float value) {
+  _internal_add_linksize(value);
+  // @@protoc_insertion_point(field_add:Mocap.Link.linkSize)
 }
 inline const ::PROTOBUF_NAMESPACE_ID::RepeatedField< float >&
-Link::size() const {
-  // @@protoc_insertion_point(field_list:Mocap.Link.size)
-  return _internal_size();
+Link::_internal_linksize() const {
+  return linksize_;
+}
+inline const ::PROTOBUF_NAMESPACE_ID::RepeatedField< float >&
+Link::linksize() const {
+  // @@protoc_insertion_point(field_list:Mocap.Link.linkSize)
+  return _internal_linksize();
 }
 inline ::PROTOBUF_NAMESPACE_ID::RepeatedField< float >*
-Link::_internal_mutable_size() {
-  return &size_;
+Link::_internal_mutable_linksize() {
+  return &linksize_;
 }
 inline ::PROTOBUF_NAMESPACE_ID::RepeatedField< float >*
-Link::mutable_size() {
-  // @@protoc_insertion_point(field_mutable_list:Mocap.Link.size)
-  return _internal_mutable_size();
+Link::mutable_linksize() {
+  // @@protoc_insertion_point(field_mutable_list:Mocap.Link.linkSize)
+  return _internal_mutable_linksize();
 }
 
 // repeated float inertialMatrix = 7;
@@ -3981,51 +3981,51 @@ inline void MocapStreamResponse::set_servertime(float value) {
 
 // StructureRequest
 
-// repeated uint32 id = 1;
-inline int StructureRequest::_internal_id_size() const {
-  return id_.size();
+// repeated uint32 structureId = 1;
+inline int StructureRequest::_internal_structureid_size() const {
+  return structureid_.size();
 }
-inline int StructureRequest::id_size() const {
-  return _internal_id_size();
+inline int StructureRequest::structureid_size() const {
+  return _internal_structureid_size();
 }
-inline void StructureRequest::clear_id() {
-  id_.Clear();
+inline void StructureRequest::clear_structureid() {
+  structureid_.Clear();
 }
-inline ::PROTOBUF_NAMESPACE_ID::uint32 StructureRequest::_internal_id(int index) const {
-  return id_.Get(index);
+inline ::PROTOBUF_NAMESPACE_ID::uint32 StructureRequest::_internal_structureid(int index) const {
+  return structureid_.Get(index);
 }
-inline ::PROTOBUF_NAMESPACE_ID::uint32 StructureRequest::id(int index) const {
-  // @@protoc_insertion_point(field_get:Mocap.StructureRequest.id)
-  return _internal_id(index);
+inline ::PROTOBUF_NAMESPACE_ID::uint32 StructureRequest::structureid(int index) const {
+  // @@protoc_insertion_point(field_get:Mocap.StructureRequest.structureId)
+  return _internal_structureid(index);
 }
-inline void StructureRequest::set_id(int index, ::PROTOBUF_NAMESPACE_ID::uint32 value) {
-  id_.Set(index, value);
-  // @@protoc_insertion_point(field_set:Mocap.StructureRequest.id)
+inline void StructureRequest::set_structureid(int index, ::PROTOBUF_NAMESPACE_ID::uint32 value) {
+  structureid_.Set(index, value);
+  // @@protoc_insertion_point(field_set:Mocap.StructureRequest.structureId)
 }
-inline void StructureRequest::_internal_add_id(::PROTOBUF_NAMESPACE_ID::uint32 value) {
-  id_.Add(value);
+inline void StructureRequest::_internal_add_structureid(::PROTOBUF_NAMESPACE_ID::uint32 value) {
+  structureid_.Add(value);
 }
-inline void StructureRequest::add_id(::PROTOBUF_NAMESPACE_ID::uint32 value) {
-  _internal_add_id(value);
-  // @@protoc_insertion_point(field_add:Mocap.StructureRequest.id)
-}
-inline const ::PROTOBUF_NAMESPACE_ID::RepeatedField< ::PROTOBUF_NAMESPACE_ID::uint32 >&
-StructureRequest::_internal_id() const {
-  return id_;
+inline void StructureRequest::add_structureid(::PROTOBUF_NAMESPACE_ID::uint32 value) {
+  _internal_add_structureid(value);
+  // @@protoc_insertion_point(field_add:Mocap.StructureRequest.structureId)
 }
 inline const ::PROTOBUF_NAMESPACE_ID::RepeatedField< ::PROTOBUF_NAMESPACE_ID::uint32 >&
-StructureRequest::id() const {
-  // @@protoc_insertion_point(field_list:Mocap.StructureRequest.id)
-  return _internal_id();
+StructureRequest::_internal_structureid() const {
+  return structureid_;
+}
+inline const ::PROTOBUF_NAMESPACE_ID::RepeatedField< ::PROTOBUF_NAMESPACE_ID::uint32 >&
+StructureRequest::structureid() const {
+  // @@protoc_insertion_point(field_list:Mocap.StructureRequest.structureId)
+  return _internal_structureid();
 }
 inline ::PROTOBUF_NAMESPACE_ID::RepeatedField< ::PROTOBUF_NAMESPACE_ID::uint32 >*
-StructureRequest::_internal_mutable_id() {
-  return &id_;
+StructureRequest::_internal_mutable_structureid() {
+  return &structureid_;
 }
 inline ::PROTOBUF_NAMESPACE_ID::RepeatedField< ::PROTOBUF_NAMESPACE_ID::uint32 >*
-StructureRequest::mutable_id() {
-  // @@protoc_insertion_point(field_mutable_list:Mocap.StructureRequest.id)
-  return _internal_mutable_id();
+StructureRequest::mutable_structureid() {
+  // @@protoc_insertion_point(field_mutable_list:Mocap.StructureRequest.structureId)
+  return _internal_mutable_structureid();
 }
 
 // -------------------------------------------------------------------

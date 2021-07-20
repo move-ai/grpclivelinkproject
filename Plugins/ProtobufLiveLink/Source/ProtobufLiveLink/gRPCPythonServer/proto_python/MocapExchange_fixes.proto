@@ -68,8 +68,8 @@ message Transform {
 // per-human structure data
 message Link {
     string name = 1;
-    int32 linkId = 2;
-    uint32 parentLinkId = 3;
+    uint32 linkId = 2;
+    int32 parentLinkId = 3;
     Transform offset = 4; //offset to the parent
     float mass = 5;
     repeated float linkSize = 6;

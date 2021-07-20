@@ -54,8 +54,8 @@ message Orientation{
         EULER_ZXY = 6;
         EULER_ZYX = 7;
     }
-    RotationType type = 1;
-    repeated float values = 2;
+    RotationType rotationType = 1;
+    repeated float rotationValues = 2;
 }
 
 
@@ -69,10 +69,10 @@ message Transform {
 message Link {
     string name = 1;
     uint32 linkId = 2;
-    uint32 parentLinkId = 3;
+    int32 parentLinkId = 3;
     Transform offset = 4; //offset to the parent
     float mass = 5;
-    repeated float size = 6;
+    repeated float linkSize = 6;
     repeated float inertialMatrix = 7;
 }
 
@@ -120,7 +120,7 @@ message MocapStreamResponse {
 }
 
 message StructureRequest{
-    repeated uint32 id = 1;
+    repeated uint32 structureId = 1;
 }
 message StructureResponse {
     repeated Structure structures = 1;

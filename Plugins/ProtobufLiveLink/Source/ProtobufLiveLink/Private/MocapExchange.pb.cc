@@ -52,8 +52,8 @@ struct TranslationDefaultTypeInternal {
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT TranslationDefaultTypeInternal _Translation_default_instance_;
 constexpr Orientation::Orientation(
   ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : values_()
-  , type_(0)
+  : rotationvalues_()
+  , rotationtype_(0)
 {}
 struct OrientationDefaultTypeInternal {
   constexpr OrientationDefaultTypeInternal()
@@ -79,12 +79,12 @@ struct TransformDefaultTypeInternal {
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT TransformDefaultTypeInternal _Transform_default_instance_;
 constexpr Link::Link(
   ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : size_()
+  : linksize_()
   , inertialmatrix_()
   , name_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
   , offset_(nullptr)
   , linkid_(0u)
-  , parentlinkid_(0u)
+  , parentlinkid_(0)
   , mass_(0){}
 struct LinkDefaultTypeInternal {
   constexpr LinkDefaultTypeInternal()
@@ -191,8 +191,8 @@ struct MocapStreamResponseDefaultTypeInternal {
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT MocapStreamResponseDefaultTypeInternal _MocapStreamResponse_default_instance_;
 constexpr StructureRequest::StructureRequest(
   ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : id_()
-  , _id_cached_byte_size_(0){}
+  : structureid_()
+  , _structureid_cached_byte_size_(0){}
 struct StructureRequestDefaultTypeInternal {
   constexpr StructureRequestDefaultTypeInternal()
     : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
@@ -242,8 +242,8 @@ const ::PROTOBUF_NAMESPACE_ID::uint32 TableStruct_MocapExchange_2eproto::offsets
   ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
-  PROTOBUF_FIELD_OFFSET(::Mocap::Orientation, type_),
-  PROTOBUF_FIELD_OFFSET(::Mocap::Orientation, values_),
+  PROTOBUF_FIELD_OFFSET(::Mocap::Orientation, rotationtype_),
+  PROTOBUF_FIELD_OFFSET(::Mocap::Orientation, rotationvalues_),
   ~0u,  // no _has_bits_
   PROTOBUF_FIELD_OFFSET(::Mocap::Transform, _internal_metadata_),
   ~0u,  // no _extensions_
@@ -261,7 +261,7 @@ const ::PROTOBUF_NAMESPACE_ID::uint32 TableStruct_MocapExchange_2eproto::offsets
   PROTOBUF_FIELD_OFFSET(::Mocap::Link, parentlinkid_),
   PROTOBUF_FIELD_OFFSET(::Mocap::Link, offset_),
   PROTOBUF_FIELD_OFFSET(::Mocap::Link, mass_),
-  PROTOBUF_FIELD_OFFSET(::Mocap::Link, size_),
+  PROTOBUF_FIELD_OFFSET(::Mocap::Link, linksize_),
   PROTOBUF_FIELD_OFFSET(::Mocap::Link, inertialmatrix_),
   ~0u,  // no _has_bits_
   PROTOBUF_FIELD_OFFSET(::Mocap::JointMeta, _internal_metadata_),
@@ -319,7 +319,7 @@ const ::PROTOBUF_NAMESPACE_ID::uint32 TableStruct_MocapExchange_2eproto::offsets
   ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
-  PROTOBUF_FIELD_OFFSET(::Mocap::StructureRequest, id_),
+  PROTOBUF_FIELD_OFFSET(::Mocap::StructureRequest, structureid_),
   ~0u,  // no _has_bits_
   PROTOBUF_FIELD_OFFSET(::Mocap::StructureResponse, _internal_metadata_),
   ~0u,  // no _extensions_
@@ -371,44 +371,45 @@ const char descriptor_table_protodef_MocapExchange_2eproto[] PROTOBUF_SECTION_VA
   "\tLEFT_HAND\020\000\022\016\n\nRIGHT_HAND\020\001\"&\n\rDistance"
   "Units\022\006\n\002MM\020\000\022\006\n\002CM\020\001\022\005\n\001M\020\002\"(\n\tTimeUnit"
   "s\022\007\n\003SEC\020\000\022\010\n\004MILS\020\001\022\010\n\004NSEC\020\002\".\n\013Transl"
-  "ation\022\t\n\001x\030\001 \001(\002\022\t\n\001y\030\002 \001(\002\022\t\n\001z\030\003 \001(\002\"\323"
-  "\001\n\013Orientation\022-\n\004type\030\001 \001(\0162\037.Mocap.Ori"
-  "entation.RotationType\022\016\n\006values\030\002 \003(\002\"\204\001"
-  "\n\014RotationType\022\016\n\nQUATERNION\020\000\022\n\n\006MATRIX"
-  "\020\001\022\r\n\tEULER_XYZ\020\002\022\r\n\tEULER_XZY\020\003\022\r\n\tEULE"
-  "R_YXZ\020\004\022\r\n\tEULER_YZX\020\005\022\r\n\tEULER_ZXY\020\006\022\r\n"
-  "\tEULER_ZYX\020\007\"]\n\tTransform\022\'\n\013translation"
-  "\030\001 \001(\0132\022.Mocap.Translation\022\'\n\013orientatio"
-  "n\030\002 \001(\0132\022.Mocap.Orientation\"\220\001\n\004Link\022\014\n\004"
-  "name\030\001 \001(\t\022\016\n\006linkId\030\002 \001(\r\022\024\n\014parentLink"
-  "Id\030\003 \001(\r\022 \n\006offset\030\004 \001(\0132\020.Mocap.Transfo"
-  "rm\022\014\n\004mass\030\005 \001(\002\022\014\n\004size\030\006 \003(\002\022\026\n\016inerti"
-  "alMatrix\030\007 \003(\002\":\n\tJointMeta\022\017\n\007jointId\030\001"
-  " \001(\r\022\016\n\006linkId\030\002 \001(\r\022\014\n\004name\030\003 \001(\t\"\231\001\n\tS"
-  "tructure\022\023\n\013structureId\030\001 \001(\r\022+\n\rstructu"
-  "reType\030\002 \001(\0162\024.Mocap.StructureType\022\014\n\004na"
-  "me\030\003 \001(\t\022\032\n\005links\030\004 \003(\0132\013.Mocap.Link\022 \n\006"
-  "joints\030\005 \003(\0132\020.Mocap.JointMeta\"=\n\005Joint\022"
-  "\017\n\007jointId\030\001 \001(\r\022#\n\ttransform\030\002 \001(\0132\020.Mo"
-  "cap.Transform\"J\n\004Pose\022\021\n\tsubjectId\030\001 \001(\r"
-  "\022\021\n\ttimestamp\030\002 \001(\004\022\034\n\006joints\030\003 \003(\0132\014.Mo"
-  "cap.Joint\"\024\n\022EnvironmentRequest\"!\n\022Mocap"
-  "StreamRequest\022\013\n\003fps\030\001 \001(\002\"E\n\023MocapStrea"
-  "mResponse\022\032\n\005poses\030\001 \003(\0132\013.Mocap.Pose\022\022\n"
-  "\nserverTime\030\002 \001(\002\"\036\n\020StructureRequest\022\n\n"
-  "\002id\030\001 \003(\r\"9\n\021StructureResponse\022$\n\nstruct"
-  "ures\030\001 \003(\0132\020.Mocap.Structure*.\n\rStructur"
-  "eType\022\t\n\005HUMAN\020\000\022\010\n\004BALL\020\001\022\010\n\004BIKE\020\0022\342\001\n"
-  "\013MocapServer\022A\n\016GetEnvironment\022\031.Mocap.E"
-  "nvironmentRequest\032\022.Mocap.Environment\"\000\022"
-  "C\n\014GetStructure\022\027.Mocap.StructureRequest"
-  "\032\030.Mocap.StructureResponse\"\000\022K\n\016GetMocap"
-  "Stream\022\031.Mocap.MocapStreamRequest\032\032.Moca"
-  "p.MocapStreamResponse\"\0000\001b\006proto3"
+  "ation\022\t\n\001x\030\001 \001(\002\022\t\n\001y\030\002 \001(\002\022\t\n\001z\030\003 \001(\002\"\343"
+  "\001\n\013Orientation\0225\n\014rotationType\030\001 \001(\0162\037.M"
+  "ocap.Orientation.RotationType\022\026\n\016rotatio"
+  "nValues\030\002 \003(\002\"\204\001\n\014RotationType\022\016\n\nQUATER"
+  "NION\020\000\022\n\n\006MATRIX\020\001\022\r\n\tEULER_XYZ\020\002\022\r\n\tEUL"
+  "ER_XZY\020\003\022\r\n\tEULER_YXZ\020\004\022\r\n\tEULER_YZX\020\005\022\r"
+  "\n\tEULER_ZXY\020\006\022\r\n\tEULER_ZYX\020\007\"]\n\tTransfor"
+  "m\022\'\n\013translation\030\001 \001(\0132\022.Mocap.Translati"
+  "on\022\'\n\013orientation\030\002 \001(\0132\022.Mocap.Orientat"
+  "ion\"\224\001\n\004Link\022\014\n\004name\030\001 \001(\t\022\016\n\006linkId\030\002 \001"
+  "(\r\022\024\n\014parentLinkId\030\003 \001(\005\022 \n\006offset\030\004 \001(\013"
+  "2\020.Mocap.Transform\022\014\n\004mass\030\005 \001(\002\022\020\n\010link"
+  "Size\030\006 \003(\002\022\026\n\016inertialMatrix\030\007 \003(\002\":\n\tJo"
+  "intMeta\022\017\n\007jointId\030\001 \001(\r\022\016\n\006linkId\030\002 \001(\r"
+  "\022\014\n\004name\030\003 \001(\t\"\231\001\n\tStructure\022\023\n\013structur"
+  "eId\030\001 \001(\r\022+\n\rstructureType\030\002 \001(\0162\024.Mocap"
+  ".StructureType\022\014\n\004name\030\003 \001(\t\022\032\n\005links\030\004 "
+  "\003(\0132\013.Mocap.Link\022 \n\006joints\030\005 \003(\0132\020.Mocap"
+  ".JointMeta\"=\n\005Joint\022\017\n\007jointId\030\001 \001(\r\022#\n\t"
+  "transform\030\002 \001(\0132\020.Mocap.Transform\"J\n\004Pos"
+  "e\022\021\n\tsubjectId\030\001 \001(\r\022\021\n\ttimestamp\030\002 \001(\004\022"
+  "\034\n\006joints\030\003 \003(\0132\014.Mocap.Joint\"\024\n\022Environ"
+  "mentRequest\"!\n\022MocapStreamRequest\022\013\n\003fps"
+  "\030\001 \001(\002\"E\n\023MocapStreamResponse\022\032\n\005poses\030\001"
+  " \003(\0132\013.Mocap.Pose\022\022\n\nserverTime\030\002 \001(\002\"\'\n"
+  "\020StructureRequest\022\023\n\013structureId\030\001 \003(\r\"9"
+  "\n\021StructureResponse\022$\n\nstructures\030\001 \003(\0132"
+  "\020.Mocap.Structure*.\n\rStructureType\022\t\n\005HU"
+  "MAN\020\000\022\010\n\004BALL\020\001\022\010\n\004BIKE\020\0022\342\001\n\013MocapServe"
+  "r\022A\n\016GetEnvironment\022\031.Mocap.EnvironmentR"
+  "equest\032\022.Mocap.Environment\"\000\022C\n\014GetStruc"
+  "ture\022\027.Mocap.StructureRequest\032\030.Mocap.St"
+  "ructureResponse\"\000\022K\n\016GetMocapStream\022\031.Mo"
+  "cap.MocapStreamRequest\032\032.Mocap.MocapStre"
+  "amResponse\"\0000\001b\006proto3"
   ;
 static ::PROTOBUF_NAMESPACE_ID::internal::once_flag descriptor_table_MocapExchange_2eproto_once;
 const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_MocapExchange_2eproto = {
-  false, false, 1713, descriptor_table_protodef_MocapExchange_2eproto, "MocapExchange.proto", 
+  false, false, 1742, descriptor_table_protodef_MocapExchange_2eproto, "MocapExchange.proto", 
   &descriptor_table_MocapExchange_2eproto_once, nullptr, 0, 14,
   schemas, file_default_instances, TableStruct_MocapExchange_2eproto::offsets,
   file_level_metadata_MocapExchange_2eproto, file_level_enum_descriptors_MocapExchange_2eproto, file_level_service_descriptors_MocapExchange_2eproto,
@@ -1049,7 +1050,7 @@ class Orientation::_Internal {
 Orientation::Orientation(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned),
-  values_(arena) {
+  rotationvalues_(arena) {
   SharedCtor();
   if (!is_message_owned) {
     RegisterArenaDtor(arena);
@@ -1058,14 +1059,14 @@ Orientation::Orientation(::PROTOBUF_NAMESPACE_ID::Arena* arena,
 }
 Orientation::Orientation(const Orientation& from)
   : ::PROTOBUF_NAMESPACE_ID::Message(),
-      values_(from.values_) {
+      rotationvalues_(from.rotationvalues_) {
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
-  type_ = from.type_;
+  rotationtype_ = from.rotationtype_;
   // @@protoc_insertion_point(copy_constructor:Mocap.Orientation)
 }
 
 inline void Orientation::SharedCtor() {
-type_ = 0;
+rotationtype_ = 0;
 }
 
 Orientation::~Orientation() {
@@ -1095,8 +1096,8 @@ void Orientation::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  values_.Clear();
-  type_ = 0;
+  rotationvalues_.Clear();
+  rotationtype_ = 0;
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
@@ -1106,21 +1107,21 @@ const char* Orientation::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID
     ::PROTOBUF_NAMESPACE_ID::uint32 tag;
     ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
     switch (tag >> 3) {
-      // .Mocap.Orientation.RotationType type = 1;
+      // .Mocap.Orientation.RotationType rotationType = 1;
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 8)) {
           ::PROTOBUF_NAMESPACE_ID::uint64 val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
-          _internal_set_type(static_cast<::Mocap::Orientation_RotationType>(val));
+          _internal_set_rotationtype(static_cast<::Mocap::Orientation_RotationType>(val));
         } else goto handle_unusual;
         continue;
-      // repeated float values = 2;
+      // repeated float rotationValues = 2;
       case 2:
         if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 18)) {
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::PackedFloatParser(_internal_mutable_values(), ptr, ctx);
+          ptr = ::PROTOBUF_NAMESPACE_ID::internal::PackedFloatParser(_internal_mutable_rotationvalues(), ptr, ctx);
           CHK_(ptr);
         } else if (static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 21) {
-          _internal_add_values(::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<float>(ptr));
+          _internal_add_rotationvalues(::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<float>(ptr));
           ptr += sizeof(float);
         } else goto handle_unusual;
         continue;
@@ -1153,16 +1154,16 @@ failure:
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
-  // .Mocap.Orientation.RotationType type = 1;
-  if (this->_internal_type() != 0) {
+  // .Mocap.Orientation.RotationType rotationType = 1;
+  if (this->_internal_rotationtype() != 0) {
     target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteEnumToArray(
-      1, this->_internal_type(), target);
+      1, this->_internal_rotationtype(), target);
   }
 
-  // repeated float values = 2;
-  if (this->_internal_values_size() > 0) {
-    target = stream->WriteFixedPacked(2, _internal_values(), target);
+  // repeated float rotationValues = 2;
+  if (this->_internal_rotationvalues_size() > 0) {
+    target = stream->WriteFixedPacked(2, _internal_rotationvalues(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -1181,9 +1182,9 @@ size_t Orientation::ByteSizeLong() const {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  // repeated float values = 2;
+  // repeated float rotationValues = 2;
   {
-    unsigned int count = static_cast<unsigned int>(this->_internal_values_size());
+    unsigned int count = static_cast<unsigned int>(this->_internal_rotationvalues_size());
     size_t data_size = 4UL * count;
     if (data_size > 0) {
       total_size += 1 +
@@ -1193,10 +1194,10 @@ size_t Orientation::ByteSizeLong() const {
     total_size += data_size;
   }
 
-  // .Mocap.Orientation.RotationType type = 1;
-  if (this->_internal_type() != 0) {
+  // .Mocap.Orientation.RotationType rotationType = 1;
+  if (this->_internal_rotationtype() != 0) {
     total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::EnumSize(this->_internal_type());
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::EnumSize(this->_internal_rotationtype());
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -1227,9 +1228,9 @@ void Orientation::MergeFrom(const Orientation& from) {
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
-  values_.MergeFrom(from.values_);
-  if (from._internal_type() != 0) {
-    _internal_set_type(from._internal_type());
+  rotationvalues_.MergeFrom(from.rotationvalues_);
+  if (from._internal_rotationtype() != 0) {
+    _internal_set_rotationtype(from._internal_rotationtype());
   }
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
 }
@@ -1248,8 +1249,8 @@ bool Orientation::IsInitialized() const {
 void Orientation::InternalSwap(Orientation* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  values_.InternalSwap(&other->values_);
-  swap(type_, other->type_);
+  rotationvalues_.InternalSwap(&other->rotationvalues_);
+  swap(rotationtype_, other->rotationtype_);
 }
 
 ::PROTOBUF_NAMESPACE_ID::Metadata Orientation::GetMetadata() const {
@@ -1520,7 +1521,7 @@ Link::_Internal::offset(const Link* msg) {
 Link::Link(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned),
-  size_(arena),
+  linksize_(arena),
   inertialmatrix_(arena) {
   SharedCtor();
   if (!is_message_owned) {
@@ -1530,7 +1531,7 @@ Link::Link(::PROTOBUF_NAMESPACE_ID::Arena* arena,
 }
 Link::Link(const Link& from)
   : ::PROTOBUF_NAMESPACE_ID::Message(),
-      size_(from.size_),
+      linksize_(from.linksize_),
       inertialmatrix_(from.inertialmatrix_) {
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
   name_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
@@ -1586,7 +1587,7 @@ void Link::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  size_.Clear();
+  linksize_.Clear();
   inertialmatrix_.Clear();
   name_.ClearToEmpty();
   if (GetArenaForAllocation() == nullptr && offset_ != nullptr) {
@@ -1621,10 +1622,10 @@ const char* Link::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::inter
           CHK_(ptr);
         } else goto handle_unusual;
         continue;
-      // uint32 parentLinkId = 3;
+      // int32 parentLinkId = 3;
       case 3:
         if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 24)) {
-          parentlinkid_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          parentlinkid_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
         } else goto handle_unusual;
         continue;
@@ -1642,13 +1643,13 @@ const char* Link::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::inter
           ptr += sizeof(float);
         } else goto handle_unusual;
         continue;
-      // repeated float size = 6;
+      // repeated float linkSize = 6;
       case 6:
         if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 50)) {
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::PackedFloatParser(_internal_mutable_size(), ptr, ctx);
+          ptr = ::PROTOBUF_NAMESPACE_ID::internal::PackedFloatParser(_internal_mutable_linksize(), ptr, ctx);
           CHK_(ptr);
         } else if (static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 53) {
-          _internal_add_size(::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<float>(ptr));
+          _internal_add_linksize(::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<float>(ptr));
           ptr += sizeof(float);
         } else goto handle_unusual;
         continue;
@@ -1707,10 +1708,10 @@ failure:
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteUInt32ToArray(2, this->_internal_linkid(), target);
   }
 
-  // uint32 parentLinkId = 3;
+  // int32 parentLinkId = 3;
   if (this->_internal_parentlinkid() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteUInt32ToArray(3, this->_internal_parentlinkid(), target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt32ToArray(3, this->_internal_parentlinkid(), target);
   }
 
   // .Mocap.Transform offset = 4;
@@ -1727,9 +1728,9 @@ failure:
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteFloatToArray(5, this->_internal_mass(), target);
   }
 
-  // repeated float size = 6;
-  if (this->_internal_size_size() > 0) {
-    target = stream->WriteFixedPacked(6, _internal_size(), target);
+  // repeated float linkSize = 6;
+  if (this->_internal_linksize_size() > 0) {
+    target = stream->WriteFixedPacked(6, _internal_linksize(), target);
   }
 
   // repeated float inertialMatrix = 7;
@@ -1753,9 +1754,9 @@ size_t Link::ByteSizeLong() const {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  // repeated float size = 6;
+  // repeated float linkSize = 6;
   {
-    unsigned int count = static_cast<unsigned int>(this->_internal_size_size());
+    unsigned int count = static_cast<unsigned int>(this->_internal_linksize_size());
     size_t data_size = 4UL * count;
     if (data_size > 0) {
       total_size += 1 +
@@ -1798,10 +1799,10 @@ size_t Link::ByteSizeLong() const {
         this->_internal_linkid());
   }
 
-  // uint32 parentLinkId = 3;
+  // int32 parentLinkId = 3;
   if (this->_internal_parentlinkid() != 0) {
     total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::UInt32Size(
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int32Size(
         this->_internal_parentlinkid());
   }
 
@@ -1838,7 +1839,7 @@ void Link::MergeFrom(const Link& from) {
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
-  size_.MergeFrom(from.size_);
+  linksize_.MergeFrom(from.linksize_);
   inertialmatrix_.MergeFrom(from.inertialmatrix_);
   if (!from._internal_name().empty()) {
     _internal_set_name(from._internal_name());
@@ -1872,7 +1873,7 @@ bool Link::IsInitialized() const {
 void Link::InternalSwap(Link* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  size_.InternalSwap(&other->size_);
+  linksize_.InternalSwap(&other->linksize_);
   inertialmatrix_.InternalSwap(&other->inertialmatrix_);
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
       &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
@@ -3527,7 +3528,7 @@ class StructureRequest::_Internal {
 StructureRequest::StructureRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned),
-  id_(arena) {
+  structureid_(arena) {
   SharedCtor();
   if (!is_message_owned) {
     RegisterArenaDtor(arena);
@@ -3536,7 +3537,7 @@ StructureRequest::StructureRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
 }
 StructureRequest::StructureRequest(const StructureRequest& from)
   : ::PROTOBUF_NAMESPACE_ID::Message(),
-      id_(from.id_) {
+      structureid_(from.structureid_) {
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
   // @@protoc_insertion_point(copy_constructor:Mocap.StructureRequest)
 }
@@ -3571,7 +3572,7 @@ void StructureRequest::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  id_.Clear();
+  structureid_.Clear();
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
@@ -3581,13 +3582,13 @@ const char* StructureRequest::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPA
     ::PROTOBUF_NAMESPACE_ID::uint32 tag;
     ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
     switch (tag >> 3) {
-      // repeated uint32 id = 1;
+      // repeated uint32 structureId = 1;
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 10)) {
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::PackedUInt32Parser(_internal_mutable_id(), ptr, ctx);
+          ptr = ::PROTOBUF_NAMESPACE_ID::internal::PackedUInt32Parser(_internal_mutable_structureid(), ptr, ctx);
           CHK_(ptr);
         } else if (static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 8) {
-          _internal_add_id(::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr));
+          _internal_add_structureid(::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr));
           CHK_(ptr);
         } else goto handle_unusual;
         continue;
@@ -3620,12 +3621,12 @@ failure:
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
-  // repeated uint32 id = 1;
+  // repeated uint32 structureId = 1;
   {
-    int byte_size = _id_cached_byte_size_.load(std::memory_order_relaxed);
+    int byte_size = _structureid_cached_byte_size_.load(std::memory_order_relaxed);
     if (byte_size > 0) {
       target = stream->WriteUInt32Packed(
-          1, _internal_id(), byte_size, target);
+          1, _internal_structureid(), byte_size, target);
     }
   }
 
@@ -3645,17 +3646,17 @@ size_t StructureRequest::ByteSizeLong() const {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  // repeated uint32 id = 1;
+  // repeated uint32 structureId = 1;
   {
     size_t data_size = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      UInt32Size(this->id_);
+      UInt32Size(this->structureid_);
     if (data_size > 0) {
       total_size += 1 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int32Size(
             static_cast<::PROTOBUF_NAMESPACE_ID::int32>(data_size));
     }
     int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(data_size);
-    _id_cached_byte_size_.store(cached_size,
+    _structureid_cached_byte_size_.store(cached_size,
                                     std::memory_order_relaxed);
     total_size += data_size;
   }
@@ -3688,7 +3689,7 @@ void StructureRequest::MergeFrom(const StructureRequest& from) {
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
-  id_.MergeFrom(from.id_);
+  structureid_.MergeFrom(from.structureid_);
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
 }
 
@@ -3706,7 +3707,7 @@ bool StructureRequest::IsInitialized() const {
 void StructureRequest::InternalSwap(StructureRequest* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  id_.InternalSwap(&other->id_);
+  structureid_.InternalSwap(&other->structureid_);
 }
 
 ::PROTOBUF_NAMESPACE_ID::Metadata StructureRequest::GetMetadata() const {

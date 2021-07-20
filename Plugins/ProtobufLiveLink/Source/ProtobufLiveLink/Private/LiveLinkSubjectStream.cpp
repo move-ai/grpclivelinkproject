@@ -44,10 +44,10 @@ void LiveLinkSubjectStream::OnInitialized(const Mocap::Structure &subjectStructu
         staticData.BoneNames[bidx] = boneName;
 
         //To be initialized from ModelStructure_m;
-        int32 linkId = jointMeta.linkid();
+        uint linkId = jointMeta.linkid();
         const Mocap::Link& link = ModelStructure_m.links(linkId);
-        int32 boneParentIdx = (int) link.parentlinkid();
-        staticData.BoneParents[bidx] = boneParentIdx;
+        int boneParentIdx = (int) link.parentlinkid(); // Not sure how to get parents in correct way
+        staticData.BoneParents[bidx] = 0;
     }
 
     Client_m->PushSubjectStaticData_AnyThread({SourceGuid_m, SubjectName_m}, ULiveLinkAnimationRole::StaticClass(), MoveTemp(staticDataStruct));
@@ -62,7 +62,7 @@ void LiveLinkSubjectStream::OnNewPose(const Mocap::Pose &pose)
     //To be initialized from Pose or structure
 
     NewPose = pose;
-    int subjectId = NewPose.subjectid();
+    uint32 subjectId = NewPose.subjectid();
     UE_LOG(LogTemp, Warning, TEXT("subjectId: %d"), subjectId);
 
     int nbones = NewPose.joints_size();
@@ -71,17 +71,61 @@ void LiveLinkSubjectStream::OnNewPose(const Mocap::Pose &pose)
 
     for (int i = 0; i < nbones; ++i) {
         const Mocap::Joint& joint = NewPose.joints(i);
-        UE_LOG(LogTemp, Warning, TEXT("Joint number: %d"), i)
-        UE_LOG(LogTemp, Warning, TEXT("translation().x(): %f"), joint.transform().translation().x());
-        UE_LOG(LogTemp, Warning, TEXT("translation().y(): %f"), joint.transform().translation().y());
-        UE_LOG(LogTemp, Warning, TEXT("translation().z(): %f"), joint.transform().translation().z());
+
+        // Location
         FVector boneLoc;
         boneLoc.X = (float) joint.transform().translation().x();
         boneLoc.Y = (float) joint.transform().translation().y();
         boneLoc.Z = (float) joint.transform().translation().z();
-        FQuat boneQuat = FQuat(0.0f, 0.0f, 0.0f, 1.0f);
-        // FVector boneLoc = FVector(0.0f, 0.0f, 0.0f);
-        FVector boneScale = FVector(1.0f, 1.0f, 1.0f);
+
+        FVector boneRotationEuler;
+        FQuat boneQuat;
+
+        // Rotation
+        switch (joint.transform().orientation().rotationtype()) {
+            case Mocap::Orientation::QUATERNION:
+                boneQuat.X = (float) joint.transform().orientation().rotationvalues(0);
+                boneQuat.Y = (float) joint.transform().orientation().rotationvalues(1);
+                boneQuat.Z = (float) joint.transform().orientation().rotationvalues(2);
+                boneQuat.W = (float) joint.transform().orientation().rotationvalues(3);
+                break;
+            case Mocap::Orientation::MATRIX:
+                break; // TODO
+            case Mocap::Orientation::EULER_XYZ:
+            case Mocap::Orientation::EULER_XZY:
+            case Mocap::Orientation::EULER_YXZ:
+            case Mocap::Orientation::EULER_YZX:
+            case Mocap::Orientation::EULER_ZXY:
+            case Mocap::Orientation::EULER_ZYX:
+                boneRotationEuler.X = (float) joint.transform().orientation().rotationvalues(0);
+                boneRotationEuler.Y = (float) joint.transform().orientation().rotationvalues(1);
+                boneRotationEuler.Z = (float) joint.transform().orientation().rotationvalues(2);
+                UE_LOG(LogTemp, Warning, TEXT("X Euler before conversion to quat: %f"), boneRotationEuler.X);
+
+                boneQuat = FQuat::MakeFromEuler(boneRotationEuler);
+                break;
+        }
+
+        UE_LOG(LogTemp, Warning, TEXT("Joint number: %d"), i)
+        UE_LOG(LogTemp, Warning, TEXT("boneLoc.X: %f"), boneLoc.X);
+        UE_LOG(LogTemp, Warning, TEXT("boneLoc.Y: %f"), boneLoc.Y);
+        UE_LOG(LogTemp, Warning, TEXT("boneLoc.Z: %f"), boneLoc.Z);
+
+        UE_LOG(LogTemp, Warning, TEXT("rotationvalues(0): %f"), joint.transform().orientation().rotationvalues(0));
+
+        UE_LOG(LogTemp, Warning, TEXT("FQuat.X: %f"), boneQuat.X);
+        UE_LOG(LogTemp, Warning, TEXT("FQuat.Y: %f"), boneQuat.Y);
+        UE_LOG(LogTemp, Warning, TEXT("FQuat.Z: %f"), boneQuat.Z);
+        UE_LOG(LogTemp, Warning, TEXT("FQuat.W: %f"), boneQuat.W);
+
+        FVector boneScale;
+        if (i == 0) {
+            boneScale = FVector(100.0f, 100.0f, 100.0f);
+        }
+        else {
+            boneScale = FVector(1.0f, 1.0f, 1.0f);
+        }
+        UE_LOG(LogTemp, Warning, TEXT("boneScale.X: %f"), boneScale.X);
         frmData.Transforms[i] = FTransform(boneQuat, boneLoc, boneScale);
     }
 

@@ -21,10 +21,10 @@ class MocapServerServicer(MocapExchange_pb2_grpc.MocapServerServicer):
         for i in range(10000):
             new_response = MocapExchange_pb2.MocapStreamResponse()
             new_response.CopyFrom(self.mocap_stream[0])
-            new_response.poses[0].joints[0].transform.translation.x = i
+            new_response.poses[0].joints[5].transform.orientation.rotationValues[0] = i*10
             self.mocap_stream.append(new_response)
         
-        for i in range(2, 3):
+        for i in range(1, 2):
             new_structure = MocapExchange_pb2.Structure()
             new_structure.CopyFrom(self.structures.structures[0])
             new_structure.structureId = i

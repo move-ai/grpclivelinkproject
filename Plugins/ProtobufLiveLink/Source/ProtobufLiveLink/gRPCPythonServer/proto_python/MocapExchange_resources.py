@@ -22,8 +22,8 @@ def read_poses_data():
                                 z = joint_from_file["transform"]["translation"]["z"],
                             ),
                             orientation = MocapExchange_pb2.Orientation(
-                                type = MocapExchange_pb2.Orientation.RotationType.Value(joint_from_file["transform"]["orientation"]["type"]),
-                                values = joint_from_file["transform"]["orientation"]["values"]
+                                rotationType = MocapExchange_pb2.Orientation.RotationType.Value(joint_from_file["transform"]["orientation"]["rotationType"]),
+                                rotationValues = joint_from_file["transform"]["orientation"]["rotationValues"]
                             )
                         )
 
@@ -60,12 +60,12 @@ def read_structure_data():
                                 z = link_from_file["offset"]["translation"]["z"],
                             ),
                             orientation = MocapExchange_pb2.Orientation(
-                                type = MocapExchange_pb2.Orientation.RotationType.Value(link_from_file["offset"]["orientation"]["type"]),
-                                values = link_from_file["offset"]["orientation"]["values"]
+                                rotationType = MocapExchange_pb2.Orientation.RotationType.Value(link_from_file["offset"]["orientation"]["rotationType"]),
+                                rotationValues = link_from_file["offset"]["orientation"]["rotationValues"]
                             )
                         ),
                         mass = link_from_file["mass"],
-                        size = [size_from_file for size_from_file in link_from_file["size"]],
+                        linkSize = [size_from_file for size_from_file in link_from_file["linkSize"]],
                         inertialMatrix = [inertialMatrix_from_file for inertialMatrix_from_file in link_from_file["inertialMatrix"]],
                     ) for link_from_file in structure_from_file["links"]
                 ],

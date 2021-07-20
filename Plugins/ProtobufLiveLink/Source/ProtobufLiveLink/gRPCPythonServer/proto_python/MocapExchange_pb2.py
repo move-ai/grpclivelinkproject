@@ -20,7 +20,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   syntax='proto3',
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_pb=b'\nbPlugins/ProtobufLiveLink/Source/ProtobufLiveLink/gRPCPythonServer/proto_python/MocapExchange.proto\x12\x05Mocap\"\xbf\x02\n\x0b\x45nvironment\x12\x0f\n\x07gravity\x18\x01 \x01(\x02\x12\x33\n\tdistUnits\x18\x02 \x01(\x0e\x32 .Mocap.Environment.DistanceUnits\x12/\n\ttimeUnits\x18\x03 \x01(\x0e\x32\x1c.Mocap.Environment.TimeUnits\x12\x37\n\rdirectionType\x18\x04 \x01(\x0e\x32 .Mocap.Environment.DirectionType\".\n\rDirectionType\x12\r\n\tLEFT_HAND\x10\x00\x12\x0e\n\nRIGHT_HAND\x10\x01\"&\n\rDistanceUnits\x12\x06\n\x02MM\x10\x00\x12\x06\n\x02\x43M\x10\x01\x12\x05\n\x01M\x10\x02\"(\n\tTimeUnits\x12\x07\n\x03SEC\x10\x00\x12\x08\n\x04MILS\x10\x01\x12\x08\n\x04NSEC\x10\x02\".\n\x0bTranslation\x12\t\n\x01x\x18\x01 \x01(\x02\x12\t\n\x01y\x18\x02 \x01(\x02\x12\t\n\x01z\x18\x03 \x01(\x02\"\xd3\x01\n\x0bOrientation\x12-\n\x04type\x18\x01 \x01(\x0e\x32\x1f.Mocap.Orientation.RotationType\x12\x0e\n\x06values\x18\x02 \x03(\x02\"\x84\x01\n\x0cRotationType\x12\x0e\n\nQUATERNION\x10\x00\x12\n\n\x06MATRIX\x10\x01\x12\r\n\tEULER_XYZ\x10\x02\x12\r\n\tEULER_XZY\x10\x03\x12\r\n\tEULER_YXZ\x10\x04\x12\r\n\tEULER_YZX\x10\x05\x12\r\n\tEULER_ZXY\x10\x06\x12\r\n\tEULER_ZYX\x10\x07\"]\n\tTransform\x12\'\n\x0btranslation\x18\x01 \x01(\x0b\x32\x12.Mocap.Translation\x12\'\n\x0borientation\x18\x02 \x01(\x0b\x32\x12.Mocap.Orientation\"\x90\x01\n\x04Link\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\x0e\n\x06linkId\x18\x02 \x01(\r\x12\x14\n\x0cparentLinkId\x18\x03 \x01(\r\x12 \n\x06offset\x18\x04 \x01(\x0b\x32\x10.Mocap.Transform\x12\x0c\n\x04mass\x18\x05 \x01(\x02\x12\x0c\n\x04size\x18\x06 \x03(\x02\x12\x16\n\x0einertialMatrix\x18\x07 \x03(\x02\":\n\tJointMeta\x12\x0f\n\x07jointId\x18\x01 \x01(\r\x12\x0e\n\x06linkId\x18\x02 \x01(\r\x12\x0c\n\x04name\x18\x03 \x01(\t\"\x99\x01\n\tStructure\x12\x13\n\x0bstructureId\x18\x01 \x01(\r\x12+\n\rstructureType\x18\x02 \x01(\x0e\x32\x14.Mocap.StructureType\x12\x0c\n\x04name\x18\x03 \x01(\t\x12\x1a\n\x05links\x18\x04 \x03(\x0b\x32\x0b.Mocap.Link\x12 \n\x06joints\x18\x05 \x03(\x0b\x32\x10.Mocap.JointMeta\"=\n\x05Joint\x12\x0f\n\x07jointId\x18\x01 \x01(\r\x12#\n\ttransform\x18\x02 \x01(\x0b\x32\x10.Mocap.Transform\"J\n\x04Pose\x12\x11\n\tsubjectId\x18\x01 \x01(\r\x12\x11\n\ttimestamp\x18\x02 \x01(\x04\x12\x1c\n\x06joints\x18\x03 \x03(\x0b\x32\x0c.Mocap.Joint\"\x14\n\x12\x45nvironmentRequest\"!\n\x12MocapStreamRequest\x12\x0b\n\x03\x66ps\x18\x01 \x01(\x02\"E\n\x13MocapStreamResponse\x12\x1a\n\x05poses\x18\x01 \x03(\x0b\x32\x0b.Mocap.Pose\x12\x12\n\nserverTime\x18\x02 \x01(\x02\"\x1e\n\x10StructureRequest\x12\n\n\x02id\x18\x01 \x03(\r\"9\n\x11StructureResponse\x12$\n\nstructures\x18\x01 \x03(\x0b\x32\x10.Mocap.Structure*.\n\rStructureType\x12\t\n\x05HUMAN\x10\x00\x12\x08\n\x04\x42\x41LL\x10\x01\x12\x08\n\x04\x42IKE\x10\x02\x32\xe2\x01\n\x0bMocapServer\x12\x41\n\x0eGetEnvironment\x12\x19.Mocap.EnvironmentRequest\x1a\x12.Mocap.Environment\"\x00\x12\x43\n\x0cGetStructure\x12\x17.Mocap.StructureRequest\x1a\x18.Mocap.StructureResponse\"\x00\x12K\n\x0eGetMocapStream\x12\x19.Mocap.MocapStreamRequest\x1a\x1a.Mocap.MocapStreamResponse\"\x00\x30\x01\x62\x06proto3'
+  serialized_pb=b'\nbPlugins/ProtobufLiveLink/Source/ProtobufLiveLink/gRPCPythonServer/proto_python/MocapExchange.proto\x12\x05Mocap\"\xbf\x02\n\x0b\x45nvironment\x12\x0f\n\x07gravity\x18\x01 \x01(\x02\x12\x33\n\tdistUnits\x18\x02 \x01(\x0e\x32 .Mocap.Environment.DistanceUnits\x12/\n\ttimeUnits\x18\x03 \x01(\x0e\x32\x1c.Mocap.Environment.TimeUnits\x12\x37\n\rdirectionType\x18\x04 \x01(\x0e\x32 .Mocap.Environment.DirectionType\".\n\rDirectionType\x12\r\n\tLEFT_HAND\x10\x00\x12\x0e\n\nRIGHT_HAND\x10\x01\"&\n\rDistanceUnits\x12\x06\n\x02MM\x10\x00\x12\x06\n\x02\x43M\x10\x01\x12\x05\n\x01M\x10\x02\"(\n\tTimeUnits\x12\x07\n\x03SEC\x10\x00\x12\x08\n\x04MILS\x10\x01\x12\x08\n\x04NSEC\x10\x02\".\n\x0bTranslation\x12\t\n\x01x\x18\x01 \x01(\x02\x12\t\n\x01y\x18\x02 \x01(\x02\x12\t\n\x01z\x18\x03 \x01(\x02\"\xe3\x01\n\x0bOrientation\x12\x35\n\x0crotationType\x18\x01 \x01(\x0e\x32\x1f.Mocap.Orientation.RotationType\x12\x16\n\x0erotationValues\x18\x02 \x03(\x02\"\x84\x01\n\x0cRotationType\x12\x0e\n\nQUATERNION\x10\x00\x12\n\n\x06MATRIX\x10\x01\x12\r\n\tEULER_XYZ\x10\x02\x12\r\n\tEULER_XZY\x10\x03\x12\r\n\tEULER_YXZ\x10\x04\x12\r\n\tEULER_YZX\x10\x05\x12\r\n\tEULER_ZXY\x10\x06\x12\r\n\tEULER_ZYX\x10\x07\"]\n\tTransform\x12\'\n\x0btranslation\x18\x01 \x01(\x0b\x32\x12.Mocap.Translation\x12\'\n\x0borientation\x18\x02 \x01(\x0b\x32\x12.Mocap.Orientation\"\x94\x01\n\x04Link\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\x0e\n\x06linkId\x18\x02 \x01(\r\x12\x14\n\x0cparentLinkId\x18\x03 \x01(\x05\x12 \n\x06offset\x18\x04 \x01(\x0b\x32\x10.Mocap.Transform\x12\x0c\n\x04mass\x18\x05 \x01(\x02\x12\x10\n\x08linkSize\x18\x06 \x03(\x02\x12\x16\n\x0einertialMatrix\x18\x07 \x03(\x02\":\n\tJointMeta\x12\x0f\n\x07jointId\x18\x01 \x01(\r\x12\x0e\n\x06linkId\x18\x02 \x01(\r\x12\x0c\n\x04name\x18\x03 \x01(\t\"\x99\x01\n\tStructure\x12\x13\n\x0bstructureId\x18\x01 \x01(\r\x12+\n\rstructureType\x18\x02 \x01(\x0e\x32\x14.Mocap.StructureType\x12\x0c\n\x04name\x18\x03 \x01(\t\x12\x1a\n\x05links\x18\x04 \x03(\x0b\x32\x0b.Mocap.Link\x12 \n\x06joints\x18\x05 \x03(\x0b\x32\x10.Mocap.JointMeta\"=\n\x05Joint\x12\x0f\n\x07jointId\x18\x01 \x01(\r\x12#\n\ttransform\x18\x02 \x01(\x0b\x32\x10.Mocap.Transform\"J\n\x04Pose\x12\x11\n\tsubjectId\x18\x01 \x01(\r\x12\x11\n\ttimestamp\x18\x02 \x01(\x04\x12\x1c\n\x06joints\x18\x03 \x03(\x0b\x32\x0c.Mocap.Joint\"\x14\n\x12\x45nvironmentRequest\"!\n\x12MocapStreamRequest\x12\x0b\n\x03\x66ps\x18\x01 \x01(\x02\"E\n\x13MocapStreamResponse\x12\x1a\n\x05poses\x18\x01 \x03(\x0b\x32\x0b.Mocap.Pose\x12\x12\n\nserverTime\x18\x02 \x01(\x02\"\'\n\x10StructureRequest\x12\x13\n\x0bstructureId\x18\x01 \x03(\r\"9\n\x11StructureResponse\x12$\n\nstructures\x18\x01 \x03(\x0b\x32\x10.Mocap.Structure*.\n\rStructureType\x12\t\n\x05HUMAN\x10\x00\x12\x08\n\x04\x42\x41LL\x10\x01\x12\x08\n\x04\x42IKE\x10\x02\x32\xe2\x01\n\x0bMocapServer\x12\x41\n\x0eGetEnvironment\x12\x19.Mocap.EnvironmentRequest\x1a\x12.Mocap.Environment\"\x00\x12\x43\n\x0cGetStructure\x12\x17.Mocap.StructureRequest\x1a\x18.Mocap.StructureResponse\"\x00\x12K\n\x0eGetMocapStream\x12\x19.Mocap.MocapStreamRequest\x1a\x1a.Mocap.MocapStreamResponse\"\x00\x30\x01\x62\x06proto3'
 )
 
 _STRUCTURETYPE = _descriptor.EnumDescriptor(
@@ -48,8 +48,8 @@ _STRUCTURETYPE = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   serialized_options=None,
-  serialized_start=1509,
-  serialized_end=1555,
+  serialized_start=1538,
+  serialized_end=1584,
 )
 _sym_db.RegisterEnumDescriptor(_STRUCTURETYPE)
 
@@ -194,8 +194,8 @@ _ORIENTATION_ROTATIONTYPE = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   serialized_options=None,
-  serialized_start=559,
-  serialized_end=691,
+  serialized_start=575,
+  serialized_end=707,
 )
 _sym_db.RegisterEnumDescriptor(_ORIENTATION_ROTATIONTYPE)
 
@@ -311,14 +311,14 @@ _ORIENTATION = _descriptor.Descriptor(
   create_key=_descriptor._internal_create_key,
   fields=[
     _descriptor.FieldDescriptor(
-      name='type', full_name='Mocap.Orientation.type', index=0,
+      name='rotationType', full_name='Mocap.Orientation.rotationType', index=0,
       number=1, type=14, cpp_type=8, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='values', full_name='Mocap.Orientation.values', index=1,
+      name='rotationValues', full_name='Mocap.Orientation.rotationValues', index=1,
       number=2, type=2, cpp_type=6, label=3,
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
@@ -338,7 +338,7 @@ _ORIENTATION = _descriptor.Descriptor(
   oneofs=[
   ],
   serialized_start=480,
-  serialized_end=691,
+  serialized_end=707,
 )
 
 
@@ -376,8 +376,8 @@ _TRANSFORM = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=693,
-  serialized_end=786,
+  serialized_start=709,
+  serialized_end=802,
 )
 
 
@@ -405,7 +405,7 @@ _LINK = _descriptor.Descriptor(
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
       name='parentLinkId', full_name='Mocap.Link.parentLinkId', index=2,
-      number=3, type=13, cpp_type=3, label=1,
+      number=3, type=5, cpp_type=1, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
@@ -425,7 +425,7 @@ _LINK = _descriptor.Descriptor(
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='size', full_name='Mocap.Link.size', index=5,
+      name='linkSize', full_name='Mocap.Link.linkSize', index=5,
       number=6, type=2, cpp_type=6, label=3,
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
@@ -450,8 +450,8 @@ _LINK = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=789,
-  serialized_end=933,
+  serialized_start=805,
+  serialized_end=953,
 )
 
 
@@ -496,8 +496,8 @@ _JOINTMETA = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=935,
-  serialized_end=993,
+  serialized_start=955,
+  serialized_end=1013,
 )
 
 
@@ -556,8 +556,8 @@ _STRUCTURE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=996,
-  serialized_end=1149,
+  serialized_start=1016,
+  serialized_end=1169,
 )
 
 
@@ -595,8 +595,8 @@ _JOINT = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1151,
-  serialized_end=1212,
+  serialized_start=1171,
+  serialized_end=1232,
 )
 
 
@@ -641,8 +641,8 @@ _POSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1214,
-  serialized_end=1288,
+  serialized_start=1234,
+  serialized_end=1308,
 )
 
 
@@ -666,8 +666,8 @@ _ENVIRONMENTREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1290,
-  serialized_end=1310,
+  serialized_start=1310,
+  serialized_end=1330,
 )
 
 
@@ -698,8 +698,8 @@ _MOCAPSTREAMREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1312,
-  serialized_end=1345,
+  serialized_start=1332,
+  serialized_end=1365,
 )
 
 
@@ -737,8 +737,8 @@ _MOCAPSTREAMRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1347,
-  serialized_end=1416,
+  serialized_start=1367,
+  serialized_end=1436,
 )
 
 
@@ -751,7 +751,7 @@ _STRUCTUREREQUEST = _descriptor.Descriptor(
   create_key=_descriptor._internal_create_key,
   fields=[
     _descriptor.FieldDescriptor(
-      name='id', full_name='Mocap.StructureRequest.id', index=0,
+      name='structureId', full_name='Mocap.StructureRequest.structureId', index=0,
       number=1, type=13, cpp_type=3, label=3,
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
@@ -769,8 +769,8 @@ _STRUCTUREREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1418,
-  serialized_end=1448,
+  serialized_start=1438,
+  serialized_end=1477,
 )
 
 
@@ -801,8 +801,8 @@ _STRUCTURERESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1450,
-  serialized_end=1507,
+  serialized_start=1479,
+  serialized_end=1536,
 )
 
 _ENVIRONMENT.fields_by_name['distUnits'].enum_type = _ENVIRONMENT_DISTANCEUNITS
@@ -811,7 +811,7 @@ _ENVIRONMENT.fields_by_name['directionType'].enum_type = _ENVIRONMENT_DIRECTIONT
 _ENVIRONMENT_DIRECTIONTYPE.containing_type = _ENVIRONMENT
 _ENVIRONMENT_DISTANCEUNITS.containing_type = _ENVIRONMENT
 _ENVIRONMENT_TIMEUNITS.containing_type = _ENVIRONMENT
-_ORIENTATION.fields_by_name['type'].enum_type = _ORIENTATION_ROTATIONTYPE
+_ORIENTATION.fields_by_name['rotationType'].enum_type = _ORIENTATION_ROTATIONTYPE
 _ORIENTATION_ROTATIONTYPE.containing_type = _ORIENTATION
 _TRANSFORM.fields_by_name['translation'].message_type = _TRANSLATION
 _TRANSFORM.fields_by_name['orientation'].message_type = _ORIENTATION
@@ -947,8 +947,8 @@ _MOCAPSERVER = _descriptor.ServiceDescriptor(
   index=0,
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_start=1558,
-  serialized_end=1784,
+  serialized_start=1587,
+  serialized_end=1813,
   methods=[
   _descriptor.MethodDescriptor(
     name='GetEnvironment',

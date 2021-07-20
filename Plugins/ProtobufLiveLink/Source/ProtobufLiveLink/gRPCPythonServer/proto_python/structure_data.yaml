@@ -1,29 +1,83 @@
 ---
-- structureId: 1
+- structureId: 0
   structureType: HUMAN
-  name: Test_1
+  name: Test_0
   links:
-  - name: Link_1
-    linkId: 1
-    parentLinkId: 0
+  - name: Link_0
+    linkId: 0
+    parentLinkId: -1
     offset:
       translation:
         x: 0
         y: 0
         z: 0
       orientation:
-        type: EULER_XYZ
-        values:
+        rotationType: EULER_XYZ
+        rotationValues:
         - 0
         - 0
         - 0
     mass: 1
-    size: []
+    linkSize: []
     inertialMatrix: []
   joints:
+  - jointId: 0
+    linkId: 0
+    name: root
   - jointId: 1
-    linkId: 1
-    name: Joint_1
+    linkId: 0
+    name: Hips
   - jointId: 2
-    linkId: 1
-    name: Joint_2
+    linkId: 0
+    name: Spine2
+  - jointId: 3
+    linkId: 0
+    name: Neck
+  - jointId: 4
+    linkId: 0
+    name: RightShoulder
+  - jointId: 5
+    linkId: 0
+    name: RightArm
+  - jointId: 6
+    linkId: 0
+    name: RightForeArm
+  - jointId: 7
+    linkId: 0
+    name: RightHand
+  - jointId: 8
+    linkId: 0
+    name: LeftShoulder
+  - jointId: 9
+    linkId: 0
+    name: LeftArm
+  - jointId: 10
+    linkId: 0
+    name: LeftForeArm
+  - jointId: 11
+    linkId: 0
+    name: LeftHand
+  - jointId: 12
+    linkId: 0
+    name: RightUpLeg
+  - jointId: 13
+    linkId: 0
+    name: RightLeg
+  - jointId: 14
+    linkId: 0
+    name: RightFoot
+  - jointId: 15
+    linkId: 0
+    name: RightToeBase
+  - jointId: 16
+    linkId: 0
+    name: LeftUpLeg
+  - jointId: 17
+    linkId: 0
+    name: LeftLeg
+  - jointId: 18
+    linkId: 0
+    name: LeftFoot
+  - jointId: 19
+    linkId: 0
+    name: LeftToeBase

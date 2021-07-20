@@ -10,7 +10,7 @@ from proto_python import MocapExchange_pb2_grpc
 
 def get_structure(stub):
     request = MocapExchange_pb2.StructureRequest(
-        id = [0, 1, 2]
+        structureId = [0, 1, 2]
     )
 
     response = stub.GetStructure(request)
@@ -27,7 +27,7 @@ def get_mocap_stream(stub):
 
     for response in responses:
         print("______________")
-        print(len(response.poses))
+        print(response.poses)
 
 def run():
     with grpc.insecure_channel('localhost:54321') as channel:

@@ -1,55 +1,271 @@
 ---
+- subjectId: 0
+  timestamp: 2
+  joints:
+  - jointId: 0
+    transform:
+      translation:
+        x: 0
+        y: -3.163
+        z: 0
+      orientation:
+        rotationType: EULER_XYZ
+        rotationValues:
+        - 0
+        - 0
+        - 0
+  - jointId: 1
+    transform:
+      translation:
+        x: 0
+        y: 0
+        z: 0.959491
+      orientation:
+        rotationType: EULER_XYZ
+        rotationValues:
+        - 89.999992
+        - 0
+        - 0
+  - jointId: 2
+    transform:
+      translation:
+        x: 0
+        y: -0.206802
+        z: 0
+      orientation:
+        rotationType: EULER_XYZ
+        rotationValues:
+        - 0
+        - 0
+        - 0
+  - jointId: 3
+    transform:
+      translation:
+        x: 0
+        y: -0.095262
+        z: 0
+      orientation:
+        rotationType: EULER_XYZ
+        rotationValues:
+        - 0
+        - 0
+        - 0
+  - jointId: 4
+    transform:
+      translation:
+        x: 0
+        y: -0.1387
+        z: 0
+      orientation:
+        rotationType: EULER_XYZ
+        rotationValues:
+        - 0.000104
+        - -0.118661
+        - -90.094421
+  - jointId: 5
+    transform:
+      translation:
+        x: 0.000295
+        y: -0.1789
+        z: 0
+      orientation:
+        rotationType: EULER_XYZ
+        rotationValues:
+        - -0.247933
+        - 0.052312
+        - 0.028362
+  - jointId: 6
+    transform:
+      translation:
+        x: 1.0e-06
+        y: -0.255372
+        z: 6.6e-05
+      orientation:
+        rotationType: EULER_XYZ
+        rotationValues:
+        - 0.468496
+        - 0.066068
+        - 0.066406
+  - jointId: 7
+    transform:
+      translation:
+        x: 0
+        y: -0.269843
+        z: 0
+      orientation:
+        rotationType: EULER_XYZ
+        rotationValues:
+        - -0.220532
+        - 0
+        - -5.7e-05
+  - jointId: 8
+    transform:
+      translation:
+        x: 0
+        y: -0.1387
+        z: 0
+      orientation:
+        rotationType: EULER_XYZ
+        rotationValues:
+        - 0.000104
+        - 0.118661
+        - 90.094421
+  - jointId: 9
+    transform:
+      translation:
+        x: -0.000295
+        y: -0.1789
+        z: 0
+      orientation:
+        rotationType: EULER_XYZ
+        rotationValues:
+        - -0.247933
+        - -0.052312
+        - -0.028362
+  - jointId: 10
+    transform:
+      translation:
+        x: -1.0e-06
+        y: -0.255372
+        z: 6.6e-05
+      orientation:
+        rotationType: EULER_XYZ
+        rotationValues:
+        - 0.468496
+        - -0.066068
+        - -0.066406
+  - jointId: 11
+    transform:
+      translation:
+        x: 0
+        y: -0.269843
+        z: 0
+      orientation:
+        rotationType: EULER_XYZ
+        rotationValues:
+        - -0.220532
+        - 0
+        - 5.7e-05
+  - jointId: 12
+    transform:
+      translation:
+        x: -0.112593
+        y: 0
+        z: 0
+      orientation:
+        rotationType: EULER_XYZ
+        rotationValues:
+        - 179.915131
+        - 0
+        - 0
+  - jointId: 13
+    transform:
+      translation:
+        x: 0
+        y: -0.445236
+        z: 0
+      orientation:
+        rotationType: EULER_XYZ
+        rotationValues:
+        - 0.170856
+        - 0
+        - 0
+  - jointId: 14
+    transform:
+      translation:
+        x: 0
+        y: -0.439291
+        z: 0
+      orientation:
+        rotationType: EULER_XYZ
+        rotationValues:
+        - 0
+        - 0
+        - 0
+  - jointId: 15
+    transform:
+      translation:
+        x: 0
+        y: -0.130572
+        z: 1.0e-06
+      orientation:
+        rotationType: EULER_XYZ
+        rotationValues:
+        - -144.964386
+        - -6.8e-05
+        - -179.999893
+  - jointId: 16
+    transform:
+      translation:
+        x: 0.112593
+        y: 0
+        z: 0
+      orientation:
+        rotationType: EULER_XYZ
+        rotationValues:
+        - 179.915131
+        - 0
+        - 0
+  - jointId: 17
+    transform:
+      translation:
+        x: 0
+        y: -0.445236
+        z: 0
+      orientation:
+        rotationType: EULER_XYZ
+        rotationValues:
+        - 0.170856
+        - 0
+        - 0
+  - jointId: 18
+    transform:
+      translation:
+        x: 0
+        y: -0.439291
+        z: 0
+      orientation:
+        rotationType: EULER_XYZ
+        rotationValues:
+        - -56.385399
+        - 0
+        - 0
+  - jointId: 19
+    transform:
+      translation:
+        x: 0
+        y: -0.130572
+        z: 1.0e-06
+      orientation:
+        rotationType: EULER_XYZ
+        rotationValues:
+        - -144.964386
+        - 6.8e-05
+        - 179.999893
 - subjectId: 1
   timestamp: 2
   joints:
-  - jointId: 1
+  - jointId: 0
     transform:
       translation:
         x: 1
         y: 1
         z: 1
       orientation:
-        type: EULER_XYZ
-        values:
+        rotationType: EULER_XYZ
+        rotationValues:
         - 0
         - 0
         - 0
-  - jointId: 2
-    transform:
-      translation:
-        x: 2
-        y: 2
-        z: 2
-      orientation:
-        type: EULER_XYZ
-        values:
-        - 0
-        - 0
-        - 0
-- subjectId: 2
-  timestamp: 2
-  joints:
   - jointId: 1
     transform:
       translation:
-        x: 1
-        y: 1
-        z: 1
-      orientation:
-        type: EULER_XYZ
-        values:
-        - 0
-        - 0
-        - 0
-  - jointId: 2
-    transform:
-      translation:
         x: 2
         y: 2
         z: 2
       orientation:
-        type: EULER_XYZ
-        values:
+        rotationType: EULER_XYZ
+        rotationValues:
         - 0
         - 0
         - 0
