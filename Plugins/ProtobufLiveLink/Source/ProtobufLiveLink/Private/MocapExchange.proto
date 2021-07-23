@@ -53,6 +53,16 @@ message Orientation{
         EULER_YZX = 5;
         EULER_ZXY = 6;
         EULER_ZYX = 7;
+        EULER_XY = 8;
+        EULER_YX = 9;
+        EULER_XZ = 10;
+        EULER_ZX = 11;
+        EULER_YZ = 12;
+        EULER_ZY = 13;
+        EULER_X = 14;
+        EULER_Y = 15;
+        EULER_Z = 16;
+        NONE = 17;
     }
     RotationType rotationType = 1;
     repeated float rotationValues = 2;
@@ -60,7 +70,7 @@ message Orientation{
 
 
 message Transform {
-    Translation translation = 1;
+    optional Translation translation = 1;
     Orientation orientation = 2;
 }
 
