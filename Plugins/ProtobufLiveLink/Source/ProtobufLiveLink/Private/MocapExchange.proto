@@ -62,6 +62,7 @@ message Orientation{
         EULER_X = 14;
         EULER_Y = 15;
         EULER_Z = 16;
+        NONE = 17;
     }
     RotationType rotationType = 1;
     repeated float rotationValues = 2;
