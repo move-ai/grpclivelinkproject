@@ -2,7 +2,7 @@
 """Client and server classes corresponding to protobuf-defined services."""
 import grpc
 
-from proto_python import MocapExchange_pb2 as Plugins_dot_ProtobufLiveLink_dot_Source_dot_ProtobufLiveLink_dot_gRPCPythonServer_dot_proto__python_dot_MocapExchange__pb2
+from proto_python import MocapExchange_pb2 as proto__python_dot_MocapExchange__pb2
 
 
 class MocapServerStub(object):
@@ -16,18 +16,18 @@ class MocapServerStub(object):
         """
         self.GetEnvironment = channel.unary_unary(
                 '/Mocap.MocapServer/GetEnvironment',
-                request_serializer=Plugins_dot_ProtobufLiveLink_dot_Source_dot_ProtobufLiveLink_dot_gRPCPythonServer_dot_proto__python_dot_MocapExchange__pb2.EnvironmentRequest.SerializeToString,
-                response_deserializer=Plugins_dot_ProtobufLiveLink_dot_Source_dot_ProtobufLiveLink_dot_gRPCPythonServer_dot_proto__python_dot_MocapExchange__pb2.Environment.FromString,
+                request_serializer=proto__python_dot_MocapExchange__pb2.EnvironmentRequest.SerializeToString,
+                response_deserializer=proto__python_dot_MocapExchange__pb2.Environment.FromString,
                 )
         self.GetStructure = channel.unary_unary(
                 '/Mocap.MocapServer/GetStructure',
-                request_serializer=Plugins_dot_ProtobufLiveLink_dot_Source_dot_ProtobufLiveLink_dot_gRPCPythonServer_dot_proto__python_dot_MocapExchange__pb2.StructureRequest.SerializeToString,
-                response_deserializer=Plugins_dot_ProtobufLiveLink_dot_Source_dot_ProtobufLiveLink_dot_gRPCPythonServer_dot_proto__python_dot_MocapExchange__pb2.StructureResponse.FromString,
+                request_serializer=proto__python_dot_MocapExchange__pb2.StructureRequest.SerializeToString,
+                response_deserializer=proto__python_dot_MocapExchange__pb2.StructureResponse.FromString,
                 )
         self.GetMocapStream = channel.unary_stream(
                 '/Mocap.MocapServer/GetMocapStream',
-                request_serializer=Plugins_dot_ProtobufLiveLink_dot_Source_dot_ProtobufLiveLink_dot_gRPCPythonServer_dot_proto__python_dot_MocapExchange__pb2.MocapStreamRequest.SerializeToString,
-                response_deserializer=Plugins_dot_ProtobufLiveLink_dot_Source_dot_ProtobufLiveLink_dot_gRPCPythonServer_dot_proto__python_dot_MocapExchange__pb2.MocapStreamResponse.FromString,
+                request_serializer=proto__python_dot_MocapExchange__pb2.MocapStreamRequest.SerializeToString,
+                response_deserializer=proto__python_dot_MocapExchange__pb2.MocapStreamResponse.FromString,
                 )
 
 
@@ -57,18 +57,18 @@ def add_MocapServerServicer_to_server(servicer, server):
     rpc_method_handlers = {
             'GetEnvironment': grpc.unary_unary_rpc_method_handler(
                     servicer.GetEnvironment,
-                    request_deserializer=Plugins_dot_ProtobufLiveLink_dot_Source_dot_ProtobufLiveLink_dot_gRPCPythonServer_dot_proto__python_dot_MocapExchange__pb2.EnvironmentRequest.FromString,
-                    response_serializer=Plugins_dot_ProtobufLiveLink_dot_Source_dot_ProtobufLiveLink_dot_gRPCPythonServer_dot_proto__python_dot_MocapExchange__pb2.Environment.SerializeToString,
+                    request_deserializer=proto__python_dot_MocapExchange__pb2.EnvironmentRequest.FromString,
+                    response_serializer=proto__python_dot_MocapExchange__pb2.Environment.SerializeToString,
             ),
             'GetStructure': grpc.unary_unary_rpc_method_handler(
                     servicer.GetStructure,
-                    request_deserializer=Plugins_dot_ProtobufLiveLink_dot_Source_dot_ProtobufLiveLink_dot_gRPCPythonServer_dot_proto__python_dot_MocapExchange__pb2.StructureRequest.FromString,
-                    response_serializer=Plugins_dot_ProtobufLiveLink_dot_Source_dot_ProtobufLiveLink_dot_gRPCPythonServer_dot_proto__python_dot_MocapExchange__pb2.StructureResponse.SerializeToString,
+                    request_deserializer=proto__python_dot_MocapExchange__pb2.StructureRequest.FromString,
+                    response_serializer=proto__python_dot_MocapExchange__pb2.StructureResponse.SerializeToString,
             ),
             'GetMocapStream': grpc.unary_stream_rpc_method_handler(
                     servicer.GetMocapStream,
-                    request_deserializer=Plugins_dot_ProtobufLiveLink_dot_Source_dot_ProtobufLiveLink_dot_gRPCPythonServer_dot_proto__python_dot_MocapExchange__pb2.MocapStreamRequest.FromString,
-                    response_serializer=Plugins_dot_ProtobufLiveLink_dot_Source_dot_ProtobufLiveLink_dot_gRPCPythonServer_dot_proto__python_dot_MocapExchange__pb2.MocapStreamResponse.SerializeToString,
+                    request_deserializer=proto__python_dot_MocapExchange__pb2.MocapStreamRequest.FromString,
+                    response_serializer=proto__python_dot_MocapExchange__pb2.MocapStreamResponse.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -92,8 +92,8 @@ class MocapServer(object):
             timeout=None,
             metadata=None):
         return grpc.experimental.unary_unary(request, target, '/Mocap.MocapServer/GetEnvironment',
-            Plugins_dot_ProtobufLiveLink_dot_Source_dot_ProtobufLiveLink_dot_gRPCPythonServer_dot_proto__python_dot_MocapExchange__pb2.EnvironmentRequest.SerializeToString,
-            Plugins_dot_ProtobufLiveLink_dot_Source_dot_ProtobufLiveLink_dot_gRPCPythonServer_dot_proto__python_dot_MocapExchange__pb2.Environment.FromString,
+            proto__python_dot_MocapExchange__pb2.EnvironmentRequest.SerializeToString,
+            proto__python_dot_MocapExchange__pb2.Environment.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
@@ -109,8 +109,8 @@ class MocapServer(object):
             timeout=None,
             metadata=None):
         return grpc.experimental.unary_unary(request, target, '/Mocap.MocapServer/GetStructure',
-            Plugins_dot_ProtobufLiveLink_dot_Source_dot_ProtobufLiveLink_dot_gRPCPythonServer_dot_proto__python_dot_MocapExchange__pb2.StructureRequest.SerializeToString,
-            Plugins_dot_ProtobufLiveLink_dot_Source_dot_ProtobufLiveLink_dot_gRPCPythonServer_dot_proto__python_dot_MocapExchange__pb2.StructureResponse.FromString,
+            proto__python_dot_MocapExchange__pb2.StructureRequest.SerializeToString,
+            proto__python_dot_MocapExchange__pb2.StructureResponse.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
@@ -126,7 +126,7 @@ class MocapServer(object):
             timeout=None,
             metadata=None):
         return grpc.experimental.unary_stream(request, target, '/Mocap.MocapServer/GetMocapStream',
-            Plugins_dot_ProtobufLiveLink_dot_Source_dot_ProtobufLiveLink_dot_gRPCPythonServer_dot_proto__python_dot_MocapExchange__pb2.MocapStreamRequest.SerializeToString,
-            Plugins_dot_ProtobufLiveLink_dot_Source_dot_ProtobufLiveLink_dot_gRPCPythonServer_dot_proto__python_dot_MocapExchange__pb2.MocapStreamResponse.FromString,
+            proto__python_dot_MocapExchange__pb2.MocapStreamRequest.SerializeToString,
+            proto__python_dot_MocapExchange__pb2.MocapStreamResponse.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
