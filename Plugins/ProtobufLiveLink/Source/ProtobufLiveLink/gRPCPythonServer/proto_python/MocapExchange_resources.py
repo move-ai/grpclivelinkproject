@@ -1,7 +1,9 @@
 import yaml
 import json
+import pickle
 
 from proto_python import MocapExchange_pb2
+from proto_python import MocapExchange_pb2_grpc
 
 def read_poses_data():
     poses_list = []
@@ -83,3 +85,28 @@ def read_structure_data():
         response = MocapExchange_pb2.StructureResponse(structures = structure_list)
 
         return response
+
+def read_structure_data_pkl():
+    with open('proto_python/mocap.pkl', 'rb') as f:
+        data = pickle.load(f)
+        return data
+        
+
+data = read_structure_data_pkl()
+
+structure = MocapExchange_pb2.StructureResponse()
+structure.ParseFromString(data['model'])
+
+poses = MocapExchange_pb2.MocapStreamResponse()
+print(poses)
+
+for i, pose in enumerate(data['frames_poses']):
+    print(f"__________FRAME {i}____________")
+    poses.ParseFromString(pose)
+
+    for i, joint in enumerate(poses.poses[0].joints):
+        print('ORIENTATION')
+        print(poses.poses[0].joints[i].transform.orientation)
+        print('TRANSLATION')
+        print(poses.poses[0].joints[i].transform.translation)
+        # print(poses.poses[0].joints[i].transform)

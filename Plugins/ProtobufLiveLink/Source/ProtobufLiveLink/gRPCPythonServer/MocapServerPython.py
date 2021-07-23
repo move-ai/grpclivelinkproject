@@ -22,6 +22,8 @@ class MocapServerServicer(MocapExchange_pb2_grpc.MocapServerServicer):
             new_response = MocapExchange_pb2.MocapStreamResponse()
             new_response.CopyFrom(self.mocap_stream[0])
             new_response.poses[0].joints[5].transform.orientation.rotationValues[0] = i*10
+            new_response.poses[0].joints[5].transform.translation.x = i*10
+            new_response.poses[0].joints[0].transform.translation.x = i
             self.mocap_stream.append(new_response)
         
         for i in range(1, 2):
