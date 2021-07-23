@@ -5,6 +5,7 @@
 
 #include <algorithm>
 THIRD_PARTY_INCLUDES_START
+
 #include <google/protobuf/io/coded_stream.h>
 #include <google/protobuf/extension_set.h>
 #include <google/protobuf/wire_format_lite.h>
@@ -15,7 +16,6 @@ THIRD_PARTY_INCLUDES_START
 // @@protoc_insertion_point(includes)
 #include <google/protobuf/port_def.inc>
 THIRD_PARTY_INCLUDES_END
-
 PROTOBUF_PRAGMA_INIT_SEG
 namespace Mocap {
 constexpr Environment::Environment(
@@ -244,13 +244,15 @@ const ::PROTOBUF_NAMESPACE_ID::uint32 TableStruct_MocapExchange_2eproto::offsets
   ~0u,  // no _weak_field_map_
   PROTOBUF_FIELD_OFFSET(::Mocap::Orientation, rotationtype_),
   PROTOBUF_FIELD_OFFSET(::Mocap::Orientation, rotationvalues_),
-  ~0u,  // no _has_bits_
+  PROTOBUF_FIELD_OFFSET(::Mocap::Transform, _has_bits_),
   PROTOBUF_FIELD_OFFSET(::Mocap::Transform, _internal_metadata_),
   ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
   PROTOBUF_FIELD_OFFSET(::Mocap::Transform, translation_),
   PROTOBUF_FIELD_OFFSET(::Mocap::Transform, orientation_),
+  0,
+  ~0u,
   ~0u,  // no _has_bits_
   PROTOBUF_FIELD_OFFSET(::Mocap::Link, _internal_metadata_),
   ~0u,  // no _extensions_
@@ -331,17 +333,17 @@ static const ::PROTOBUF_NAMESPACE_ID::internal::MigrationSchema schemas[] PROTOB
   { 0, -1, sizeof(::Mocap::Environment)},
   { 9, -1, sizeof(::Mocap::Translation)},
   { 17, -1, sizeof(::Mocap::Orientation)},
-  { 24, -1, sizeof(::Mocap::Transform)},
-  { 31, -1, sizeof(::Mocap::Link)},
-  { 43, -1, sizeof(::Mocap::JointMeta)},
-  { 51, -1, sizeof(::Mocap::Structure)},
-  { 61, -1, sizeof(::Mocap::Joint)},
-  { 68, -1, sizeof(::Mocap::Pose)},
-  { 76, -1, sizeof(::Mocap::EnvironmentRequest)},
-  { 81, -1, sizeof(::Mocap::MocapStreamRequest)},
-  { 87, -1, sizeof(::Mocap::MocapStreamResponse)},
-  { 94, -1, sizeof(::Mocap::StructureRequest)},
-  { 100, -1, sizeof(::Mocap::StructureResponse)},
+  { 24, 31, sizeof(::Mocap::Transform)},
+  { 33, -1, sizeof(::Mocap::Link)},
+  { 45, -1, sizeof(::Mocap::JointMeta)},
+  { 53, -1, sizeof(::Mocap::Structure)},
+  { 63, -1, sizeof(::Mocap::Joint)},
+  { 70, -1, sizeof(::Mocap::Pose)},
+  { 78, -1, sizeof(::Mocap::EnvironmentRequest)},
+  { 83, -1, sizeof(::Mocap::MocapStreamRequest)},
+  { 89, -1, sizeof(::Mocap::MocapStreamResponse)},
+  { 96, -1, sizeof(::Mocap::StructureRequest)},
+  { 102, -1, sizeof(::Mocap::StructureResponse)},
 };
 
 static ::PROTOBUF_NAMESPACE_ID::Message const * const file_default_instances[] = {
@@ -371,45 +373,49 @@ const char descriptor_table_protodef_MocapExchange_2eproto[] PROTOBUF_SECTION_VA
   "\tLEFT_HAND\020\000\022\016\n\nRIGHT_HAND\020\001\"&\n\rDistance"
   "Units\022\006\n\002MM\020\000\022\006\n\002CM\020\001\022\005\n\001M\020\002\"(\n\tTimeUnit"
   "s\022\007\n\003SEC\020\000\022\010\n\004MILS\020\001\022\010\n\004NSEC\020\002\".\n\013Transl"
-  "ation\022\t\n\001x\030\001 \001(\002\022\t\n\001y\030\002 \001(\002\022\t\n\001z\030\003 \001(\002\"\343"
-  "\001\n\013Orientation\0225\n\014rotationType\030\001 \001(\0162\037.M"
+  "ation\022\t\n\001x\030\001 \001(\002\022\t\n\001y\030\002 \001(\002\022\t\n\001z\030\003 \001(\002\"\336"
+  "\002\n\013Orientation\0225\n\014rotationType\030\001 \001(\0162\037.M"
   "ocap.Orientation.RotationType\022\026\n\016rotatio"
-  "nValues\030\002 \003(\002\"\204\001\n\014RotationType\022\016\n\nQUATER"
+  "nValues\030\002 \003(\002\"\377\001\n\014RotationType\022\016\n\nQUATER"
   "NION\020\000\022\n\n\006MATRIX\020\001\022\r\n\tEULER_XYZ\020\002\022\r\n\tEUL"
   "ER_XZY\020\003\022\r\n\tEULER_YXZ\020\004\022\r\n\tEULER_YZX\020\005\022\r"
-  "\n\tEULER_ZXY\020\006\022\r\n\tEULER_ZYX\020\007\"]\n\tTransfor"
-  "m\022\'\n\013translation\030\001 \001(\0132\022.Mocap.Translati"
-  "on\022\'\n\013orientation\030\002 \001(\0132\022.Mocap.Orientat"
-  "ion\"\224\001\n\004Link\022\014\n\004name\030\001 \001(\t\022\016\n\006linkId\030\002 \001"
-  "(\r\022\024\n\014parentLinkId\030\003 \001(\005\022 \n\006offset\030\004 \001(\013"
-  "2\020.Mocap.Transform\022\014\n\004mass\030\005 \001(\002\022\020\n\010link"
-  "Size\030\006 \003(\002\022\026\n\016inertialMatrix\030\007 \003(\002\":\n\tJo"
-  "intMeta\022\017\n\007jointId\030\001 \001(\r\022\016\n\006linkId\030\002 \001(\r"
-  "\022\014\n\004name\030\003 \001(\t\"\231\001\n\tStructure\022\023\n\013structur"
-  "eId\030\001 \001(\r\022+\n\rstructureType\030\002 \001(\0162\024.Mocap"
-  ".StructureType\022\014\n\004name\030\003 \001(\t\022\032\n\005links\030\004 "
-  "\003(\0132\013.Mocap.Link\022 \n\006joints\030\005 \003(\0132\020.Mocap"
-  ".JointMeta\"=\n\005Joint\022\017\n\007jointId\030\001 \001(\r\022#\n\t"
-  "transform\030\002 \001(\0132\020.Mocap.Transform\"J\n\004Pos"
-  "e\022\021\n\tsubjectId\030\001 \001(\r\022\021\n\ttimestamp\030\002 \001(\004\022"
-  "\034\n\006joints\030\003 \003(\0132\014.Mocap.Joint\"\024\n\022Environ"
-  "mentRequest\"!\n\022MocapStreamRequest\022\013\n\003fps"
-  "\030\001 \001(\002\"E\n\023MocapStreamResponse\022\032\n\005poses\030\001"
-  " \003(\0132\013.Mocap.Pose\022\022\n\nserverTime\030\002 \001(\002\"\'\n"
-  "\020StructureRequest\022\023\n\013structureId\030\001 \003(\r\"9"
-  "\n\021StructureResponse\022$\n\nstructures\030\001 \003(\0132"
-  "\020.Mocap.Structure*.\n\rStructureType\022\t\n\005HU"
-  "MAN\020\000\022\010\n\004BALL\020\001\022\010\n\004BIKE\020\0022\342\001\n\013MocapServe"
-  "r\022A\n\016GetEnvironment\022\031.Mocap.EnvironmentR"
-  "equest\032\022.Mocap.Environment\"\000\022C\n\014GetStruc"
-  "ture\022\027.Mocap.StructureRequest\032\030.Mocap.St"
-  "ructureResponse\"\000\022K\n\016GetMocapStream\022\031.Mo"
-  "cap.MocapStreamRequest\032\032.Mocap.MocapStre"
-  "amResponse\"\0000\001b\006proto3"
+  "\n\tEULER_ZXY\020\006\022\r\n\tEULER_ZYX\020\007\022\014\n\010EULER_XY"
+  "\020\010\022\014\n\010EULER_YX\020\t\022\014\n\010EULER_XZ\020\n\022\014\n\010EULER_"
+  "ZX\020\013\022\014\n\010EULER_YZ\020\014\022\014\n\010EULER_ZY\020\r\022\013\n\007EULE"
+  "R_X\020\016\022\013\n\007EULER_Y\020\017\022\013\n\007EULER_Z\020\020\"r\n\tTrans"
+  "form\022,\n\013translation\030\001 \001(\0132\022.Mocap.Transl"
+  "ationH\000\210\001\001\022\'\n\013orientation\030\002 \001(\0132\022.Mocap."
+  "OrientationB\016\n\014_translation\"\224\001\n\004Link\022\014\n\004"
+  "name\030\001 \001(\t\022\016\n\006linkId\030\002 \001(\r\022\024\n\014parentLink"
+  "Id\030\003 \001(\005\022 \n\006offset\030\004 \001(\0132\020.Mocap.Transfo"
+  "rm\022\014\n\004mass\030\005 \001(\002\022\020\n\010linkSize\030\006 \003(\002\022\026\n\016in"
+  "ertialMatrix\030\007 \003(\002\":\n\tJointMeta\022\017\n\007joint"
+  "Id\030\001 \001(\r\022\016\n\006linkId\030\002 \001(\r\022\014\n\004name\030\003 \001(\t\"\231"
+  "\001\n\tStructure\022\023\n\013structureId\030\001 \001(\r\022+\n\rstr"
+  "uctureType\030\002 \001(\0162\024.Mocap.StructureType\022\014"
+  "\n\004name\030\003 \001(\t\022\032\n\005links\030\004 \003(\0132\013.Mocap.Link"
+  "\022 \n\006joints\030\005 \003(\0132\020.Mocap.JointMeta\"=\n\005Jo"
+  "int\022\017\n\007jointId\030\001 \001(\r\022#\n\ttransform\030\002 \001(\0132"
+  "\020.Mocap.Transform\"J\n\004Pose\022\021\n\tsubjectId\030\001"
+  " \001(\r\022\021\n\ttimestamp\030\002 \001(\004\022\034\n\006joints\030\003 \003(\0132"
+  "\014.Mocap.Joint\"\024\n\022EnvironmentRequest\"!\n\022M"
+  "ocapStreamRequest\022\013\n\003fps\030\001 \001(\002\"E\n\023MocapS"
+  "treamResponse\022\032\n\005poses\030\001 \003(\0132\013.Mocap.Pos"
+  "e\022\022\n\nserverTime\030\002 \001(\002\"\'\n\020StructureReques"
+  "t\022\023\n\013structureId\030\001 \003(\r\"9\n\021StructureRespo"
+  "nse\022$\n\nstructures\030\001 \003(\0132\020.Mocap.Structur"
+  "e*.\n\rStructureType\022\t\n\005HUMAN\020\000\022\010\n\004BALL\020\001\022"
+  "\010\n\004BIKE\020\0022\342\001\n\013MocapServer\022A\n\016GetEnvironm"
+  "ent\022\031.Mocap.EnvironmentRequest\032\022.Mocap.E"
+  "nvironment\"\000\022C\n\014GetStructure\022\027.Mocap.Str"
+  "uctureRequest\032\030.Mocap.StructureResponse\""
+  "\000\022K\n\016GetMocapStream\022\031.Mocap.MocapStreamR"
+  "equest\032\032.Mocap.MocapStreamResponse\"\0000\001b\006"
+  "proto3"
   ;
 static ::PROTOBUF_NAMESPACE_ID::internal::once_flag descriptor_table_MocapExchange_2eproto_once;
 const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_MocapExchange_2eproto = {
-  false, false, 1742, descriptor_table_protodef_MocapExchange_2eproto, "MocapExchange.proto", 
+  false, false, 1886, descriptor_table_protodef_MocapExchange_2eproto, "MocapExchange.proto", 
   &descriptor_table_MocapExchange_2eproto_once, nullptr, 0, 14,
   schemas, file_default_instances, TableStruct_MocapExchange_2eproto::offsets,
   file_level_metadata_MocapExchange_2eproto, file_level_enum_descriptors_MocapExchange_2eproto, file_level_service_descriptors_MocapExchange_2eproto,
@@ -502,6 +508,15 @@ bool Orientation_RotationType_IsValid(int value) {
     case 5:
     case 6:
     case 7:
+    case 8:
+    case 9:
+    case 10:
+    case 11:
+    case 12:
+    case 13:
+    case 14:
+    case 15:
+    case 16:
       return true;
     default:
       return false;
@@ -517,6 +532,15 @@ constexpr Orientation_RotationType Orientation::EULER_YXZ;
 constexpr Orientation_RotationType Orientation::EULER_YZX;
 constexpr Orientation_RotationType Orientation::EULER_ZXY;
 constexpr Orientation_RotationType Orientation::EULER_ZYX;
+constexpr Orientation_RotationType Orientation::EULER_XY;
+constexpr Orientation_RotationType Orientation::EULER_YX;
+constexpr Orientation_RotationType Orientation::EULER_XZ;
+constexpr Orientation_RotationType Orientation::EULER_ZX;
+constexpr Orientation_RotationType Orientation::EULER_YZ;
+constexpr Orientation_RotationType Orientation::EULER_ZY;
+constexpr Orientation_RotationType Orientation::EULER_X;
+constexpr Orientation_RotationType Orientation::EULER_Y;
+constexpr Orientation_RotationType Orientation::EULER_Z;
 constexpr Orientation_RotationType Orientation::RotationType_MIN;
 constexpr Orientation_RotationType Orientation::RotationType_MAX;
 constexpr int Orientation::RotationType_ARRAYSIZE;
@@ -1263,7 +1287,11 @@ void Orientation::InternalSwap(Orientation* other) {
 
 class Transform::_Internal {
  public:
+  using HasBits = decltype(std::declval<Transform>()._has_bits_);
   static const ::Mocap::Translation& translation(const Transform* msg);
+  static void set_has_translation(HasBits* has_bits) {
+    (*has_bits)[0] |= 1u;
+  }
   static const ::Mocap::Orientation& orientation(const Transform* msg);
 };
 
@@ -1285,7 +1313,8 @@ Transform::Transform(::PROTOBUF_NAMESPACE_ID::Arena* arena,
   // @@protoc_insertion_point(arena_constructor:Mocap.Transform)
 }
 Transform::Transform(const Transform& from)
-  : ::PROTOBUF_NAMESPACE_ID::Message() {
+  : ::PROTOBUF_NAMESPACE_ID::Message(),
+      _has_bits_(from._has_bits_) {
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
   if (from._internal_has_translation()) {
     translation_ = new ::Mocap::Translation(*from.translation_);
@@ -1336,24 +1365,27 @@ void Transform::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  if (GetArenaForAllocation() == nullptr && translation_ != nullptr) {
-    delete translation_;
+  cached_has_bits = _has_bits_[0];
+  if (cached_has_bits & 0x00000001u) {
+    GOOGLE_DCHECK(translation_ != nullptr);
+    translation_->Clear();
   }
-  translation_ = nullptr;
   if (GetArenaForAllocation() == nullptr && orientation_ != nullptr) {
     delete orientation_;
   }
   orientation_ = nullptr;
+  _has_bits_.Clear();
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
 const char* Transform::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  _Internal::HasBits has_bits{};
   while (!ctx->Done(&ptr)) {
     ::PROTOBUF_NAMESPACE_ID::uint32 tag;
     ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
     switch (tag >> 3) {
-      // .Mocap.Translation translation = 1;
+      // optional .Mocap.Translation translation = 1;
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 10)) {
           ptr = ctx->ParseMessage(_internal_mutable_translation(), ptr);
@@ -1383,6 +1415,7 @@ const char* Transform::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::
     }  // switch
   }  // while
 success:
+  _has_bits_.Or(has_bits);
   return ptr;
 failure:
   ptr = nullptr;
@@ -1396,8 +1429,8 @@ failure:
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
-  // .Mocap.Translation translation = 1;
-  if (this->_internal_has_translation()) {
+  // optional .Mocap.Translation translation = 1;
+  if (_internal_has_translation()) {
     target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(
@@ -1428,8 +1461,9 @@ size_t Transform::ByteSizeLong() const {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  // .Mocap.Translation translation = 1;
-  if (this->_internal_has_translation()) {
+  // optional .Mocap.Translation translation = 1;
+  cached_has_bits = _has_bits_[0];
+  if (cached_has_bits & 0x00000001u) {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
         *translation_);
@@ -1493,6 +1527,7 @@ bool Transform::IsInitialized() const {
 void Transform::InternalSwap(Transform* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  swap(_has_bits_[0], other->_has_bits_[0]);
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
       PROTOBUF_FIELD_OFFSET(Transform, orientation_)
       + sizeof(Transform::orientation_)

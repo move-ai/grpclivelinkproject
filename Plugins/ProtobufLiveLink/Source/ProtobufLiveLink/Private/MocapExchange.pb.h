@@ -204,12 +204,21 @@ enum Orientation_RotationType : int {
   Orientation_RotationType_EULER_YZX = 5,
   Orientation_RotationType_EULER_ZXY = 6,
   Orientation_RotationType_EULER_ZYX = 7,
+  Orientation_RotationType_EULER_XY = 8,
+  Orientation_RotationType_EULER_YX = 9,
+  Orientation_RotationType_EULER_XZ = 10,
+  Orientation_RotationType_EULER_ZX = 11,
+  Orientation_RotationType_EULER_YZ = 12,
+  Orientation_RotationType_EULER_ZY = 13,
+  Orientation_RotationType_EULER_X = 14,
+  Orientation_RotationType_EULER_Y = 15,
+  Orientation_RotationType_EULER_Z = 16,
   Orientation_RotationType_Orientation_RotationType_INT_MIN_SENTINEL_DO_NOT_USE_ = std::numeric_limits<::PROTOBUF_NAMESPACE_ID::int32>::min(),
   Orientation_RotationType_Orientation_RotationType_INT_MAX_SENTINEL_DO_NOT_USE_ = std::numeric_limits<::PROTOBUF_NAMESPACE_ID::int32>::max()
 };
 bool Orientation_RotationType_IsValid(int value);
 constexpr Orientation_RotationType Orientation_RotationType_RotationType_MIN = Orientation_RotationType_QUATERNION;
-constexpr Orientation_RotationType Orientation_RotationType_RotationType_MAX = Orientation_RotationType_EULER_ZYX;
+constexpr Orientation_RotationType Orientation_RotationType_RotationType_MAX = Orientation_RotationType_EULER_Z;
 constexpr int Orientation_RotationType_RotationType_ARRAYSIZE = Orientation_RotationType_RotationType_MAX + 1;
 
 const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* Orientation_RotationType_descriptor();
@@ -810,6 +819,24 @@ class Orientation final :
     Orientation_RotationType_EULER_ZXY;
   static constexpr RotationType EULER_ZYX =
     Orientation_RotationType_EULER_ZYX;
+  static constexpr RotationType EULER_XY =
+    Orientation_RotationType_EULER_XY;
+  static constexpr RotationType EULER_YX =
+    Orientation_RotationType_EULER_YX;
+  static constexpr RotationType EULER_XZ =
+    Orientation_RotationType_EULER_XZ;
+  static constexpr RotationType EULER_ZX =
+    Orientation_RotationType_EULER_ZX;
+  static constexpr RotationType EULER_YZ =
+    Orientation_RotationType_EULER_YZ;
+  static constexpr RotationType EULER_ZY =
+    Orientation_RotationType_EULER_ZY;
+  static constexpr RotationType EULER_X =
+    Orientation_RotationType_EULER_X;
+  static constexpr RotationType EULER_Y =
+    Orientation_RotationType_EULER_Y;
+  static constexpr RotationType EULER_Z =
+    Orientation_RotationType_EULER_Z;
   static inline bool RotationType_IsValid(int value) {
     return Orientation_RotationType_IsValid(value);
   }
@@ -1004,7 +1031,7 @@ class Transform final :
     kTranslationFieldNumber = 1,
     kOrientationFieldNumber = 2,
   };
-  // .Mocap.Translation translation = 1;
+  // optional .Mocap.Translation translation = 1;
   bool has_translation() const;
   private:
   bool _internal_has_translation() const;
@@ -1047,9 +1074,10 @@ class Transform final :
   template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
   typedef void InternalArenaConstructable_;
   typedef void DestructorSkippable_;
+  ::PROTOBUF_NAMESPACE_ID::internal::HasBits<1> _has_bits_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   ::Mocap::Translation* translation_;
   ::Mocap::Orientation* orientation_;
-  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_MocapExchange_2eproto;
 };
 // -------------------------------------------------------------------
@@ -2953,18 +2981,18 @@ Orientation::mutable_rotationvalues() {
 
 // Transform
 
-// .Mocap.Translation translation = 1;
+// optional .Mocap.Translation translation = 1;
 inline bool Transform::_internal_has_translation() const {
-  return this != internal_default_instance() && translation_ != nullptr;
+  bool value = (_has_bits_[0] & 0x00000001u) != 0;
+  PROTOBUF_ASSUME(!value || translation_ != nullptr);
+  return value;
 }
 inline bool Transform::has_translation() const {
   return _internal_has_translation();
 }
 inline void Transform::clear_translation() {
-  if (GetArenaForAllocation() == nullptr && translation_ != nullptr) {
-    delete translation_;
-  }
-  translation_ = nullptr;
+  if (translation_ != nullptr) translation_->Clear();
+  _has_bits_[0] &= ~0x00000001u;
 }
 inline const ::Mocap::Translation& Transform::_internal_translation() const {
   const ::Mocap::Translation* p = translation_;
@@ -2982,14 +3010,14 @@ inline void Transform::unsafe_arena_set_allocated_translation(
   }
   translation_ = translation;
   if (translation) {
-    
+    _has_bits_[0] |= 0x00000001u;
   } else {
-    
+    _has_bits_[0] &= ~0x00000001u;
   }
   // @@protoc_insertion_point(field_unsafe_arena_set_allocated:Mocap.Transform.translation)
 }
 inline ::Mocap::Translation* Transform::release_translation() {
-  
+  _has_bits_[0] &= ~0x00000001u;
   ::Mocap::Translation* temp = translation_;
   translation_ = nullptr;
 #ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
@@ -3005,13 +3033,13 @@ inline ::Mocap::Translation* Transform::release_translation() {
 }
 inline ::Mocap::Translation* Transform::unsafe_arena_release_translation() {
   // @@protoc_insertion_point(field_release:Mocap.Transform.translation)
-  
+  _has_bits_[0] &= ~0x00000001u;
   ::Mocap::Translation* temp = translation_;
   translation_ = nullptr;
   return temp;
 }
 inline ::Mocap::Translation* Transform::_internal_mutable_translation() {
-  
+  _has_bits_[0] |= 0x00000001u;
   if (translation_ == nullptr) {
     auto* p = CreateMaybeMessage<::Mocap::Translation>(GetArenaForAllocation());
     translation_ = p;
@@ -3035,9 +3063,9 @@ inline void Transform::set_allocated_translation(::Mocap::Translation* translati
       translation = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
           message_arena, translation, submessage_arena);
     }
-    
+    _has_bits_[0] |= 0x00000001u;
   } else {
-    
+    _has_bits_[0] &= ~0x00000001u;
   }
   translation_ = translation;
   // @@protoc_insertion_point(field_set_allocated:Mocap.Transform.translation)
