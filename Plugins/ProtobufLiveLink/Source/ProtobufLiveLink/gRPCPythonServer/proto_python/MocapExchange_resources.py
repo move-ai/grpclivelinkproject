@@ -89,9 +89,9 @@ def read_structure_data():
 def read_structure_data_pkl():
     with open('proto_python/mocap.pkl', 'rb') as f:
         data = pickle.load(f)
-        structure = MocapExchange_pb2.StructureResponse()
-        structure.ParseFromString(data['model'])
-        return structure
+        structures = MocapExchange_pb2.StructureResponse()
+        structures.ParseFromString(data['model'])
+        return structures
         
 def read_frame_data_pkl():
     with open('proto_python/mocap.pkl', 'rb') as f:
@@ -105,10 +105,10 @@ def read_frame_data_pkl():
         return frames
 
 # Test
-structure = read_structure_data_pkl()
+# structure = read_structure_data_pkl()
 # print(structure)
 
-frames = read_frame_data_pkl()
+# frames = read_frame_data_pkl()
 
 # print(frames[0])
 

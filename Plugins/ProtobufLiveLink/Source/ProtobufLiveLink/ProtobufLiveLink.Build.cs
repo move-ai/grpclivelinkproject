@@ -32,7 +32,8 @@ public class ProtobufLiveLink : ModuleRules
 				"grpc",
 				"zlib",
 				"OpenSSL",
-				"cares"
+				"cares",
+				"LiveLink"
 			});
 	}
 }
