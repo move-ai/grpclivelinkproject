@@ -89,24 +89,26 @@ def read_structure_data():
 def read_structure_data_pkl():
     with open('proto_python/mocap.pkl', 'rb') as f:
         data = pickle.load(f)
-        return data
+        structure = MocapExchange_pb2.StructureResponse()
+        structure.ParseFromString(data['model'])
+        return structure
         
+def read_frame_data_pkl():
+    with open('proto_python/mocap.pkl', 'rb') as f:
+        data = pickle.load(f)
+        frames = []
+    
+        for frame in data['frames_poses']:
+            frames_data = MocapExchange_pb2.MocapStreamResponse()
+            frames_data.ParseFromString(frame)
+            frames.append(frames_data)
+        return frames
 
-data = read_structure_data_pkl()
+# Test
+structure = read_structure_data_pkl()
+# print(structure)
 
-structure = MocapExchange_pb2.StructureResponse()
-structure.ParseFromString(data['model'])
+frames = read_frame_data_pkl()
 
-poses = MocapExchange_pb2.MocapStreamResponse()
-print(poses)
+# print(frames[0])
 
-for i, pose in enumerate(data['frames_poses']):
-    print(f"__________FRAME {i}____________")
-    poses.ParseFromString(pose)
-
-    for i, joint in enumerate(poses.poses[0].joints):
-        print('ORIENTATION')
-        print(poses.poses[0].joints[i].transform.orientation)
-        print('TRANSLATION')
-        print(poses.poses[0].joints[i].transform.translation)
-        # print(poses.poses[0].joints[i].transform)
