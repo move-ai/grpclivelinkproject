@@ -82,28 +82,51 @@ void LiveLinkSubjectStream::OnNewPose(const Mocap::Pose &pose)
         FQuat boneQuat;
 
         // Rotation
-        switch (joint.transform().orientation().rotationtype()) {
-            case Mocap::Orientation::QUATERNION:
-                boneQuat.X = (float) joint.transform().orientation().rotationvalues(0);
-                boneQuat.Y = (float) joint.transform().orientation().rotationvalues(1);
-                boneQuat.Z = (float) joint.transform().orientation().rotationvalues(2);
-                boneQuat.W = (float) joint.transform().orientation().rotationvalues(3);
-                break;
-            case Mocap::Orientation::MATRIX:
-                break; // TODO
-            case Mocap::Orientation::EULER_XYZ:
-            case Mocap::Orientation::EULER_XZY:
-            case Mocap::Orientation::EULER_YXZ:
-            case Mocap::Orientation::EULER_YZX:
-            case Mocap::Orientation::EULER_ZXY:
-            case Mocap::Orientation::EULER_ZYX:
-                boneRotationEuler.X = (float) joint.transform().orientation().rotationvalues(0);
-                boneRotationEuler.Y = (float) joint.transform().orientation().rotationvalues(1);
-                boneRotationEuler.Z = (float) joint.transform().orientation().rotationvalues(2);
-                UE_LOG(LogTemp, Warning, TEXT("X Euler before conversion to quat: %f"), boneRotationEuler.X);
+        if (joint.transform().has_orientation()) {
+            switch (joint.transform().orientation().rotationtype()) {
+                case Mocap::Orientation::QUATERNION:
+                    boneQuat.X = (float) joint.transform().orientation().rotationvalues(0);
+                    boneQuat.Y = (float) joint.transform().orientation().rotationvalues(1);
+                    boneQuat.Z = (float) joint.transform().orientation().rotationvalues(2);
+                    boneQuat.W = (float) joint.transform().orientation().rotationvalues(3);
+                    break;
+                case Mocap::Orientation::MATRIX:
+                    break; // TODO
+                case Mocap::Orientation::EULER_XYZ:
+                case Mocap::Orientation::EULER_XZY:
+                case Mocap::Orientation::EULER_YXZ:
+                case Mocap::Orientation::EULER_YZX:
+                case Mocap::Orientation::EULER_ZXY:
+                case Mocap::Orientation::EULER_ZYX:
+                case Mocap::Orientation::EULER_XY:
+                case Mocap::Orientation::EULER_YX:
+                case Mocap::Orientation::EULER_XZ:
+                case Mocap::Orientation::EULER_ZX:
+                case Mocap::Orientation::EULER_YZ:
+                case Mocap::Orientation::EULER_ZY:
+                case Mocap::Orientation::EULER_X:
+                case Mocap::Orientation::EULER_Y:
+                case Mocap::Orientation::EULER_Z:
+                    boneRotationEuler.X = FMath::RadiansToDegrees((float) joint.transform().orientation().rotationvalues(0));
+                    boneRotationEuler.Y = FMath::RadiansToDegrees((float) joint.transform().orientation().rotationvalues(1));
+                    boneRotationEuler.Z = FMath::RadiansToDegrees((float) joint.transform().orientation().rotationvalues(2));
+                    UE_LOG(LogTemp, Warning, TEXT("X Euler before conversion to quat: %f"), boneRotationEuler.X);
 
-                boneQuat = FQuat::MakeFromEuler(boneRotationEuler);
-                break;
+                    boneQuat = FQuat::MakeFromEuler(boneRotationEuler);
+                    break;
+                case Mocap::Orientation::NONE:
+                    boneQuat.X = 0.0f;
+                    boneQuat.Y = 0.0f;
+                    boneQuat.Z = 0.0f;
+                    boneQuat.W = 1.0f;
+                    break;
+            }
+        }
+        else {
+            boneQuat.X = 0.0f;
+            boneQuat.Y = 0.0f;
+            boneQuat.Z = 0.0f;
+            boneQuat.W = 1.0f;            
         }
 
         UE_LOG(LogTemp, Warning, TEXT("Joint number: %d"), i)
@@ -111,7 +134,7 @@ void LiveLinkSubjectStream::OnNewPose(const Mocap::Pose &pose)
         UE_LOG(LogTemp, Warning, TEXT("boneLoc.Y: %f"), boneLoc.Y);
         UE_LOG(LogTemp, Warning, TEXT("boneLoc.Z: %f"), boneLoc.Z);
 
-        UE_LOG(LogTemp, Warning, TEXT("rotationvalues(0): %f"), joint.transform().orientation().rotationvalues(0));
+        // UE_LOG(LogTemp, Warning, TEXT("rotationvalues(0): %f"), joint.transform().orientation().rotationvalues(0));
 
         UE_LOG(LogTemp, Warning, TEXT("FQuat.X: %f"), boneQuat.X);
         UE_LOG(LogTemp, Warning, TEXT("FQuat.Y: %f"), boneQuat.Y);

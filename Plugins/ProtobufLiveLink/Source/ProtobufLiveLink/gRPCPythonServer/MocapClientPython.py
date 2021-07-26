@@ -19,7 +19,7 @@ def get_structure(stub):
     )
     response = stub.GetStructure(request)
     print("______________")
-    print(response)
+    print(response.structures[0])
     return response.SerializeToString()
 
 
@@ -34,7 +34,7 @@ def get_mocap_stream(stub):
     try:
         for response in responses:
             print(f"Received frame. n_poses = {len(response.poses)}" )
-            # print(response.poses)
+            # print(response.poses[0].joints[14].transform)
             frames.append(response.SerializeToString())
     except Exception as exp:
         print(exp)

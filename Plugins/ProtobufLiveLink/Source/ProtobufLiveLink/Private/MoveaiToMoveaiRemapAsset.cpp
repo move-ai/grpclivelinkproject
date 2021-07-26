@@ -7,7 +7,7 @@ FVector UMoveaiToMoveaiRemapAsset::ConvertRootPosition(FVector LLPosition) const
 {
     // Unreal uses cm, so apply x100 conversion factor
     return FVector(
-        LLPosition.X,
+        -LLPosition.X,
         LLPosition.Y,
         LLPosition.Z
     );
@@ -17,19 +17,20 @@ FVector UMoveaiToMoveaiRemapAsset::ConvertRootPosition(FVector LLPosition) const
 FQuat UMoveaiToMoveaiRemapAsset::ConvertRootRotation(FQuat LLRotation) const
 {
     return FQuat(
-        LLRotation.X,
+        LLRotation.X,        
+        -LLRotation.Z,
         LLRotation.Y,
-        LLRotation.Z,
         LLRotation.W
     );
 }
 
 FQuat UMoveaiToMoveaiRemapAsset::ConvertBoneRotation(FQuat LLRotation) const
 {
+    // q'=(-qx, -qy, qz, qw)
     return FQuat(
-        LLRotation.X,
-        LLRotation.Y,
-        LLRotation.Z,
+        -LLRotation.X,
+        -LLRotation.Z,
+        -LLRotation.Y,
         LLRotation.W
     );
 }

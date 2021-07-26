@@ -373,49 +373,49 @@ const char descriptor_table_protodef_MocapExchange_2eproto[] PROTOBUF_SECTION_VA
   "\tLEFT_HAND\020\000\022\016\n\nRIGHT_HAND\020\001\"&\n\rDistance"
   "Units\022\006\n\002MM\020\000\022\006\n\002CM\020\001\022\005\n\001M\020\002\"(\n\tTimeUnit"
   "s\022\007\n\003SEC\020\000\022\010\n\004MILS\020\001\022\010\n\004NSEC\020\002\".\n\013Transl"
-  "ation\022\t\n\001x\030\001 \001(\002\022\t\n\001y\030\002 \001(\002\022\t\n\001z\030\003 \001(\002\"\336"
+  "ation\022\t\n\001x\030\001 \001(\002\022\t\n\001y\030\002 \001(\002\022\t\n\001z\030\003 \001(\002\"\350"
   "\002\n\013Orientation\0225\n\014rotationType\030\001 \001(\0162\037.M"
   "ocap.Orientation.RotationType\022\026\n\016rotatio"
-  "nValues\030\002 \003(\002\"\377\001\n\014RotationType\022\016\n\nQUATER"
+  "nValues\030\002 \003(\002\"\211\002\n\014RotationType\022\016\n\nQUATER"
   "NION\020\000\022\n\n\006MATRIX\020\001\022\r\n\tEULER_XYZ\020\002\022\r\n\tEUL"
   "ER_XZY\020\003\022\r\n\tEULER_YXZ\020\004\022\r\n\tEULER_YZX\020\005\022\r"
   "\n\tEULER_ZXY\020\006\022\r\n\tEULER_ZYX\020\007\022\014\n\010EULER_XY"
   "\020\010\022\014\n\010EULER_YX\020\t\022\014\n\010EULER_XZ\020\n\022\014\n\010EULER_"
   "ZX\020\013\022\014\n\010EULER_YZ\020\014\022\014\n\010EULER_ZY\020\r\022\013\n\007EULE"
-  "R_X\020\016\022\013\n\007EULER_Y\020\017\022\013\n\007EULER_Z\020\020\"r\n\tTrans"
-  "form\022,\n\013translation\030\001 \001(\0132\022.Mocap.Transl"
-  "ationH\000\210\001\001\022\'\n\013orientation\030\002 \001(\0132\022.Mocap."
-  "OrientationB\016\n\014_translation\"\224\001\n\004Link\022\014\n\004"
-  "name\030\001 \001(\t\022\016\n\006linkId\030\002 \001(\r\022\024\n\014parentLink"
-  "Id\030\003 \001(\005\022 \n\006offset\030\004 \001(\0132\020.Mocap.Transfo"
-  "rm\022\014\n\004mass\030\005 \001(\002\022\020\n\010linkSize\030\006 \003(\002\022\026\n\016in"
-  "ertialMatrix\030\007 \003(\002\":\n\tJointMeta\022\017\n\007joint"
-  "Id\030\001 \001(\r\022\016\n\006linkId\030\002 \001(\r\022\014\n\004name\030\003 \001(\t\"\231"
-  "\001\n\tStructure\022\023\n\013structureId\030\001 \001(\r\022+\n\rstr"
-  "uctureType\030\002 \001(\0162\024.Mocap.StructureType\022\014"
-  "\n\004name\030\003 \001(\t\022\032\n\005links\030\004 \003(\0132\013.Mocap.Link"
-  "\022 \n\006joints\030\005 \003(\0132\020.Mocap.JointMeta\"=\n\005Jo"
-  "int\022\017\n\007jointId\030\001 \001(\r\022#\n\ttransform\030\002 \001(\0132"
-  "\020.Mocap.Transform\"J\n\004Pose\022\021\n\tsubjectId\030\001"
-  " \001(\r\022\021\n\ttimestamp\030\002 \001(\004\022\034\n\006joints\030\003 \003(\0132"
-  "\014.Mocap.Joint\"\024\n\022EnvironmentRequest\"!\n\022M"
-  "ocapStreamRequest\022\013\n\003fps\030\001 \001(\002\"E\n\023MocapS"
-  "treamResponse\022\032\n\005poses\030\001 \003(\0132\013.Mocap.Pos"
-  "e\022\022\n\nserverTime\030\002 \001(\002\"\'\n\020StructureReques"
-  "t\022\023\n\013structureId\030\001 \003(\r\"9\n\021StructureRespo"
-  "nse\022$\n\nstructures\030\001 \003(\0132\020.Mocap.Structur"
-  "e*.\n\rStructureType\022\t\n\005HUMAN\020\000\022\010\n\004BALL\020\001\022"
-  "\010\n\004BIKE\020\0022\342\001\n\013MocapServer\022A\n\016GetEnvironm"
-  "ent\022\031.Mocap.EnvironmentRequest\032\022.Mocap.E"
-  "nvironment\"\000\022C\n\014GetStructure\022\027.Mocap.Str"
-  "uctureRequest\032\030.Mocap.StructureResponse\""
-  "\000\022K\n\016GetMocapStream\022\031.Mocap.MocapStreamR"
-  "equest\032\032.Mocap.MocapStreamResponse\"\0000\001b\006"
-  "proto3"
+  "R_X\020\016\022\013\n\007EULER_Y\020\017\022\013\n\007EULER_Z\020\020\022\010\n\004NONE\020"
+  "\021\"r\n\tTransform\022,\n\013translation\030\001 \001(\0132\022.Mo"
+  "cap.TranslationH\000\210\001\001\022\'\n\013orientation\030\002 \001("
+  "\0132\022.Mocap.OrientationB\016\n\014_translation\"\224\001"
+  "\n\004Link\022\014\n\004name\030\001 \001(\t\022\016\n\006linkId\030\002 \001(\r\022\024\n\014"
+  "parentLinkId\030\003 \001(\005\022 \n\006offset\030\004 \001(\0132\020.Moc"
+  "ap.Transform\022\014\n\004mass\030\005 \001(\002\022\020\n\010linkSize\030\006"
+  " \003(\002\022\026\n\016inertialMatrix\030\007 \003(\002\":\n\tJointMet"
+  "a\022\017\n\007jointId\030\001 \001(\r\022\016\n\006linkId\030\002 \001(\r\022\014\n\004na"
+  "me\030\003 \001(\t\"\231\001\n\tStructure\022\023\n\013structureId\030\001 "
+  "\001(\r\022+\n\rstructureType\030\002 \001(\0162\024.Mocap.Struc"
+  "tureType\022\014\n\004name\030\003 \001(\t\022\032\n\005links\030\004 \003(\0132\013."
+  "Mocap.Link\022 \n\006joints\030\005 \003(\0132\020.Mocap.Joint"
+  "Meta\"=\n\005Joint\022\017\n\007jointId\030\001 \001(\r\022#\n\ttransf"
+  "orm\030\002 \001(\0132\020.Mocap.Transform\"J\n\004Pose\022\021\n\ts"
+  "ubjectId\030\001 \001(\r\022\021\n\ttimestamp\030\002 \001(\004\022\034\n\006joi"
+  "nts\030\003 \003(\0132\014.Mocap.Joint\"\024\n\022EnvironmentRe"
+  "quest\"!\n\022MocapStreamRequest\022\013\n\003fps\030\001 \001(\002"
+  "\"E\n\023MocapStreamResponse\022\032\n\005poses\030\001 \003(\0132\013"
+  ".Mocap.Pose\022\022\n\nserverTime\030\002 \001(\002\"\'\n\020Struc"
+  "tureRequest\022\023\n\013structureId\030\001 \003(\r\"9\n\021Stru"
+  "ctureResponse\022$\n\nstructures\030\001 \003(\0132\020.Moca"
+  "p.Structure*.\n\rStructureType\022\t\n\005HUMAN\020\000\022"
+  "\010\n\004BALL\020\001\022\010\n\004BIKE\020\0022\342\001\n\013MocapServer\022A\n\016G"
+  "etEnvironment\022\031.Mocap.EnvironmentRequest"
+  "\032\022.Mocap.Environment\"\000\022C\n\014GetStructure\022\027"
+  ".Mocap.StructureRequest\032\030.Mocap.Structur"
+  "eResponse\"\000\022K\n\016GetMocapStream\022\031.Mocap.Mo"
+  "capStreamRequest\032\032.Mocap.MocapStreamResp"
+  "onse\"\0000\001b\006proto3"
   ;
 static ::PROTOBUF_NAMESPACE_ID::internal::once_flag descriptor_table_MocapExchange_2eproto_once;
 const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_MocapExchange_2eproto = {
-  false, false, 1886, descriptor_table_protodef_MocapExchange_2eproto, "MocapExchange.proto", 
+  false, false, 1896, descriptor_table_protodef_MocapExchange_2eproto, "MocapExchange.proto", 
   &descriptor_table_MocapExchange_2eproto_once, nullptr, 0, 14,
   schemas, file_default_instances, TableStruct_MocapExchange_2eproto::offsets,
   file_level_metadata_MocapExchange_2eproto, file_level_enum_descriptors_MocapExchange_2eproto, file_level_service_descriptors_MocapExchange_2eproto,
@@ -517,6 +517,7 @@ bool Orientation_RotationType_IsValid(int value) {
     case 14:
     case 15:
     case 16:
+    case 17:
       return true;
     default:
       return false;
@@ -541,6 +542,7 @@ constexpr Orientation_RotationType Orientation::EULER_ZY;
 constexpr Orientation_RotationType Orientation::EULER_X;
 constexpr Orientation_RotationType Orientation::EULER_Y;
 constexpr Orientation_RotationType Orientation::EULER_Z;
+constexpr Orientation_RotationType Orientation::NONE;
 constexpr Orientation_RotationType Orientation::RotationType_MIN;
 constexpr Orientation_RotationType Orientation::RotationType_MAX;
 constexpr int Orientation::RotationType_ARRAYSIZE;

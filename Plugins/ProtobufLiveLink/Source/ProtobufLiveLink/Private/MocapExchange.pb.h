@@ -213,12 +213,13 @@ enum Orientation_RotationType : int {
   Orientation_RotationType_EULER_X = 14,
   Orientation_RotationType_EULER_Y = 15,
   Orientation_RotationType_EULER_Z = 16,
+  Orientation_RotationType_NONE = 17,
   Orientation_RotationType_Orientation_RotationType_INT_MIN_SENTINEL_DO_NOT_USE_ = std::numeric_limits<::PROTOBUF_NAMESPACE_ID::int32>::min(),
   Orientation_RotationType_Orientation_RotationType_INT_MAX_SENTINEL_DO_NOT_USE_ = std::numeric_limits<::PROTOBUF_NAMESPACE_ID::int32>::max()
 };
 bool Orientation_RotationType_IsValid(int value);
 constexpr Orientation_RotationType Orientation_RotationType_RotationType_MIN = Orientation_RotationType_QUATERNION;
-constexpr Orientation_RotationType Orientation_RotationType_RotationType_MAX = Orientation_RotationType_EULER_Z;
+constexpr Orientation_RotationType Orientation_RotationType_RotationType_MAX = Orientation_RotationType_NONE;
 constexpr int Orientation_RotationType_RotationType_ARRAYSIZE = Orientation_RotationType_RotationType_MAX + 1;
 
 const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* Orientation_RotationType_descriptor();
@@ -837,6 +838,8 @@ class Orientation final :
     Orientation_RotationType_EULER_Y;
   static constexpr RotationType EULER_Z =
     Orientation_RotationType_EULER_Z;
+  static constexpr RotationType NONE =
+    Orientation_RotationType_NONE;
   static inline bool RotationType_IsValid(int value) {
     return Orientation_RotationType_IsValid(value);
   }

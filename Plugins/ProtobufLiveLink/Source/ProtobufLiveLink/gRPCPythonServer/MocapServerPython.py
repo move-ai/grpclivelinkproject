@@ -12,8 +12,9 @@ from proto_python import MocapExchange_resources
 
 class MocapServerServicer(MocapExchange_pb2_grpc.MocapServerServicer):
     def __init__(self):
-        self.mocap_stream = MocapExchange_resources.read_frame_data_pkl() # list type
-        self.structures = MocapExchange_resources.read_structure_data_pkl()
+        self.mocap_stream = MocapExchange_resources.read_frame_data_pkl("proto_python/mocap.pkl") # list type
+        self.structures_no_names = MocapExchange_resources.read_structure_data_pkl("proto_python/mocap.pkl")
+        self.structure_response = MocapExchange_pb2.StructureResponse()
 
         # print(type(self.structures))
         # for i in range(10000):
@@ -24,23 +25,26 @@ class MocapServerServicer(MocapExchange_pb2_grpc.MocapServerServicer):
         #     new_response.poses[0].joints[0].transform.translation.x = i
         #     self.mocap_stream.append(new_response)
         
-        # for i in range(1, 2):
-        #     new_structure = MocapExchange_pb2.Structure()
-        #     new_structure.CopyFrom(self.structures.structures[0])
-        #     new_structure.structureId = i
-        #     new_structure.name = f"Test_{i}"
-        #     self.structures.structures.append(new_structure)
+        structures_with_names = []
+        for i, structure in enumerate(self.structures_no_names.structures):
+            new_structure = MocapExchange_pb2.Structure()
+            new_structure.CopyFrom(structure)
+            new_structure.structureId = i
+            new_structure.name = f"Test_{i}"
+            structures_with_names.append(new_structure)
         
+        self.structure_response.structures.extend(structures_with_names)
         # print(type(self.structures))
 
     def GetMocapStream(self, request, context):
         # print(request)
-        for response in self.mocap_stream:
-            time.sleep(1)
+        times_to_repeat = 100
+        for response in (self.mocap_stream * times_to_repeat):
+            time.sleep(1/60)
             yield response
 
     def GetStructure(self, request, context):
-        return(self.structures)
+        return(self.structure_response)
 
 
 def serve():
