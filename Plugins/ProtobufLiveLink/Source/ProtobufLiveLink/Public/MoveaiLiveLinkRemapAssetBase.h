@@ -22,11 +22,32 @@ protected:
     virtual FVector ConvertRootPosition(FVector LLPosition) const { return LLPosition; };
     virtual FQuat ConvertRootRotation(FQuat LLRotation) const { return LLRotation; };
     virtual FQuat ConvertBoneRotation(FQuat LLRotation) const { return LLRotation; };
+    virtual FQuat ConvertRightArmRotation(FQuat LLRotation) const { return LLRotation; };
+    virtual FQuat ConvertRightForeArmRotation(FQuat LLRotation) const { return LLRotation; };
+    virtual FQuat ConvertLeftArmRotation(FQuat LLRotation) const { return LLRotation; };
+    virtual FQuat ConvertLeftForeArmRotation(FQuat LLRotation) const { return LLRotation; };
+    virtual FQuat ConvertMidSpineRotation(FQuat LLRotation) const { return LLRotation; };
+    virtual FQuat ConvertNeckRotation(FQuat LLRotation) const { return LLRotation; };
+    virtual FQuat ConvertRightToeRotation(FQuat LLRotation) const { return LLRotation; };
+    virtual FQuat ConvertLeftToeRotation(FQuat LLRotation) const { return LLRotation; };
+    virtual FQuat ConvertRightFootRotation(FQuat LLRotation) const { return LLRotation; };
+    virtual FQuat ConvertLeftFootRotation(FQuat LLRotation) const { return LLRotation; };
 
     // This is the bone we will apply position translation to.
     // Radical 3.1 Live Link position data is mapped to the hips.
     // For other skeletons, the hip bone's name can differ and you can override this method.
     virtual FName GetTargetRootName() const { return "Hips"; }
+    virtual FName GetTargetRightArmName() const { return "RightArm"; }
+    virtual FName GetTargetRightForeArmName() const { return "RightForeArm"; }
+    virtual FName GetTargetLeftArmName() const { return "LeftArm"; }
+    virtual FName GetTargetLeftForeArmName() const { return "LeftForeArm"; }
+    virtual FName GetMidSpineName() const { return "Spine2"; }
+    virtual FName GetNeckName() const { return "Neck"; }
+    virtual FName GetRightToeName() const { return "RightToeBase"; }
+    virtual FName GetLeftToeName() const { return "LeftToeBase"; }
+    virtual FName GetRightFootName() const { return "RightFoot"; }
+    virtual FName GetLeftFootName() const { return "LeftFoot"; }
+    
 
     // Cached lookup results from GetRemappedBoneName
     TMap<FName, FName> BoneNameMap;

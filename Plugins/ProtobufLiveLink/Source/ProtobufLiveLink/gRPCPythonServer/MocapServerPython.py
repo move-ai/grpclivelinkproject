@@ -12,8 +12,8 @@ from proto_python import MocapExchange_resources
 
 class MocapServerServicer(MocapExchange_pb2_grpc.MocapServerServicer):
     def __init__(self):
-        self.mocap_stream = MocapExchange_resources.read_frame_data_pkl("proto_python/mocap.pkl") # list type
-        self.structures_no_names = MocapExchange_resources.read_structure_data_pkl("proto_python/mocap.pkl")
+        self.mocap_stream = MocapExchange_resources.read_frame_data_pkl("proto_python/walk.pkl") # list type
+        self.structures_no_names = MocapExchange_resources.read_structure_data_pkl("proto_python/walk.pkl")
         self.structure_response = MocapExchange_pb2.StructureResponse()
 
         # print(type(self.structures))
@@ -40,7 +40,7 @@ class MocapServerServicer(MocapExchange_pb2_grpc.MocapServerServicer):
         # print(request)
         times_to_repeat = 100
         for response in (self.mocap_stream * times_to_repeat):
-            time.sleep(1/60)
+            time.sleep(1/120)
             yield response
 
     def GetStructure(self, request, context):

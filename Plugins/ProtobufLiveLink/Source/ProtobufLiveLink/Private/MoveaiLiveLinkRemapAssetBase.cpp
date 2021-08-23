@@ -49,6 +49,9 @@ void UMoveaiLiveLinkRemapAssetBase::BuildPoseFromAnimationData(float DeltaTime,
             if (CPIndex != INDEX_NONE)
             {
                 FQuat ConvertedLiveLinkRotation;
+                // Retrieves the default reference pose for the skeleton. Live Link data contains relative transforms from the default pose.
+                auto RefBoneTransform = OutPose.GetRefPose(CPIndex);
+
                 // Only use position + rotation data for root. For all other bones, set rotation only.
                 if (BoneName == GetTargetRootName())
                 {
@@ -57,10 +60,52 @@ void UMoveaiLiveLinkRemapAssetBase::BuildPoseFromAnimationData(float DeltaTime,
                 }
                 else
                 {
-                    ConvertedLiveLinkRotation = ConvertBoneRotation(BoneTransform.GetRotation());
+                    if (BoneName == GetTargetRightForeArmName())
+                    {
+                        ConvertedLiveLinkRotation = ConvertRightForeArmRotation(BoneTransform.GetRotation());
+                    }
+                    else if (BoneName == GetTargetRightArmName())
+                    {
+                        ConvertedLiveLinkRotation = ConvertRightArmRotation(BoneTransform.GetRotation());
+                    }
+                    else if (BoneName == GetTargetLeftForeArmName())
+                    {
+                        ConvertedLiveLinkRotation = ConvertLeftForeArmRotation(BoneTransform.GetRotation());
+                    }
+                    else if (BoneName == GetTargetLeftArmName())
+                    {
+                        ConvertedLiveLinkRotation = ConvertLeftArmRotation(BoneTransform.GetRotation());
+                    }
+                    else if (BoneName == GetMidSpineName())
+                    {
+                        ConvertedLiveLinkRotation = ConvertMidSpineRotation(BoneTransform.GetRotation());
+                    }
+                    else if (BoneName == GetNeckName())
+                    {
+                        ConvertedLiveLinkRotation = ConvertNeckRotation(BoneTransform.GetRotation());
+                    }
+                    else if (BoneName == GetRightToeName())
+                    {
+                        ConvertedLiveLinkRotation = ConvertRightToeRotation(BoneTransform.GetRotation());
+                    }
+                    else if (BoneName == GetLeftToeName())
+                    {
+                        ConvertedLiveLinkRotation = ConvertLeftToeRotation(BoneTransform.GetRotation());
+                    }
+                    else if (BoneName == GetRightFootName())
+                    {
+                        ConvertedLiveLinkRotation = ConvertRightFootRotation(BoneTransform.GetRotation());
+                    }
+                    else if (BoneName == GetLeftFootName())
+                    {
+                        ConvertedLiveLinkRotation = ConvertLeftFootRotation(BoneTransform.GetRotation());
+                    }
+                    else
+                    {
+                        ConvertedLiveLinkRotation = ConvertBoneRotation(BoneTransform.GetRotation());
+                    }
                 }
-                // Retrieves the default reference pose for the skeleton. Live Link data contains relative transforms from the default pose.
-                auto RefBoneTransform = OutPose.GetRefPose(CPIndex);
+                
 
                 OutPose[CPIndex].SetRotation(RefBoneTransform.GetRotation() * ConvertedLiveLinkRotation);
             }

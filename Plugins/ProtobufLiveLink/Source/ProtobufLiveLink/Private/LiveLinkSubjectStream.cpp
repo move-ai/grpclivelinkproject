@@ -47,7 +47,9 @@ void LiveLinkSubjectStream::OnInitialized(const Mocap::Structure &subjectStructu
         uint linkId = jointMeta.linkid();
         const Mocap::Link& link = ModelStructure_m.links(linkId);
         int boneParentIdx = (int) link.parentlinkid(); // Not sure how to get parents in correct way
-        staticData.BoneParents[bidx] = 0;
+        staticData.BoneParents[bidx] = boneParentIdx;
+        UE_LOG(LogTemp, Warning, TEXT("Bone index: %d"), bidx)
+        UE_LOG(LogTemp, Warning, TEXT("Bone parentlinkid: %d"), boneParentIdx)
     }
 
     Client_m->PushSubjectStaticData_AnyThread({SourceGuid_m, SubjectName_m}, ULiveLinkAnimationRole::StaticClass(), MoveTemp(staticDataStruct));
@@ -110,7 +112,7 @@ void LiveLinkSubjectStream::OnNewPose(const Mocap::Pose &pose)
                     boneRotationEuler.X = FMath::RadiansToDegrees((float) joint.transform().orientation().rotationvalues(0));
                     boneRotationEuler.Y = FMath::RadiansToDegrees((float) joint.transform().orientation().rotationvalues(1));
                     boneRotationEuler.Z = FMath::RadiansToDegrees((float) joint.transform().orientation().rotationvalues(2));
-                    UE_LOG(LogTemp, Warning, TEXT("X Euler before conversion to quat: %f"), boneRotationEuler.X);
+                    // UE_LOG(LogTemp, Warning, TEXT("X Euler before conversion to quat: %f"), boneRotationEuler.X);
 
                     boneQuat = FQuat::MakeFromEuler(boneRotationEuler);
                     break;
@@ -129,17 +131,17 @@ void LiveLinkSubjectStream::OnNewPose(const Mocap::Pose &pose)
             boneQuat.W = 1.0f;            
         }
 
-        UE_LOG(LogTemp, Warning, TEXT("Joint number: %d"), i)
-        UE_LOG(LogTemp, Warning, TEXT("boneLoc.X: %f"), boneLoc.X);
-        UE_LOG(LogTemp, Warning, TEXT("boneLoc.Y: %f"), boneLoc.Y);
-        UE_LOG(LogTemp, Warning, TEXT("boneLoc.Z: %f"), boneLoc.Z);
+        // UE_LOG(LogTemp, Warning, TEXT("Joint number: %d"), i)
+        // UE_LOG(LogTemp, Warning, TEXT("boneLoc.X: %f"), boneLoc.X);
+        // UE_LOG(LogTemp, Warning, TEXT("boneLoc.Y: %f"), boneLoc.Y);
+        // UE_LOG(LogTemp, Warning, TEXT("boneLoc.Z: %f"), boneLoc.Z);
 
         // UE_LOG(LogTemp, Warning, TEXT("rotationvalues(0): %f"), joint.transform().orientation().rotationvalues(0));
 
-        UE_LOG(LogTemp, Warning, TEXT("FQuat.X: %f"), boneQuat.X);
-        UE_LOG(LogTemp, Warning, TEXT("FQuat.Y: %f"), boneQuat.Y);
-        UE_LOG(LogTemp, Warning, TEXT("FQuat.Z: %f"), boneQuat.Z);
-        UE_LOG(LogTemp, Warning, TEXT("FQuat.W: %f"), boneQuat.W);
+        // UE_LOG(LogTemp, Warning, TEXT("FQuat.X: %f"), boneQuat.X);
+        // UE_LOG(LogTemp, Warning, TEXT("FQuat.Y: %f"), boneQuat.Y);
+        // UE_LOG(LogTemp, Warning, TEXT("FQuat.Z: %f"), boneQuat.Z);
+        // UE_LOG(LogTemp, Warning, TEXT("FQuat.W: %f"), boneQuat.W);
 
         FVector boneScale;
         if (i == 0) {
@@ -148,7 +150,7 @@ void LiveLinkSubjectStream::OnNewPose(const Mocap::Pose &pose)
         else {
             boneScale = FVector(1.0f, 1.0f, 1.0f);
         }
-        UE_LOG(LogTemp, Warning, TEXT("boneScale.X: %f"), boneScale.X);
+        // UE_LOG(LogTemp, Warning, TEXT("boneScale.X: %f"), boneScale.X);
         frmData.Transforms[i] = FTransform(boneQuat, boneLoc, boneScale);
     }
 

@@ -29,12 +29,13 @@ def get_mocap_stream(stub):
     )
 
     responses = stub.GetMocapStream(request)
-
+    print('responses', responses)
+    
     frames = []
     try:
         for response in responses:
-            print(f"Received frame. n_poses = {len(response.poses)}" )
-            # print(response.poses[0].joints[14].transform)
+            # print(f"Received frame. n_poses = {len(response.poses)}" )
+            # print(response.poses[0].joints[0].transform.translation.x)
             frames.append(response.SerializeToString())
     except Exception as exp:
         print(exp)
