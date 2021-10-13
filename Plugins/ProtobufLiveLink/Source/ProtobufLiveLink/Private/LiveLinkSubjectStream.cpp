@@ -1,3 +1,21 @@
+#if PLATFORM_WINDOWS
+#pragma warning(push)
+#pragma warning (disable : 4005)
+#pragma warning (disable : 4125)
+#pragma warning (disable : 4582)
+#pragma warning (disable : 4583)
+#pragma warning (disable : 4647)
+#pragma warning (disable : 4668)
+#pragma warning (disable : 4800)
+#pragma warning (disable : 4946)
+
+static void MemoryBarrier() {}
+#pragma intrinsic(_InterlockedCompareExchange64)
+#define InterlockedCompareExchangeAcquire64 _InterlockedCompareExchange64
+#define InterlockedCompareExchangeRelease64 _InterlockedCompareExchange64
+#define InterlockedCompareExchangeNoFence64 _InterlockedCompareExchange64
+#define InterlockedCompareExchange64 _InterlockedCompareExchange64
+#endif
 #include "LiveLinkSubjectStream.h"
 
 #include <grpc/support/log.h>
@@ -12,6 +30,7 @@ LiveLinkSubjectStream::LiveLinkSubjectStream(ILiveLinkClient* client, FGuid sour
     : Client_m(client),
       SourceGuid_m(sourceGuid)
 {
+    UE_LOG(LogTemp, Warning, TEXT("LiveLinkSubjectStream constructor. Guid = %s"), *SourceGuid_m.ToString());
 }
 
 LiveLinkSubjectStream::~LiveLinkSubjectStream()
@@ -25,8 +44,13 @@ void LiveLinkSubjectStream::OnInitialized(const Mocap::Structure &subjectStructu
 
     // To be initialized;
     // FName subjectName;
-    SubjectName_m = ModelStructure_m.name().c_str();
-    UE_LOG(LogTemp, Warning, TEXT("Subject %s created"), *SubjectName_m.ToString())
+//    SubjectName_m = ModelStructure_m.name().c_str();
+    uint32 structureId = ModelStructure_m.structureid();
+    FString SubjectNamePrefix = "Subject_";
+    FString GeneratedSubjectName = SubjectNamePrefix + FString::FromInt(structureId);
+
+    SubjectName_m = FName(*GeneratedSubjectName);
+    UE_LOG(LogTemp, Warning, TEXT("Subject %s created"), *SubjectName_m.ToString());
 
     FLiveLinkStaticDataStruct staticDataStruct = FLiveLinkStaticDataStruct(FLiveLinkSkeletonStaticData::StaticStruct());
     FLiveLinkSkeletonStaticData& staticData = *staticDataStruct.Cast<FLiveLinkSkeletonStaticData>();
@@ -36,6 +60,7 @@ void LiveLinkSubjectStream::OnInitialized(const Mocap::Structure &subjectStructu
     staticData.BoneNames.SetNumUninitialized(nbones);
     staticData.BoneParents.SetNumUninitialized(nbones);
 
+    UE_LOG(LogTemp, Warning, TEXT("Structure_name = %s. Number of bones: %d. SourceGuid_m  = %s"), *SubjectName_m.ToString(), nbones, *SourceGuid_m.ToString());
 
     for (int bidx=0; bidx < nbones; ++bidx){
         const Mocap::JointMeta& jointMeta = ModelStructure_m.joints(bidx);
@@ -44,12 +69,11 @@ void LiveLinkSubjectStream::OnInitialized(const Mocap::Structure &subjectStructu
         staticData.BoneNames[bidx] = boneName;
 
         //To be initialized from ModelStructure_m;
-        uint linkId = jointMeta.linkid();
+        uint32 linkId = jointMeta.linkid();
         const Mocap::Link& link = ModelStructure_m.links(linkId);
         int boneParentIdx = (int) link.parentlinkid(); // Not sure how to get parents in correct way
         staticData.BoneParents[bidx] = boneParentIdx;
-        UE_LOG(LogTemp, Warning, TEXT("Bone index: %d"), bidx)
-        UE_LOG(LogTemp, Warning, TEXT("Bone parentlinkid: %d"), boneParentIdx)
+        UE_LOG(LogTemp, Warning, TEXT("Bone index: %d. bone_parent = , bone_name = "), bidx, boneParentIdx, *boneName.ToString());
     }
 
     Client_m->PushSubjectStaticData_AnyThread({SourceGuid_m, SubjectName_m}, ULiveLinkAnimationRole::StaticClass(), MoveTemp(staticDataStruct));
@@ -65,11 +89,11 @@ void LiveLinkSubjectStream::OnNewPose(const Mocap::Pose &pose)
 
     NewPose = pose;
     uint32 subjectId = NewPose.subjectid();
-    UE_LOG(LogTemp, Warning, TEXT("subjectId: %d"), subjectId);
 
     int nbones = NewPose.joints_size();
     frmData.Transforms.SetNumUninitialized(nbones);
-    UE_LOG(LogTemp, Warning, TEXT("Number of bones: %d"), nbones);
+
+    UE_LOG(LogTemp, Warning, TEXT("subjectId: %d. number_bones = %d"), subjectId, nbones);
 
     for (int i = 0; i < nbones; ++i) {
         const Mocap::Joint& joint = NewPose.joints(i);
@@ -150,12 +174,12 @@ void LiveLinkSubjectStream::OnNewPose(const Mocap::Pose &pose)
         else {
             boneScale = FVector(1.0f, 1.0f, 1.0f);
         }
-        // UE_LOG(LogTemp, Warning, TEXT("boneScale.X: %f"), boneScale.X);
+        UE_LOG(LogTemp, Warning, TEXT("bone %d . quater = %d,%d,%d,%d. loc = %d, %d, %d. scale = %d"),
+        boneQuat.X, boneQuat.Y,boneQuat.Z, boneQuat.W, boneLoc.X, boneLoc.Y, boneLoc.Z, boneScale.X);
         frmData.Transforms[i] = FTransform(boneQuat, boneLoc, boneScale);
     }
 
     // structure information can be accessed from ModelStructure_m
-
     // for (int bidx = 0; bidx < nbones; ++bidx)
     // {
     //     //To be initialized
@@ -165,7 +189,7 @@ void LiveLinkSubjectStream::OnNewPose(const Mocap::Pose &pose)
     //     frmData.Transforms[bidx] = FTransform(bquat, bloc, bscale);
     // }
     
-    UE_LOG(LogTemp, Warning, TEXT("Push frame data to %s"), *SubjectName_m.ToString())
+    UE_LOG(LogTemp, Warning, TEXT("Push frame data to %s, guid=%s"), *SubjectName_m.ToString(), *SourceGuid_m.ToString())
     
     
     Client_m->PushSubjectFrameData_AnyThread({SourceGuid_m, SubjectName_m}, MoveTemp(frmDataStructure));
@@ -178,3 +202,6 @@ void LiveLinkSubjectStream::OnLost()
 }
 } // namespace Mocap
 
+#if PLATFORM_WINDOWS
+#pragma warning( pop )
+#endif

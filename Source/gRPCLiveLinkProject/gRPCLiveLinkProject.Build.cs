@@ -7,8 +7,9 @@ public class gRPCLiveLinkProject : ModuleRules
 	public gRPCLiveLinkProject(ReadOnlyTargetRules Target) : base(Target)
 	{
 		PCHUsage = PCHUsageMode.UseExplicitOrSharedPCHs;
-	
-		PublicDependencyModuleNames.AddRange(new string[] { "Core", "CoreUObject", "Engine", "InputCore", "protobuf", "grpc", "cares", "OpenSSL", "zlib" });
+
+		PublicDependencyModuleNames.AddRange(new string[] { "Core", "CoreUObject", "Engine", "InputCore", "grpc", "OpenSSL", "zlib" });
+		// PublicDependencyModuleNames.AddRange(new string[] { "Core", "CoreUObject", "Engine", "InputCore", "protobuf", "grpc", "cares", "OpenSSL", "zlib" });
 
 		PrivateDependencyModuleNames.AddRange(new string[] {  });
 

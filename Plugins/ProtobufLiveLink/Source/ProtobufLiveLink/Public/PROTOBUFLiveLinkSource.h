@@ -55,7 +55,7 @@ public:
 	void HandleReceivedData(TSharedPtr<TArray<uint8>, ESPMode::ThreadSafe> ReceivedData);
 
 private:
-	bool _TryConnect(uint nMaxTries);
+	bool _TryConnect(uint32 nMaxTries);
 private:
 	ILiveLinkClient* Client;
 
@@ -90,5 +90,5 @@ private:
 
 	// List of subjects we've already encountered
 	TSet<int> EncounteredSubjects;
-	TMap<uint, Mocap::Structure>  SubjectStructures;
+	TMap<uint32, Mocap::Structure>  SubjectStructures;
 };

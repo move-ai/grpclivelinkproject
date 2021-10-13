@@ -17,4 +17,4 @@ void FPROTOBUFLiveLinkModule::ShutdownModule()
 
 #undef LOCTEXT_NAMESPACE
 	
-IMPLEMENT_MODULE(FPROTOBUFLiveLinkModule, PROTOBUFLiveLink)
+IMPLEMENT_MODULE(FPROTOBUFLiveLinkModule, ProtobufLiveLink)

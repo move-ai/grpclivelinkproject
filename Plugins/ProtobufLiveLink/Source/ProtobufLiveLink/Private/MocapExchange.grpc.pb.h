@@ -7,7 +7,9 @@
 #include "MocapExchange.pb.h"
 
 #include <functional>
+#if PLATFORM_LINUX
 THIRD_PARTY_INCLUDES_START
+#endif
 #include <grpc/impl/codegen/port_platform.h>
 #include <grpcpp/impl/codegen/async_generic_service.h>
 #include <grpcpp/impl/codegen/async_stream.h>
@@ -26,7 +28,9 @@ THIRD_PARTY_INCLUDES_START
 #include <grpcpp/impl/codegen/status.h>
 #include <grpcpp/impl/codegen/stub_options.h>
 #include <grpcpp/impl/codegen/sync_stream.h>
+#if PLATFORM_LINUX
 THIRD_PARTY_INCLUDES_END
+#endif
 namespace Mocap {
 
 class MocapServer final {

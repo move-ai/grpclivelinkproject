@@ -28,11 +28,11 @@ public class ProtobufLiveLink : ModuleRules
 				"Slate",
 				"SlateCore",
 				"Sockets",
-				"protobuf",
+				// "protobuf",
 				"grpc",
 				"zlib",
 				"OpenSSL",
-				"cares",
+				// "cares",
 				"LiveLink"
 			});
 	}

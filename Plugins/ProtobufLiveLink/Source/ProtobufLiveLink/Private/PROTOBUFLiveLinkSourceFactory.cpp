@@ -1,4 +1,22 @@
 // Copyright 1998-2018 Epic Games, Inc. All Rights Reserved.
+#if PLATFORM_WINDOWS
+#pragma warning(push)
+#pragma warning (disable : 4005)
+#pragma warning (disable : 4125)
+#pragma warning (disable : 4582)
+#pragma warning (disable : 4583)
+#pragma warning (disable : 4647)
+#pragma warning (disable : 4668)
+#pragma warning (disable : 4800)
+#pragma warning (disable : 4946)
+
+static void MemoryBarrier() {}
+#pragma intrinsic(_InterlockedCompareExchange64)
+#define InterlockedCompareExchangeAcquire64 _InterlockedCompareExchange64
+#define InterlockedCompareExchangeRelease64 _InterlockedCompareExchange64
+#define InterlockedCompareExchangeNoFence64 _InterlockedCompareExchange64
+#define InterlockedCompareExchange64 _InterlockedCompareExchange64
+#endif
 #include "PROTOBUFLiveLinkSourceFactory.h"
 #include "PROTOBUFLiveLinkSource.h"
 #include "./SPROTOBUFLiveLinkSourceFactory.h"
@@ -38,3 +56,4 @@ void UPROTOBUFLiveLinkSourceFactory::OnOkClicked(FIPv4Endpoint InEndpoint, FOnLi
 }
 
 #undef LOCTEXT_NAMESPACE
+#pragma warning( pop )

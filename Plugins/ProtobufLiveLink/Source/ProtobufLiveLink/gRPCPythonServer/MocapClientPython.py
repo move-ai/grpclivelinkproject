@@ -34,8 +34,10 @@ def get_mocap_stream(stub):
     frames = []
     try:
         for response in responses:
-            # print(f"Received frame. n_poses = {len(response.poses)}" )
-            # print(response.poses[0].joints[0].transform.translation.x)
+            print(f"Received frame. n_poses = {len(response.poses)}" )
+            for jnt in response.poses[0].joints:
+                print(jnt.transform)
+            # print(response.poses[0].joints[0].transform.translation)
             frames.append(response.SerializeToString())
     except Exception as exp:
         print(exp)
@@ -45,17 +47,25 @@ def get_mocap_stream(stub):
 def run(args):
 
     out_path = Path(args.out_file)
+    while True:
+        try:
+            with grpc.insecure_channel('192.168.22.103:54321') as channel:
+                stub = MocapExchange_pb2_grpc.MocapServerStub(channel)
+                print("-------------- get_structure --------------")
+                model = get_structure(stub)
+                print("-------------- get_mocap_stream --------------")
+                frames_poses = get_mocap_stream(stub)
 
-    with grpc.insecure_channel('localhost:54321') as channel:
-        stub = MocapExchange_pb2_grpc.MocapServerStub(channel)
-        print("-------------- get_structure --------------")
-        model = get_structure(stub)
-        print("-------------- get_mocap_stream --------------")
-        frames_poses = get_mocap_stream(stub)
+                data = {"model": model, "frames_poses": frames_poses}
+                with open(out_path, 'wb') as file:
+                    pickle.dump(data, file)
+        except Exception as exp:
+            print(f'{exp}. keep connecting')
+        except KeyboardInterrupt:
+            # quit
+            print('quitting')
+            return
 
-        data = {"model": model, "frames_poses": frames_poses}
-        with open(out_path, 'wb') as file:
-            pickle.dump(data, file)
 
 def parse_args():
     parser = argparse.ArgumentParser(description='Process some integers.')

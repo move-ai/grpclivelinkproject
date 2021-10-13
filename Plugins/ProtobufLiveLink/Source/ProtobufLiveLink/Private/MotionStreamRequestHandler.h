@@ -47,7 +47,7 @@ protected:
 
 private:
     void _ProcessNewFrame();
-    void _InitializeNewSubjects(std::set<uint> newSubjectIds);
+    void _InitializeNewSubjects(TSet<uint32> newSubjectIds);
 private:
     HandlerTag              tag_;
     MocapServer::Stub* stub_;
@@ -64,7 +64,7 @@ private:
 
     size_t                      counter_;
 
-    std::unordered_map<uint, std::unique_ptr<LiveLinkSubjectStream>> Subjects_m;
+    std::unordered_map<uint32, std::unique_ptr<LiveLinkSubjectStream>> Subjects_m;
 
     // Our identifier in LiveLink
     ILiveLinkClient* Client_m;

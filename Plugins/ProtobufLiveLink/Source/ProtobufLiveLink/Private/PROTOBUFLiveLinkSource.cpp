@@ -1,4 +1,22 @@
 // Copyright 1998-2018 Epic Games, Inc. All Rights Reserved.
+#if PLATFORM_WINDOWS
+#pragma warning(push)
+#pragma warning (disable : 4005)
+#pragma warning (disable : 4125)
+#pragma warning (disable : 4582)
+#pragma warning (disable : 4583)
+#pragma warning (disable : 4647)
+#pragma warning (disable : 4668)
+#pragma warning (disable : 4800)
+#pragma warning (disable : 4946)
+#endif
+// static void MemoryBarrier() {}
+// #pragma intrinsic(_InterlockedCompareExchange64)
+// #define InterlockedCompareExchangeAcquire64 _InterlockedCompareExchange64
+// #define InterlockedCompareExchangeRelease64 _InterlockedCompareExchange64
+// #define InterlockedCompareExchangeNoFence64 _InterlockedCompareExchange64
+// #define InterlockedCompareExchange64 _InterlockedCompareExchange64
+
 #include "../Public/PROTOBUFLiveLinkSource.h"
 
 #include <grpcpp/grpcpp.h>
@@ -22,7 +40,7 @@
 #include "Roles/LiveLinkTransformRole.h"
 #include "Roles/LiveLinkTransformTypes.h"
 
-#include "Doggo.pb.h"
+// #include "Doggo.pb.h"
 //enable logging step 2
 DEFINE_LOG_CATEGORY(ModuleLog)
 
@@ -42,8 +60,6 @@ FPROTOBUFLiveLinkSource::FPROTOBUFLiveLinkSource(FIPv4Endpoint InEndpoint)
 	Channel_m = grpc::CreateChannel(std::string(TCHAR_TO_UTF8(*DeviceEndpoint.ToString())), grpc::InsecureChannelCredentials());
 	ConnectionState_m = Channel_m->GetState(true);
 	SourceStatus = LOCTEXT("SourceStatus_Connecting", "Connecting");
-	Start();
-	
 	UE_LOG(ModuleLog, Warning, TEXT("Hello. I am gRPC client"));	
 }
 
@@ -70,9 +86,10 @@ FPROTOBUFLiveLinkSource::~FPROTOBUFLiveLinkSource()
 
 void FPROTOBUFLiveLinkSource::ReceiveClient(ILiveLinkClient* InClient, FGuid InSourceGuid)
 {
-	UE_LOG(ModuleLog, Warning, TEXT("Received LiveLink Client"));
+	UE_LOG(ModuleLog, Warning, TEXT("Received LiveLink Client. Guid = %s"), *InSourceGuid.ToString());
 	Client = InClient;
 	SourceGuid = InSourceGuid;
+	Start();
 }
 
 
@@ -110,7 +127,7 @@ void FPROTOBUFLiveLinkSource::Stop()
 
 uint32 FPROTOBUFLiveLinkSource::Run()
 {
-	uint nMaxTries = 50;
+	uint32 nMaxTries = 50;
 	if(_TryConnect(nMaxTries)){
 		SourceStatus = LOCTEXT("SourceStatus_Receiving", "Receiving");
 		while(!Stopping){
@@ -144,10 +161,10 @@ uint32 FPROTOBUFLiveLinkSource::Run()
 	}
 }
 
-bool FPROTOBUFLiveLinkSource::_TryConnect(uint nMaxTries)
+bool FPROTOBUFLiveLinkSource::_TryConnect(uint32 nMaxTries)
 {
 	//wait for connection to be ready
-	int tryCnt = 1;
+	uint32 tryCnt = 1;
 	UE_LOG(ModuleLog, Warning, TEXT("\t Trying to connect to = %s"), *DeviceEndpoint.ToString());
 	while (tryCnt <= nMaxTries && !Stopping){
 		UE_LOG(ModuleLog, Warning, TEXT("\t Num of tries so far = %d"), tryCnt);
@@ -167,3 +184,6 @@ bool FPROTOBUFLiveLinkSource::_TryConnect(uint nMaxTries)
 }
 
 #undef LOCTEXT_NAMESPACE
+#if PLATFORM_WINDOWS
+#pragma warning(pop)
+#endif

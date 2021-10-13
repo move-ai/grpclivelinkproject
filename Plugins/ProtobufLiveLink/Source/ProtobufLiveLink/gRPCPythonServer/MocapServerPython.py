@@ -12,8 +12,8 @@ from proto_python import MocapExchange_resources
 
 class MocapServerServicer(MocapExchange_pb2_grpc.MocapServerServicer):
     def __init__(self):
-        self.mocap_stream = MocapExchange_resources.read_frame_data_pkl("proto_python/walk.pkl") # list type
-        self.structures_no_names = MocapExchange_resources.read_structure_data_pkl("proto_python/walk.pkl")
+        self.mocap_stream = MocapExchange_resources.read_frame_data_pkl("grpc_real_time_test.pkl") # list type
+        self.structures_no_names = MocapExchange_resources.read_structure_data_pkl("grpc_real_time_test.pkl")
         self.structure_response = MocapExchange_pb2.StructureResponse()
 
         # print(type(self.structures))
@@ -30,7 +30,7 @@ class MocapServerServicer(MocapExchange_pb2_grpc.MocapServerServicer):
             new_structure = MocapExchange_pb2.Structure()
             new_structure.CopyFrom(structure)
             new_structure.structureId = i
-            new_structure.name = f"Test_{i}"
+            #new_structure.name = f"Test_{i}"
             structures_with_names.append(new_structure)
         
         self.structure_response.structures.extend(structures_with_names)
@@ -40,7 +40,7 @@ class MocapServerServicer(MocapExchange_pb2_grpc.MocapServerServicer):
         # print(request)
         times_to_repeat = 100
         for response in (self.mocap_stream * times_to_repeat):
-            time.sleep(1/120)
+            time.sleep(1/15)
             yield response
 
     def GetStructure(self, request, context):
@@ -52,7 +52,7 @@ def serve():
     server = grpc.server(futures.ThreadPoolExecutor(max_workers=10))
     MocapExchange_pb2_grpc.add_MocapServerServicer_to_server(
         MocapServerServicer(), server)
-    server.add_insecure_port('[::]:54321')
+    server.add_insecure_port('192.168.0.47:54321')
     server.start()
     server.wait_for_termination()
 

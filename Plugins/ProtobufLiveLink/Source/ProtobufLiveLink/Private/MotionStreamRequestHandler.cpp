@@ -1,3 +1,21 @@
+#if PLATFORM_WINDOWS
+#pragma warning(push)
+#pragma warning (disable : 4005)
+#pragma warning (disable : 4125)
+#pragma warning (disable : 4582)
+#pragma warning (disable : 4583)
+#pragma warning (disable : 4647)
+#pragma warning (disable : 4668)
+#pragma warning (disable : 4800)
+#pragma warning (disable : 4946)
+#endif
+// static void MemoryBarrier() {}
+// #pragma intrinsic(_InterlockedCompareExchange64)
+// #define InterlockedCompareExchangeAcquire64 _InterlockedCompareExchange64
+// #define InterlockedCompareExchangeRelease64 _InterlockedCompareExchange64
+// #define InterlockedCompareExchangeNoFence64 _InterlockedCompareExchange64
+// #define InterlockedCompareExchange64 _InterlockedCompareExchange64
+
 #include "MotionStreamRequestHandler.h"
 
 #include <grpc/support/log.h>
@@ -21,6 +39,7 @@ MotionStreamRequestHandler::MotionStreamRequestHandler(HandlerTag tag,
     , Client_m(client)
     , SourceGuid_m(sourceGuid)
 {
+    UE_LOG(ModuleLog, Warning, TEXT("MotionStreamRequestHandler constructor. Guid = %s"), *SourceGuid_m.ToString());
     onNext(true);
 }
 
@@ -129,7 +148,8 @@ void MotionStreamRequestHandler::handleCallCompleteState()
 
 void MotionStreamRequestHandler::_ProcessNewFrame()
 {
-    std::set<uint32> newSubjectIds;
+    TSet<uint32> newSubjectIds;
+    // std::set<uint32> newSubjectIds;
     state_ = CallState::ReceivingFile;
 
     //find out new subject Ids
@@ -139,29 +159,30 @@ void MotionStreamRequestHandler::_ProcessNewFrame()
         int subId = pose.subjectid();
         //this is a new subject
         if(!Subjects_m.count(subId)){
-            newSubjectIds.insert(pose.subjectid());
+            newSubjectIds.Add(pose.subjectid());
         }
     }
 
     //query structure of new Subjects
-    if(!newSubjectIds.empty() && Client_m != nullptr){
+    // int32 Count = FruitSet.Num();
+    if(newSubjectIds.Num() > 0 && Client_m != nullptr){
         _InitializeNewSubjects(newSubjectIds);
     }
 
     //now update new poses for subject streams.
     for(int i =0; i < nposes; i++){
         const Mocap::Pose &pose = response_.poses(i);
-        uint subid = pose.subjectid();
+        uint32 subid = pose.subjectid();
         if(Subjects_m.count(subid)){
             Subjects_m[subid]->OnNewPose(pose);
         }
     }
 }
 
-void MotionStreamRequestHandler::_InitializeNewSubjects(std::set<uint> newSubjectIds)
+void MotionStreamRequestHandler::_InitializeNewSubjects(TSet<uint32> newSubjectIds)
 {
     //query subject structure
-    UE_LOG(ModuleLog, Warning, TEXT("%d new subjects are found. Query their structures"), newSubjectIds.size());
+    UE_LOG(ModuleLog, Warning, TEXT("%d new subjects are found. Query their structures"), newSubjectIds.Num());
     Mocap::StructureRequest  modelRequest;
     Mocap::StructureResponse modelResponse;
     //create a new context. reuse stream ctx will cause crashing.
@@ -174,7 +195,7 @@ void MotionStreamRequestHandler::_InitializeNewSubjects(std::set<uint> newSubjec
         for(int i = 0; i < nmodels; i++){
             const Mocap::Structure &model = modelResponse.structures(i);
             //got a matched structure
-            if (newSubjectIds.count(model.structureid())){
+            if (newSubjectIds.Find(model.structureid())){
                 UE_LOG(ModuleLog, Warning, TEXT("A New Subject is Tracked: %i"), model.structureid());
                 std::unique_ptr<LiveLinkSubjectStream> subStream = std::make_unique<LiveLinkSubjectStream>(Client_m, SourceGuid_m);
                 subStream->OnInitialized(model);
@@ -190,3 +211,6 @@ void MotionStreamRequestHandler::_InitializeNewSubjects(std::set<uint> newSubjec
         UE_LOG(ModuleLog, Warning, TEXT("Failed to query structure. Code = %i. %s"), status.error_code(), *FString(status.error_message().c_str()));
     }
 }
+#if PLATFORM_WINDOWS
+#pragma warning(pop)
+#endif
