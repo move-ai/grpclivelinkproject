@@ -10,12 +10,12 @@
 #pragma warning (disable : 4800)
 #pragma warning (disable : 4946)
 
-static void MemoryBarrier() {}
-#pragma intrinsic(_InterlockedCompareExchange64)
-#define InterlockedCompareExchangeAcquire64 _InterlockedCompareExchange64
-#define InterlockedCompareExchangeRelease64 _InterlockedCompareExchange64
-#define InterlockedCompareExchangeNoFence64 _InterlockedCompareExchange64
-#define InterlockedCompareExchange64 _InterlockedCompareExchange64
+// static void MemoryBarrier() {}
+// #pragma intrinsic(_InterlockedCompareExchange64)
+// #define InterlockedCompareExchangeAcquire64 _InterlockedCompareExchange64
+// #define InterlockedCompareExchangeRelease64 _InterlockedCompareExchange64
+// #define InterlockedCompareExchangeNoFence64 _InterlockedCompareExchange64
+// #define InterlockedCompareExchange64 _InterlockedCompareExchange64
 #endif
 #include "PROTOBUFLiveLinkSourceFactory.h"
 #include "PROTOBUFLiveLinkSource.h"
