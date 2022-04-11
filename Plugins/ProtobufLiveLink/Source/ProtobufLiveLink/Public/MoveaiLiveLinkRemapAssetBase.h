@@ -32,6 +32,8 @@ protected:
     virtual FQuat ConvertLeftToeRotation(FQuat LLRotation) const { return LLRotation; };
     virtual FQuat ConvertRightFootRotation(FQuat LLRotation) const { return LLRotation; };
     virtual FQuat ConvertLeftFootRotation(FQuat LLRotation) const { return LLRotation; };
+    virtual FQuat ConvertRightHandRotation(FQuat LLRotation) const { return LLRotation; };
+    virtual FQuat ConvertLeftHandRotation(FQuat LLRotation) const { return LLRotation; };
 
     // This is the bone we will apply position translation to.
     // Radical 3.1 Live Link position data is mapped to the hips.
@@ -47,6 +49,8 @@ protected:
     virtual FName GetLeftToeName() const { return "LeftToeBase"; }
     virtual FName GetRightFootName() const { return "RightFoot"; }
     virtual FName GetLeftFootName() const { return "LeftFoot"; }
+    virtual FName GetRightHandName() const { return "RightHand"; }
+    virtual FName GetLeftHandName() const { return "LeftHand"; }
     
 
     // Cached lookup results from GetRemappedBoneName

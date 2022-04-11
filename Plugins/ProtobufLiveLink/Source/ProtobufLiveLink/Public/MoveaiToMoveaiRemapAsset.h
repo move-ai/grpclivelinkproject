@@ -29,4 +29,6 @@ protected:
     virtual FQuat ConvertLeftToeRotation(FQuat LLRotation) const override;
     virtual FQuat ConvertRightFootRotation(FQuat LLRotation) const override;
     virtual FQuat ConvertLeftFootRotation(FQuat LLRotation) const override;
+    virtual FQuat ConvertRightHandRotation(FQuat LLRotation) const override;
+    virtual FQuat ConvertLeftHandRotation(FQuat LLRotation) const override;
 };

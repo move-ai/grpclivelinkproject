@@ -86,9 +86,9 @@ FQuat UMoveaiToMoveaiRemapAsset::ConvertMidSpineRotation(FQuat LLRotation) const
 FQuat UMoveaiToMoveaiRemapAsset::ConvertNeckRotation(FQuat LLRotation) const
 {
     return FQuat(
-        LLRotation.X,
-        -LLRotation.Z,
-        LLRotation.Y,
+        LLRotation.X, // 3rd
+        -LLRotation.Y, 
+        LLRotation.Z,
         -LLRotation.W
     );
 }
@@ -129,6 +129,26 @@ FQuat UMoveaiToMoveaiRemapAsset::ConvertLeftFootRotation(FQuat LLRotation) const
         LLRotation.X,
         -LLRotation.Y,
         -LLRotation.Z,
+        -LLRotation.W
+    );
+}
+
+FQuat UMoveaiToMoveaiRemapAsset::ConvertRightHandRotation(FQuat LLRotation) const
+{
+    return FQuat(
+        LLRotation.Z,
+        -LLRotation.Y,
+        -LLRotation.X,
+        -LLRotation.W
+    );
+}
+
+FQuat UMoveaiToMoveaiRemapAsset::ConvertLeftHandRotation(FQuat LLRotation) const
+{
+    return FQuat(
+        LLRotation.Z,
+        LLRotation.Y,
+        LLRotation.X,
         -LLRotation.W
     );
 }

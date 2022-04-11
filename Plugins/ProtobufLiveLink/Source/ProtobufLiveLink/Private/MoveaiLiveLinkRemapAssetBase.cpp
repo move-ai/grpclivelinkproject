@@ -100,6 +100,14 @@ void UMoveaiLiveLinkRemapAssetBase::BuildPoseFromAnimationData(float DeltaTime,
                     {
                         ConvertedLiveLinkRotation = ConvertLeftFootRotation(BoneTransform.GetRotation());
                     }
+                    else if (BoneName == GetRightHandName())
+                    {
+                        ConvertedLiveLinkRotation = ConvertRightHandRotation(BoneTransform.GetRotation());
+                    }
+                    else if (BoneName == GetLeftHandName())
+                    {
+                        ConvertedLiveLinkRotation = ConvertLeftHandRotation(BoneTransform.GetRotation());
+                    }
                     else
                     {
                         ConvertedLiveLinkRotation = ConvertBoneRotation(BoneTransform.GetRotation());
