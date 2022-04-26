@@ -174,8 +174,8 @@ void LiveLinkSubjectStream::OnNewPose(const Mocap::Pose &pose)
         else {
             boneScale = FVector(1.0f, 1.0f, 1.0f);
         }
-        UE_LOG(LogTemp, Warning, TEXT("bone %d . quater = %d,%d,%d,%d. loc = %d, %d, %d. scale = %d"),
-        boneQuat.X, boneQuat.Y,boneQuat.Z, boneQuat.W, boneLoc.X, boneLoc.Y, boneLoc.Z, boneScale.X);
+        // UE_LOG(LogTemp, Warning, TEXT("bone %d . quater = %d,%d,%d,%d. loc = %d, %d, %d. scale = %d"),
+        // boneQuat.X, boneQuat.Y,boneQuat.Z, boneQuat.W, boneLoc.X, boneLoc.Y, boneLoc.Z, boneScale.X);
         frmData.Transforms[i] = FTransform(boneQuat, boneLoc, boneScale);
     }
 
