@@ -23,7 +23,7 @@ protected:
     // virtual FQuat ConvertBoneRotation(FQuat LLRotation) const override;
 
     // virtual FVector ConvertRootPosition(FVector LLPosition) const override;
-    // virtual FQuat ConvertRootRotation(FQuat LLRotation) const override;
+    virtual FQuat ConvertRootRotation(FQuat LLRotation) const override;
     // virtual FQuat ConvertBoneRotation(FQuat LLRotation) const override;
     // virtual FQuat ConvertRightArmRotation(FQuat LLRotation) const override;
     // virtual FQuat ConvertRightForeArmRotation(FQuat LLRotation) const override;

@@ -2,10 +2,113 @@
 
 
 #include "MoveaiLiveLinkRemapAssetBase.h"
-
+#include "QuatStaticLibrary.h"
 
 #include "Roles/LiveLinkAnimationTypes.h"
 #include "BonePose.h"
+
+// void get_ref_pose_bone_comp_space_transform(TArray<FTransform>& outResult, FCompactPose& OutPose)
+// {
+//     //  FReferenceSkeleton refSkeleton = inSkelComp->SkeletalMesh->RefSkeleton;
+
+//     const int32 poseNum = OutPose.GetNumBones()
+
+//     outResult.Reset(); 
+//     outResult.AddUninitialized(poseNum); 
+
+//     for (int32 i = 0; i < poseNum; i++)
+//     {
+//         outResult[i] = get_ref_pose_single_bone_comp_space_transform(OutPose, i); 
+
+//     }
+
+// }
+float dot_qtqt(const float a[4], const float b[4])
+{
+    return a[0] * b[0] + a[1] * b[1] + a[2] * b[2] + a[3] * b[3];
+}
+
+void mul_qt_qtqt(float q[4], const float a[4], const float b[4])
+{
+    float t0, t1, t2;
+
+    t0 = a[0] * b[0] - a[1] * b[1] - a[2] * b[2] - a[3] * b[3];
+    t1 = a[0] * b[1] + a[1] * b[0] + a[2] * b[3] - a[3] * b[2];
+    t2 = a[0] * b[2] + a[2] * b[0] + a[3] * b[1] - a[1] * b[3];
+    q[3] = a[0] * b[3] + a[3] * b[0] + a[1] * b[2] - a[2] * b[1];
+    q[0] = t0;
+    q[1] = t1;
+    q[2] = t2;
+}
+
+void mul_qt_fl(float q[4], const float f)
+{
+    q[0] *= f;
+    q[1] *= f;
+    q[2] *= f;
+    q[3] *= f;
+}
+
+void conjugate_qt_qt(float q1[4], const float q2[4])
+{
+    q1[0] = q2[0];
+    q1[1] = -q2[1];
+    q1[2] = -q2[2];
+    q1[3] = -q2[3];
+}
+
+// float q[4], const float q1[4], const float q2[4]
+FQuat rotation_between_quats_to_quat(FQuat u_q1, FQuat u_q2)
+{
+    
+    const float q1[4] = {u_q1.W, u_q1.X, u_q1.Y, u_q1.Z};
+    // q1[0] = u_q1.W;
+    // q1[1] = u_q1.X;
+    // q1[2] = u_q1.Y;
+    // q1[3] = u_q1.Z;
+
+    const float q2[4] = {u_q2.W, u_q2.X, u_q2.Y, u_q2.Z};
+    // q2[0] = u_q2.W;
+    // q2[1] = u_q2.X;
+    // q2[2] = u_q2.Y;
+    // q2[3] = u_q2.Z;
+
+    float tquat[4];
+
+    conjugate_qt_qt(tquat, q1);
+
+    mul_qt_fl(tquat, 1.0f / dot_qtqt(tquat, tquat));
+
+    float q[4];
+    mul_qt_qtqt(q, tquat, q2);
+
+    FQuat quatDif;
+    quatDif.W = q[0];
+    quatDif.X = q[1];
+    quatDif.Y = q[2];
+    quatDif.Z = q[3];
+
+    return quatDif;
+}
+
+FTransform GetRefBoneCompSpaceTransform(FCompactPose& OutPose, FCompactPoseBoneIndex boneIdx)
+{
+    FTransform resultBoneTransform = OutPose.GetRefPose(boneIdx);
+
+    FCompactPoseBoneIndex parentBoneIndex = OutPose.GetParentBoneIndex(boneIdx);    
+    // auto refBoneInfo = OutPose.GetRefBoneInfo();
+
+    while (boneIdx.GetInt() != 0)
+    {
+        // UE_LOG(LogTemp, Warning, TEXT("boneIdx is: %d"), boneIdx.GetInt());
+        // UE_LOG(LogTemp, Warning, TEXT("parentBoneIndex is: %d"), parentBoneIndex.GetInt());
+        parentBoneIndex = OutPose.GetParentBoneIndex(boneIdx);
+        resultBoneTransform *= OutPose.GetRefPose(parentBoneIndex); 
+        boneIdx = parentBoneIndex;
+    }
+
+    return resultBoneTransform; 
+}
 
 
 // Take Live Link data and apply it to skeleton bones in UE4.
@@ -30,20 +133,82 @@ void UMoveaiLiveLinkRemapAssetBase::BuildPoseFromAnimationData(float DeltaTime,
         //     // UE_LOG(LogTemp, Warning, TEXT("(%s, \"%s\")\n"), *Elem.Key.ToString(), *Elem.Value.ToString());
         // }
         // UE_LOG(LogTemp, Warning, TEXT("\t TargetBoneName = %s"), BoneNameMap.Find(SrcBoneName));
+        FName NewName;
         if (TargetBoneName == nullptr)
         {
             // UE_LOG(LogTemp, Warning, TEXT("\t SrcBoneName nullptr = %s"), *SrcBoneName.ToString());
             /* User will create a blueprint child class and implement this function using a switch statement. */
-            FName NewName = GetRemappedBoneName(SrcBoneName);
+            NewName = GetRemappedBoneName(SrcBoneName);
             TransformedBoneNames.Add(NewName);
             BoneNameMap.Add(SrcBoneName, NewName);
+
+            const int32 MeshIndex = OutPose.GetBoneContainer().GetPoseBoneIndexForBoneName(NewName);
+            if (MeshIndex != INDEX_NONE)
+            {
+                FCompactPoseBoneIndex CPIndex = OutPose.GetBoneContainer().MakeCompactPoseIndex(FMeshPoseBoneIndex(MeshIndex));
+                if (CPIndex != INDEX_NONE)
+                {
+                    FTransform RefBoneCompSpaceTransform = GetRefBoneCompSpaceTransform(OutPose, CPIndex);
+                    
+                    FMatrix identityMatrix;
+                    identityMatrix.SetIdentity();
+
+                    FQuat quatOffset;
+                    quatOffset = rotation_between_quats_to_quat(RefBoneCompSpaceTransform.GetRotation(), identityMatrix.ToQuat());
+
+                    RetargetOffsets.Add(NewName, quatOffset);
+                }
+            }
+
+            UE_LOG(LogTemp, Warning, TEXT("Retarget offsets:\n"));
+            for (auto &Elem : RetargetOffsets)
+            {   
+                UE_LOG(LogTemp, Warning, TEXT("(%s, \"%s\")\n"), *Elem.Key.ToString(), *Elem.Value.ToString());
+            }
         }
         else
-        {
+        {   
             // UE_LOG(LogTemp, Warning, TEXT("\t SrcBoneName non-nullptr = %s"), *SrcBoneName.ToString());
+            NewName = *TargetBoneName;
             TransformedBoneNames.Add(*TargetBoneName);
         }
+
+
+
     }
+
+    // get bones transforms in component space
+    // if (retargetOffsetsExist == false)
+    // {
+    //     for (int32 i = 0; i < TransformedBoneNames.Num(); i++)
+    //     {
+    //         FName BoneName = TransformedBoneNames[i];
+    //         // FTransform BoneTransform = InFrameData->Transforms[i];
+    //         const int32 MeshIndex = OutPose.GetBoneContainer().GetPoseBoneIndexForBoneName(BoneName);
+    //         if (MeshIndex != INDEX_NONE)
+    //         {
+    //             FCompactPoseBoneIndex CPIndex = OutPose.GetBoneContainer().MakeCompactPoseIndex(FMeshPoseBoneIndex(MeshIndex));
+    //             if (CPIndex != INDEX_NONE)
+    //             {
+    //                 FTransform RefBoneCompSpaceTransform = GetRefBoneCompSpaceTransform(OutPose, CPIndex);
+                    
+    //                 FMatrix identityMatrix;
+    //                 identityMatrix.SetIdentity();
+
+    //                 FQuat quatOffset;
+    //                 quatOffset = rotation_between_quats_to_quat(RefBoneCompSpaceTransform.GetRotation(), identityMatrix.ToQuat());
+
+    //                 RetargetOffsets.Add(BoneName, quatOffset);
+    //             }
+    //         }
+    //     }
+    //     retargetOffsetsExist = true;
+    //     UE_LOG(LogTemp, Warning, TEXT("Retarget offsets:\n"));
+    //     for (auto &Elem : RetargetOffsets)
+    //     {   
+    //         UE_LOG(LogTemp, Warning, TEXT("(%s, \"%s\")\n"), *Elem.Key.ToString(), *Elem.Value.ToString());
+    //     }
+    // }
 
     
 
@@ -64,7 +229,7 @@ void UMoveaiLiveLinkRemapAssetBase::BuildPoseFromAnimationData(float DeltaTime,
                 // UE_LOG(LogTemp, Warning, TEXT("\t Bone name = %s"), *BoneName.ToString());
                 FQuat ConvertedLiveLinkRotation;
                 // Retrieves the default reference pose for the skeleton. Live Link data contains relative transforms from the default pose.
-                auto RefBoneTransform = OutPose.GetRefPose(CPIndex);
+
 
                 const FName* RetargetSourceBoneName = BoneNameMap.FindKey(BoneName);
 
@@ -76,6 +241,8 @@ void UMoveaiLiveLinkRemapAssetBase::BuildPoseFromAnimationData(float DeltaTime,
                     OutPose[CPIndex].SetLocation(ConvertPosition(BoneTransform.GetTranslation(), hips_loc_x, hips_loc_y, hips_loc_z));
                     // ConvertedLiveLinkRotation = ConvertRootRotation(BoneTransform.GetRotation());
                     ConvertedLiveLinkRotation = ConvertRotation(BoneTransform.GetRotation(), hips_rot_x, hips_rot_y, hips_rot_z);
+                    // UE_LOG(LogTemp, Warning, TEXT("\t Bone name = %s"), *BoneName.ToString());
+                    // UE_LOG(LogTemp, Warning, TEXT("Ref rot: %f, %f, %f"), RefBoneTransform.GetRotation().Euler().X, RefBoneTransform.GetRotation().Euler().Y, RefBoneTransform.GetRotation().Euler().Z);
                 }
                 else
                 {   
@@ -160,10 +327,57 @@ void UMoveaiLiveLinkRemapAssetBase::BuildPoseFromAnimationData(float DeltaTime,
                     // }
                 }
                 
+                FQuat refBoneRotCompSpace = GetRefBoneCompSpaceTransform(OutPose, CPIndex).GetRotation();
+                FQuat retargetOffset = *RetargetOffsets.Find(BoneName);
+                // RefBoneRotCompSpace * ConvertedLiveLinkRotation * RetargetOffsets.Find(BoneName)
+                // FVector appliedAnimRot = ConvertedLiveLinkRotation.RotateVector(refBoneRotCompSpace.Vector());
 
-                OutPose[CPIndex].SetRotation(RefBoneTransform.GetRotation() * ConvertedLiveLinkRotation);
+                // RefBoneTransform.ConcatenateRotation(ConvertedLiveLinkRotation);
+                // RefBoneTransform.ConcatenateRotation(retargetOffset.Inverse());
+                // FQuat finalRot = retargetOffset * ConvertedLiveLinkRotation * refBoneRotCompSpace;
+
+                FQuat RefBoneRot = OutPose.GetRefPose(CPIndex).GetRotation();
+
+                FQuat finalRot = retargetOffset * ConvertedLiveLinkRotation * refBoneRotCompSpace;
+                // FQuat finalRot = retargetOffset * refBoneRotCompSpace;
+
+                finalRot = RefBoneRot * finalRot;
+
+                OutPose[CPIndex].SetRotation(finalRot);
+                // OutPose[CPIndex].SetRotation(retargetOffset.RotateVector(appliedAnimRot).ToOrientationQuat());
+                // OutPose[CPIndex].SetRotation(RefBoneTransform.GetRotation());
+
+                if (*RetargetSourceBoneName == GetTargetRootName())
+                {
+                    // UE_LOG(LogTemp, Warning, TEXT("Pelvis comp space rot: %s"), *RefBoneTransform.ToString());
+                    UE_LOG(LogTemp, Warning, TEXT("Pelvis comp space rot: %s"), *refBoneRotCompSpace.ToString());
+                    UE_LOG(LogTemp, Warning, TEXT("Pelvis retarget offset: %s"), *retargetOffset.ToString());
+                    UE_LOG(LogTemp, Warning, TEXT("Pelvis rotation: %s"), *ConvertedLiveLinkRotation.ToString());
+                    UE_LOG(LogTemp, Warning, TEXT("Final rotation: %s"), *finalRot.ToString());
+                }
+
+                // FTransform RefBoneTransformDelta = RefBoneTransform;
+                // // RefBoneTransformDelta.ConcatenateRotation(ConvertedLiveLinkRotation);
+                // // RefBoneTransformDelta.ConcatenateRotation(RefBoneTransform.GetRotation().Inverse());
+
+                // if (*RetargetSourceBoneName == GetTargetRootName())
+                // {
+                //     UE_LOG(LogTemp, Warning, TEXT("Delta rot: %f, %f, %f"), RefBoneTransformDelta.GetRotation().Euler().X, RefBoneTransformDelta.GetRotation().Euler().Y, RefBoneTransformDelta.GetRotation().Euler().Z);
+                // }
+
+                // // OutPose[CPIndex].SetRotation(RefBoneTransform.GetRotation().Inverse() * ConvertedLiveLinkRotation);
+                // // Quaternion to add = Destination quaternion * (Source quaternion^-1)
+                // FQuat IdentityQuat = RefBoneTransform.GetRotation() * RefBoneTransform.GetRotation().Inverse();
+                // // IdentityQuat * ConvertedLiveLinkRotation;
+                // OutPose[CPIndex].SetRotation(IdentityQuat * ConvertedLiveLinkRotation * RefBoneTransform.GetRotation());
+                // // OutPose[CPIndex].SetRotation(RefBoneTransformDelta.GetRotation());
             }
         }
     }
 }
 
+
+// TArray<FTransform> UMoveaiLiveLinkRemapAssetBase::CalculateRigOffsets(USkeletalMeshComponent* SourceRig, USkeletalMeshComponent* TargetRig)
+// {
+//     GetMesh()
+// }

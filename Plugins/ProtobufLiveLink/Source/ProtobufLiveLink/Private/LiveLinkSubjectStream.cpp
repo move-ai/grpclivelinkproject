@@ -93,7 +93,7 @@ void LiveLinkSubjectStream::OnNewPose(const Mocap::Pose &pose)
     int nbones = NewPose.joints_size();
     frmData.Transforms.SetNumUninitialized(nbones);
 
-    UE_LOG(LogTemp, Warning, TEXT("subjectId: %d. number_bones = %d"), subjectId, nbones);
+    // UE_LOG(LogTemp, Warning, TEXT("subjectId: %d. number_bones = %d"), subjectId, nbones);
 
     for (int i = 0; i < nbones; ++i) {
         const Mocap::Joint& joint = NewPose.joints(i);
@@ -189,7 +189,7 @@ void LiveLinkSubjectStream::OnNewPose(const Mocap::Pose &pose)
     //     frmData.Transforms[bidx] = FTransform(bquat, bloc, bscale);
     // }
     
-    UE_LOG(LogTemp, Warning, TEXT("Push frame data to %s, guid=%s"), *SubjectName_m.ToString(), *SourceGuid_m.ToString())
+    // UE_LOG(LogTemp, Warning, TEXT("Push frame data to %s, guid=%s"), *SubjectName_m.ToString(), *SourceGuid_m.ToString())
     
     
     Client_m->PushSubjectFrameData_AnyThread({SourceGuid_m, SubjectName_m}, MoveTemp(frmDataStructure));
