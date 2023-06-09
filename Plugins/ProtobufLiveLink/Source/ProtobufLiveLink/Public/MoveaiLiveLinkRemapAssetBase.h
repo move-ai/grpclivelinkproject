@@ -21,7 +21,7 @@ enum class ERetargetAxis : uint8
     Z_neg UMETA(DisplayName = "-Z"),
 };
 
-UCLASS()
+UCLASS() //showCategories = ("Retarget from", "Retarget to"))
 class PROTOBUFLIVELINK_API UMoveaiLiveLinkRemapAssetBase : public ULiveLinkRemapAsset
 {
     GENERATED_BODY()
@@ -30,7 +30,18 @@ class PROTOBUFLIVELINK_API UMoveaiLiveLinkRemapAssetBase : public ULiveLinkRemap
                                             const FLiveLinkAnimationFrameData* InFrameData,
                                             FCompactPose& OutPose) override;
 
-public:
+    
+
+public:    
+    // UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Mesh", meta = (AllowPrivateAccess = "true"))
+    // USkeletalMeshComponent* SMWeapon = CreateDefaultSubobject<USkeletalMeshComponent>(TEXT("SMWeapon"));
+
+    // UPROPERTY(EditAnywhere, SimpleDisplay, Category = "Retarget from")
+	// USkeletalMeshComponent *SourceRig;
+    // UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Retarget to", meta=(UseComponentPicker,AllowedClasses="SkeletalMeshComponent",AllowAnyActor))
+	// FComponentReference TargetRig;
+    // TArray<FTransform> CalculateRigOffsets(USkeletalMeshComponent* SourceRig, USkeletalMeshComponent* TargetRig);
+    // UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Hips")
     // Spine
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Hips")
 	ERetargetAxis hips_loc_x;
@@ -154,6 +165,9 @@ public:
     FVector NewRetargetLocation;
     FQuat NewRetargetRotation;
 
+    // UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="retargetOffsetsExist")
+    // bool retargetOffsetsExist = false;
+
 protected:
     // Override these in child classes
     virtual FVector ConvertPosition(FVector LLPosition, ERetargetAxis X, ERetargetAxis Y, ERetargetAxis Z) { return NewRetargetLocation; };
@@ -161,7 +175,7 @@ protected:
     // virtual FQuat ConvertBoneRotation(FQuat LLRotation) const { return LLRotation; };
 
     // virtual FVector ConvertRootPosition(FVector LLPosition) const { return LLPosition; };
-    // virtual FQuat ConvertRootRotation(FQuat LLRotation) const { return LLRotation; };
+    virtual FQuat ConvertRootRotation(FQuat LLRotation) const { return LLRotation; };
     // virtual FQuat ConvertBoneRotation(FQuat LLRotation) const { return LLRotation; };
     // virtual FQuat ConvertRightArmRotation(FQuat LLRotation) const { return LLRotation; };
     // virtual FQuat ConvertRightForeArmRotation(FQuat LLRotation) const { return LLRotation; };
@@ -209,5 +223,6 @@ protected:
 
     // Cached lookup results from GetRemappedBoneName
     TMap<FName, FName> BoneNameMap;
-
+    TMap<FName, FQuat> RetargetOffsets;
+    
 };

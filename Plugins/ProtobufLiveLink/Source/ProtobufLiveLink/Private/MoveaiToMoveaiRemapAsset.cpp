@@ -95,9 +95,9 @@ FVector UMoveaiToMoveaiRemapAsset::ConvertPosition(FVector LLPosition, ERetarget
             break;
     }
 
-    UE_LOG(LogTemp, Warning, TEXT("NewRetargetLocation = %f, %f, %f"),
-    NewRetargetLocation.X, NewRetargetLocation.Y, NewRetargetLocation.Z);
-    // UE_LOG(LogTemp, Warning, TEXT("\t Bone name = %s"), NewRetargetLocation.ToString());
+    // UE_LOG(LogTemp, Warning, TEXT("NewRetargetLocation = %f, %f, %f"),
+    // NewRetargetLocation.X, NewRetargetLocation.Y, NewRetargetLocation.Z);
+    
     return NewRetargetLocation;
 }
 
@@ -193,15 +193,15 @@ FQuat UMoveaiToMoveaiRemapAsset::ConvertRotation(FQuat LLRotation, ERetargetAxis
 
 // }
 
-// FQuat UMoveaiToMoveaiRemapAsset::ConvertRootRotation(FQuat LLRotation) const
-// {
-//     return FQuat(
-//         LLRotation.Z,
-//         -LLRotation.Y,
-//         LLRotation.X,
-//         -LLRotation.W
-//     );
-// }
+FQuat UMoveaiToMoveaiRemapAsset::ConvertRootRotation(FQuat LLRotation) const
+{
+    return FQuat(
+        LLRotation.Z,
+        -LLRotation.Y,
+        LLRotation.X,
+        -LLRotation.W
+    );
+}
 
 // FQuat UMoveaiToMoveaiRemapAsset::ConvertBoneRotation(FQuat LLRotation) const
 // {
