@@ -1,0 +1,12 @@
+prefix=/home/dene/.conan/data/grpc-ue4/1.38.1/adamrehn/4.26/package/9e866868fbe5e76a44c286befc8fd3b422366f43
+exec_prefix=${prefix}
+includedir=${prefix}/include
+libdir=${exec_prefix}/lib
+
+Name: gRPC++
+Description: C++ wrapper for gRPC
+Version: 1.38.1
+Cflags: -I${includedir}
+Requires: grpc absl_base absl_bind_front absl_flat_hash_map absl_inlined_vector absl_memory absl_optional absl_status absl_statusor absl_str_format absl_strings absl_synchronization absl_time
+Libs: -L${libdir} -lgrpc++
+Libs.private: 

@@ -1,0 +1,12 @@
+prefix=/home/dene/.conan/data/grpc-ue4/1.38.1/adamrehn/4.26/package/9e866868fbe5e76a44c286befc8fd3b422366f43
+exec_prefix=${prefix}
+libdir=${prefix}/lib
+includedir=${prefix}/include
+
+Name: absl_absl_str_format_internal
+Description: Abseil absl_str_format_internal library
+URL: https://abseil.io/
+Version: 20210324
+Requires: absl_bits = 20210324, absl_strings = 20210324, absl_config = 20210324, absl_core_headers = 20210324, absl_numeric_representation = 20210324, absl_type_traits = 20210324, absl_int128 = 20210324, absl_span = 20210324
+Libs: -L${libdir}  -labsl_absl_str_format_internal
+Cflags: -I${includedir} -Wno-float-conversion -Wno-implicit-float-conversion -Wno-implicit-int-float-conversion -Wno-implicit-int-conversion -Wno-shorten-64-to-32 -Wno-sign-conversion -DNOMINMAX

@@ -1,0 +1,44 @@
+[settings]
+    arch=x86_64
+    build_type=Release
+    compiler=clang
+    compiler.libcxx=libc++
+    compiler.version=10
+    os=Linux
+
+[requires]
+    OpenSSL/ue4
+    cares-ue4/1.Y.Z
+    libcxx/ue4
+    protobuf-ue4/3.Y.Z
+    ue4util/ue4
+    zlib/ue4
+
+[options]
+
+
+[full_settings]
+    arch=x86_64
+    build_type=Release
+    compiler=clang
+    compiler.libcxx=libc++
+    compiler.version=10
+    os=Linux
+
+[full_requires]
+    OpenSSL/ue4@adamrehn/4.26:fc43af07aec0611514d96529170ad6df016aa59c
+    cares-ue4/1.16.1@adamrehn/4.26:659aa0ea1e0c10dc1ee618de61234af7c0ea2660
+    libcxx/ue4@adamrehn/profile:5ab84d6acfe1f23c4fae0ab88f26e3a396351ac9
+    protobuf-ue4/3.12.3@adamrehn/4.26:4a21f108c483819650c3feecec963a56fba81ae5
+    ue4lib/ue4@adamrehn/profile:5ab84d6acfe1f23c4fae0ab88f26e3a396351ac9
+    ue4util/ue4@adamrehn/profile:5ab84d6acfe1f23c4fae0ab88f26e3a396351ac9
+    zlib/ue4@adamrehn/4.26:fc43af07aec0611514d96529170ad6df016aa59c
+
+[full_options]
+
+
+[recipe_hash]
+    26e89577273a94a6d7f6c6d7bb1385cf
+
+[env]
+    UNREAL_ENGINE_VERSION=4.26
