@@ -184,12 +184,10 @@ void MotionStreamRequestHandler::_InitializeNewSubjects(TSet<uint32> newSubjectI
     //query subject structure
     UE_LOG(ModuleLog, Warning, TEXT("%d new subjects are found. Query their structures"), newSubjectIds.Num());
     Mocap::StructureRequest  modelRequest;
-    
     for (auto& Elem : newSubjectIds)
     {
         modelRequest.add_structureid(Elem);
     }
-    
     Mocap::StructureResponse modelResponse;
     //create a new context. reuse stream ctx will cause crashing.
     grpc::ClientContext myCtx;
