@@ -47,7 +47,7 @@ def get_mocap_stream(stub):
             for pose in response.poses:
                 print("Timestamp", pose.timestamp)
                 current_time = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S.%f")
-                print(current_time)
+                print("Client time", current_time)
                 actor_id = pose.subjectId
                 if actor_id not in actors_models:
                     model = get_structure(stub, actor_id)

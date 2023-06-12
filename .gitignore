@@ -56,5 +56,23 @@ Intermediate/
 Saved/
 .kdev4/
 .vscode/
+_Binaries_/
+_Plugins_/
+_Source_/
+Config/
+Content/
 
-
+CMakeLists.txt
+gRPCLiveLinkProject.code-workspace
+gRPCLiveLinkProject.kdev4
+gRPCLiveLinkProject.pro
+gRPCLiveLinkProject.uproject
+gRPCLiveLinkProject.workspace
+gRPCLiveLinkProjectCodeCompletionFolders.txt
+gRPCLiveLinkProjectCodeLitePreProcessor.txt
+gRPCLiveLinkProjectConfig.pri
+gRPCLiveLinkProjectDefines.pri
+gRPCLiveLinkProjectHeader.pri
+gRPCLiveLinkProjectIncludes.pri
+gRPCLiveLinkProjectSource.pri
+Makefile

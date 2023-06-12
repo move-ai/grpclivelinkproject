@@ -19,17 +19,17 @@ class MocapServerServicer(MocapExchange_pb2_grpc.MocapServerServicer):
 
     
     def GetMocapStream(self, request, context):
-        log = Path("C:/Users/Administrator/Documents/UE_proj/grpclivelinkproject_win_linux_v5_clean/Plugins/ProtobufLiveLink/Source/ProtobufLiveLink/gRPCPythonServer/khanh_after_retargeting_fix/mocap_py (1)/time_log.txt")
+        log = Path("/mnt/Shared/moveai/repos/grpclivelinkproject_win_427/Plugins/ProtobufLiveLink/Source/ProtobufLiveLink/gRPCPythonServer/time_log.txt")
         with open(log, "w") as file:
             # print(request)
             times_to_repeat = 100
             for response in (self.mocap_stream * times_to_repeat):
-                file.write(f"Timestamp: {response.poses[0].timestamp}\n")
-                # print("Timestamp", response.poses[0].timestamp, file=file)
-                current_time = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S.%f")
-                file.write(f"{current_time}\n")
-                # print(current_time, file=file)
                 time.sleep(1)
+                print("Timestamp", response.poses[0].timestamp)
+                current_time = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S.%f")
+                print("Server time", current_time)
+                file.write(f"{current_time}\n")
+                file.write(f"Timestamp: {response.poses[0].timestamp}\n")
                 yield response
 
     def GetStructure(self, request, context):
