@@ -13,7 +13,13 @@ public class ProtobufLiveLink : ModuleRules
 			{
 				"Core",
 				"LiveLinkInterface",
+				"LiveLinkMessageBusFramework",
+				"LiveLink",
+				"LiveLinkComponents",
 				"Messaging",
+#if UE_5_0_OR_LATER
+				"LiveLinkAnimationCore",
+#endif
 			});
 
 		PrivateDependencyModuleNames.AddRange(
@@ -33,7 +39,8 @@ public class ProtobufLiveLink : ModuleRules
 				"zlib",
 				"OpenSSL",
 				// "cares",
-				"LiveLink"
+				"LiveLink",
+				"LiveLinkComponents",
 			});
 	}
 }

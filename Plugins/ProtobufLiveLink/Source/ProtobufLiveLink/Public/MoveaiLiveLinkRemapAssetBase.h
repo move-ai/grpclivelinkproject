@@ -224,5 +224,16 @@ protected:
     // Cached lookup results from GetRemappedBoneName
     TMap<FName, FName> BoneNameMap;
     TMap<FName, FQuat> RetargetOffsets;
-    
+    UPROPERTY ()
+		bool bHaveInit = false;
+
+	// MeshBone 
+	UPROPERTY ()
+		TArray<FQuat> WorldRotations;
+
+	// MeshBone
+	UPROPERTY ()
+		TArray<FVector> WorldPositions;
+    UPROPERTY ()
+		FTransform HipsParentsTransform = FTransform::Identity;
 };

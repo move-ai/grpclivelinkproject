@@ -4,59 +4,63 @@ import time
 import copy
 import argparse
 import grpc
-
-from proto_python import MocapExchange_pb2
-from proto_python import MocapExchange_pb2_grpc
-from proto_python import MocapExchange_resources
+from pathlib import Path
+import MocapExchange_pb2
+import MocapExchange_pb2_grpc
+import MocapExchange_resources
+from typing import Dict
+import datetime
 
 
 class MocapServerServicer(MocapExchange_pb2_grpc.MocapServerServicer):
-    def __init__(self):
-        self.mocap_stream = MocapExchange_resources.read_frame_data_pkl("grpc_real_time_test.pkl") # list type
-        self.structures_no_names = MocapExchange_resources.read_structure_data_pkl("grpc_real_time_test.pkl")
-        self.structure_response = MocapExchange_pb2.StructureResponse()
+    def __init__(self, data_path: Path):
+        self.mocap_stream = MocapExchange_resources.read_frame_data_pkl(str(data_path)) # list type
+        self.id_2_structures: Dict[int, MocapExchange_pb2.Structure] = MocapExchange_resources.read_structure_data_pkl(str(data_path))
 
-        # print(type(self.structures))
-        # for i in range(10000):
-        #     new_response = MocapExchange_pb2.MocapStreamResponse()
-        #     new_response.CopyFrom(self.mocap_stream[0])
-        #     new_response.poses[0].joints[5].transform.orientation.rotationValues[0] = i*10
-        #     new_response.poses[0].joints[5].transform.translation.x = i*10
-        #     new_response.poses[0].joints[0].transform.translation.x = i
-        #     self.mocap_stream.append(new_response)
-        
-        structures_with_names = []
-        for i, structure in enumerate(self.structures_no_names.structures):
-            new_structure = MocapExchange_pb2.Structure()
-            new_structure.CopyFrom(structure)
-            new_structure.structureId = i
-            #new_structure.name = f"Test_{i}"
-            structures_with_names.append(new_structure)
-        
-        self.structure_response.structures.extend(structures_with_names)
-        # print(type(self.structures))
-
+    
     def GetMocapStream(self, request, context):
-        # print(request)
-        times_to_repeat = 100
-        for response in (self.mocap_stream * times_to_repeat):
-            time.sleep(1/15)
-            yield response
+        log = Path("C:/Users/Administrator/Documents/UE_proj/grpclivelinkproject_win_linux_v5_clean/Plugins/ProtobufLiveLink/Source/ProtobufLiveLink/gRPCPythonServer/khanh_after_retargeting_fix/mocap_py (1)/time_log.txt")
+        with open(log, "w") as file:
+            # print(request)
+            times_to_repeat = 100
+            for response in (self.mocap_stream * times_to_repeat):
+                file.write(f"Timestamp: {response.poses[0].timestamp}\n")
+                # print("Timestamp", response.poses[0].timestamp, file=file)
+                current_time = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S.%f")
+                file.write(f"{current_time}\n")
+                # print(current_time, file=file)
+                time.sleep(1)
+                yield response
 
     def GetStructure(self, request, context):
-        return(self.structure_response)
+        structures = []
+        print(f'GetStructure request: {request}')
+        for s_id in request.structureId:
+            if s_id not in self.id_2_structures:
+                print(f'Client requested for unavailable structure with ID {s_id}')
+                continue
+            structures.append(self.id_2_structures[s_id])
+        print(f'sent the structures to client: {structures}')
+        response = MocapExchange_pb2.StructureResponse(structures=structures)
+        return response
 
 
-def serve():
+def serve(data_path: Path):
     print('Starting gRPC Python server')
     server = grpc.server(futures.ThreadPoolExecutor(max_workers=10))
-    MocapExchange_pb2_grpc.add_MocapServerServicer_to_server(
-        MocapServerServicer(), server)
-    server.add_insecure_port('192.168.0.47:54321')
+    MocapExchange_pb2_grpc.add_MocapServerServicer_to_server(MocapServerServicer(data_path), server)
+    server.add_insecure_port('0.0.0.0:54321')
     server.start()
     server.wait_for_termination()
 
 
+def parse_args():
+    parser = argparse.ArgumentParser(description='Process some integers.')
+    parser.add_argument('-i', '--input', type=str)
+    return parser.parse_args()
+
+
 if __name__ == '__main__':
     logging.basicConfig()
-    serve()
+    args = parse_args()
+    serve(args.input)
