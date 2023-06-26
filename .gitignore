@@ -53,7 +53,7 @@ Binaries/
 DerivedDataCache/
 Intermediate/
 # Plugins/ProtobufLiveLink/
-Plugins/UE_gRPC/
+# Plugins/UE_gRPC/
 Saved/
 .kdev4/
 .vscode/
