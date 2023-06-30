@@ -21,8 +21,13 @@ public class grpc : ModuleRules
                 "GPR_FORBID_UNREACHABLE_CODE=0"
             });
 
+            PublicIncludePaths.AddRange(
+			new string[] {
+				Path.Combine(ModuleDirectory, "lib")
+			}
+			);
         
-            PublicLibraryPaths.Add(Path.Combine(ModuleDirectory, "lib"));
+            // PublicLibraryPaths.Add(Path.Combine(ModuleDirectory, "lib"));
             PublicAdditionalLibraries.Add(Path.Combine(ModuleDirectory, "lib", "libabsl_bad_optional_access.a"));
             PublicAdditionalLibraries.Add(Path.Combine(ModuleDirectory, "lib", "libabsl_bad_variant_access.a"));
             PublicAdditionalLibraries.Add(Path.Combine(ModuleDirectory, "lib", "libabsl_base.a"));
@@ -79,8 +84,13 @@ public class grpc : ModuleRules
             PublicDefinitions.Add("GPR_FORBID_UNREACHABLE_CODE");
             PublicDefinitions.Add("GRPC_ALLOW_EXCEPTIONS=0");
 
+            PublicIncludePaths.AddRange(
+			new string[] {
+				Path.Combine(ModuleDirectory, "lib")
+			}
+			);
 
-            PublicLibraryPaths.Add(Path.Combine(ModuleDirectory, "lib"));
+            // PublicLibraryPaths.Add(Path.Combine(ModuleDirectory, "lib"));
             PublicAdditionalLibraries.Add(Path.Combine(ModuleDirectory, "lib", "address_sorting.lib"));
             PublicAdditionalLibraries.Add(Path.Combine(ModuleDirectory, "lib", "cares.lib"));
             PublicAdditionalLibraries.Add(Path.Combine(ModuleDirectory, "lib", "gpr.lib"));
