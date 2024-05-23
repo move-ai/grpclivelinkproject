@@ -46,36 +46,30 @@ MotionStreamRequestHandler::MotionStreamRequestHandler(HandlerTag tag,
 
 bool MotionStreamRequestHandler::onNext(bool ok)
 {
-    try {
-        if (ok) {
-            if (state_ == CallState::NewCall) {
-                this->handleNewCallState();
-            }
-            else if (state_ == CallState::SendingRequest) {
-                this->handleSendingRequestState();
-            }
-            else if (state_ == CallState::ReceivingFile) {
-                this->handleReceivingFileState();
-            }
-            else if (state_ == CallState::CallComplete) {
-                this->handleCallCompleteState();
-                return false; //TODO comment
-            }
-        }
-        else {
-            UE_LOG(ModuleLog, Warning, TEXT("UE4 Streaming failed. Close connection"));
-            state_ = CallState::CallComplete;
-            rpc_->Finish(&status_, tag_);
-        }
 
-        return true;
+    if (ok) {
+        if (state_ == CallState::NewCall) {
+            this->handleNewCallState();
+        }
+        else if (state_ == CallState::SendingRequest) {
+            this->handleSendingRequestState();
+        }
+        else if (state_ == CallState::ReceivingFile) {
+            this->handleReceivingFileState();
+        }
+        else if (state_ == CallState::CallComplete) {
+            this->handleCallCompleteState();
+            return false; //TODO comment
+        }
     }
-    catch (std::exception& e) {
-        gpr_log(GPR_ERROR, "Download processing error: %s", e.what());
+    else {
+        UE_LOG(ModuleLog, Warning, TEXT("UE4 Streaming failed. Close connection"));
+        state_ = CallState::CallComplete;
+        rpc_->Finish(&status_, tag_);
     }
-    catch (...) {
-        gpr_log(GPR_ERROR, "Download processing error: unknown exception caught");
-    }
+
+    return true;
+
 
     if (state_ == CallState::NewCall) {
         //TODO comment
