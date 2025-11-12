@@ -86,9 +86,9 @@ void LiveLinkSubjectStream::OnNewPose(const Mocap::Pose &pose)
 
     uint64 timestamp = NewPose.timestamp();
     FString TimestampString = FString::Printf(TEXT("%llu"), timestamp);
-    UE_LOG(LogTemp, Warning, TEXT("Timestamp, OnNewPose very beginning: %s"), *TimestampString);
+    // UE_LOG(LogTemp, Warning, TEXT("Timestamp, OnNewPose very beginning: %s"), *TimestampString);
 
-    LogCurrentTimeWithMilliseconds("Machine Clock OnNewPose very beginning:");
+    // LogCurrentTimeWithMilliseconds("Machine Clock OnNewPose very beginning:");
 
     FLiveLinkFrameDataStruct frmDataStructure = FLiveLinkFrameDataStruct(FLiveLinkAnimationFrameData::StaticStruct());
     
@@ -200,11 +200,11 @@ void LiveLinkSubjectStream::OnNewPose(const Mocap::Pose &pose)
     
     // UE_LOG(LogTemp, Warning, TEXT("Push frame data to %s, guid=%s"), *SubjectName_m.ToString(), *SourceGuid_m.ToString())
     
-    LogCurrentTimeWithMilliseconds("Machine Clock OnNewPose before PushSubjectFrameData_AnyThread:");
+    // LogCurrentTimeWithMilliseconds("Machine Clock OnNewPose before PushSubjectFrameData_AnyThread:");
 
     Client_m->PushSubjectFrameData_AnyThread({SourceGuid_m, SubjectName_m}, MoveTemp(frmDataStructure));
 
-    LogCurrentTimeWithMilliseconds("Machine Clock OnNewPose after PushSubjectFrameData_AnyThread:");
+    // LogCurrentTimeWithMilliseconds("Machine Clock OnNewPose after PushSubjectFrameData_AnyThread:");
 }
 
 void LiveLinkSubjectStream::OnLost()
