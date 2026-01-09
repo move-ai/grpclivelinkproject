@@ -1,6 +1,9 @@
 # README #
 
 This is the minimal project with Move's Invisible -> Unreal stream.
+## Version
+
+2.0.0
 ## Prerequisites ##
 
 * Unreal Engine 4, from `Version: 4.26.2-0+++UE4+Release-4.26` to Unreal 5
